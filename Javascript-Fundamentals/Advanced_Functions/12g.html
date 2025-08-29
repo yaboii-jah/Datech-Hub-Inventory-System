@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App</title>
+</head>
+<body>
+  
+  <button class="Add">Add</button>
+  <button class="Remove">Remove</button>
+
+  <script>
+    let messageNumber = 0;
+
+    function notification (number) {
+      const title = document.title;
+      number = messageNumber;
+      
+      if ( number > 0 ) { 
+        if ( title === 'App') { 
+          document.title = `(${number}) New messages'`;
+        } else { 
+          document.title = 'App'
+        }
+      } else  { 
+        document.title = 'App'
+      }
+    }
+
+    document.querySelector('.Add').addEventListener('click', () => {
+      notification(messageNumber++);
+    })
+
+    document.querySelector('.Remove').addEventListener('click', () => {
+      notification(messageNumber--);
+    })
+    setInterval(notification, 1000);
+  </script>
+</body>
+</html>

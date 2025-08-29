@@ -1,0 +1,70 @@
+   p { 
+      margin: 0;
+   }
+
+   .container {
+     width: 280px;
+     border-style: solid;
+     border-radius: 20px;
+     border-color: rgb(0, 0, 0);
+     background-color: rgb(66, 66, 66);
+   }
+
+   .inner-part { 
+     padding: 10px;
+     height: 95%;
+   }
+
+   .upper-section { 
+     display: flex;
+     flex-direction: column;
+     align-items:end;
+     padding-bottom: 10px;
+     padding-right: 10px;
+     height: 80px;
+   }
+
+   .mini-result { 
+     height: 20px;
+     color: rgb(204, 204, 204);
+     padding-right: 5px;
+   }
+
+   .result-display { 
+     font-size: 40px;
+     color: white;
+   }
+
+   .btns-column { 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 5px;
+    row-gap: 5px;
+   }
+
+   .buttons {
+    font-weight: bold;
+     font-size: 15px;
+     padding: 20px;
+     border: none;
+     border-radius: 5px;
+     color: white;
+     background-color: rgb(49, 49, 49);
+     cursor: pointer;
+   }
+
+   .buttons:hover { 
+     opacity: 0.8;
+   }
+
+   .buttons:active { 
+     opacity: 0.6;
+   }
+    
+   .grey{ 
+     background-color: grey; 
+   }
+
+   .orange { 
+     background-color: orange;
+   }

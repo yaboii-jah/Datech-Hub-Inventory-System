@@ -1,0 +1,42 @@
+body { 
+  font-family: Arial;
+}
+
+.email-label { 
+  color: rgb(107, 105, 105);
+  font-size: 15px;
+}
+
+.email {
+  border-style: solid;
+  border-radius: 5px;
+  height: 25px;
+  width: 365px;
+  margin-top: 6px;
+}
+
+.sub-p { 
+  color: rgb(83, 83, 83);
+  font-size: 15px;
+}
+
+.agree { 
+  font-size: 20px;
+  color: white;
+  background-color: rgb(20, 103, 211);
+  padding-left: 130px;
+  padding-right: 130px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+.agree:hover { 
+  opacity: 0.8;
+  transition: 0.15s;
+}
+
+
+

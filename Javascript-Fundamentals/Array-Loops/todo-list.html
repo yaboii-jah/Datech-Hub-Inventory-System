@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Document</title>
+</head>
+<body>
+  
+<p>Todo List</p>
+<input class="todo" placeholder="Todo name">
+<button onclick=" adding_list()">Add</button>
+
+<p>Todo List 2</p>
+<input class="todo2" placeholder="Todo name">
+<button onclick=" adding_list2()">Add</button>
+<p class="todo-display"></p>
+
+<script>
+  let todo_list = [];
+  let todo_list2 = [];
+
+  function adding_list () { 
+    let todo = document.querySelector('.todo');
+    let value = todo.value;
+       todo_list.push(value);
+       console.log(todo_list); 
+       todo.value = '';
+  }
+
+  function adding_list2 ( ) { 
+    let todo = document.querySelector('.todo2');
+    let value = todo.value;
+
+    if ( value === '') alert ('please input a value!')
+    else  todo_list2.push(value);
+  
+    document.querySelector('.todo-display').innerHTML = '';
+    
+      for ( let i = 0; i < todo_list2.length; i++ ) {
+        document.querySelector('.todo-display').innerHTML += `${todo_list2[i]} <br>`;
+      }
+  }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Document</title>
+</head>
+<body>
+  
+ <input class="value" onkeyup=" onKey(event);">
+ <p class="key"></p>
+
+<script>
+  function onKey (event) { 
+    let onKey = document.querySelector('.key');
+    let inputValue = document.querySelector('.value');
+
+    if (event.key === 'Backspace') { 
+      onKey.innerHTML = inputValue.value;
+    } else { 
+      onKey.innerHTML += event.key;
+    }
+  
+
+
+  }
+</script>
+
+
+</body>
+</html>

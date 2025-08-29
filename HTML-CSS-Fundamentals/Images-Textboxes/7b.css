@@ -1,0 +1,11 @@
+.cat
+ { 
+  border-style:solid;
+  border-color: red;
+  border-width: 2px;
+  width: 300px;
+  height: 300px;
+  object-fit:contain;
+  object-position: center;
+  
+}

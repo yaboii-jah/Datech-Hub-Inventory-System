@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>Calculator</title>
+  <link rel="stylesheet" href="dom-calculator.css">
+  <script src="dom-calculator.js"></script>
+
+</head>
+<body>
+<div class="container">
+  <div class="inner-part">
+    <div class="upper-section">
+      <div>
+        <p class="mini-result"></p>
+      </div>
+      <div> 
+        <p class="result-display"></p>
+      </div>
+    </div>
+      <div class="lower-part">
+        <div class="btns-column">
+          <button class="buttons grey" onclick=" erase();">AC</button>
+          <button class="buttons grey" onclick=" negative_positive()">+/-</button>
+          <button class="buttons grey">%</button>
+          <button class="buttons orange" onclick=" divide();">/</button>
+          <button class="buttons" onclick=" displayValue(7);">7</button>
+          <button class="buttons" onclick=" displayValue(8);">8</button>
+          <button class="buttons" onclick=" displayValue(9);">9</button>
+          <button class="buttons orange" onclick=" multiply();">*</button>
+          <button class="buttons" onclick=" displayValue(4);">4</button>
+          <button class="buttons" onclick=" displayValue(5);">5</button>
+          <button class="buttons" onclick=" displayValue(6);">6</button>
+          <button class="buttons orange" onclick=" subtract();">-</button>
+          <button class="buttons" onclick=" displayValue(1)">1</button>
+          <button class="buttons" onclick=" displayValue(2)">2</button>
+          <button class="buttons" onclick=" displayValue(3)">3</button>
+          <button class="buttons orange" onclick=" add();">+</button>
+          <button class="buttons" onclick=" delete_char();">X</button>
+          <button class="buttons" onclick=" displayValue(0);">0</button>
+          <button class="buttons">.</button>
+          <button class="buttons orange" onclick=" total();">=</button>
+        </div>
+      </div>
+  </div> 
+</div>
+</body>
+</html>

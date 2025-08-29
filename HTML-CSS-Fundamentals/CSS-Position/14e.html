@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>Document</title>
+
+  <style>
+     body { 
+       height: 3000px;
+       font-family: Arial, Helvetica, sans-serif;
+     }
+     .container { 
+       background-color: silver;
+       display: flex;
+       align-items: center;
+       position: fixed;
+       top: 0;
+       left: 0;
+       right: 0;
+       height: 60px;
+     }
+
+     .profile-picture-section { 
+       width: 140px;
+     }
+     .profile-picture { 
+       width: 50px;
+       border-radius: 25px;
+       margin-left: 80px;
+     }
+
+     .profile-name-section {
+       flex: 1;
+     }
+
+     .profile-name {
+       font-weight: bold;
+     }
+
+     .button-section { 
+       padding-right: 20px;
+       width: 200px;
+     }
+
+     .btn-add {
+       color: white;
+       background-color: rgb(12, 89, 189);
+       border: none;
+       border-radius: 5px;
+       padding-top: 8px;
+       padding-left: 10px;
+       padding-right: 10px;
+       padding-bottom: 8px;
+     }
+
+     .btn-message {
+       font-weight: bold;
+       color: black;
+       background-color: rgb(221, 221, 221);
+       border: none;
+       border-radius: 5px;
+       padding-left: 15px;
+       padding-right: 15px;
+       padding-top: 8px;
+       padding-bottom: 8px;
+     }
+  </style>
+
+</head>
+<body>
+   
+   <div class="container">
+    <div class="profile-picture-section">
+      <img class="profile-picture" src="images/cat.jpg" alt="this image is not available">
+    </div>
+    <div class="profile-name-section">
+      <p class="profile-name">Oliver Cat</p>
+    </div>
+    <div class="button-section">
+      <button class="btn-add">Add Friend</button>
+      <button class="btn-message">Message</button>
+    </div>
+   </div>
+
+</body>
+</html>

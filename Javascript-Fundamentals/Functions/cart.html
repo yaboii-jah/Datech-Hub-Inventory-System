@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Document</title>
+</head>
+<body>
+
+  <div>
+    <p>Cart Quantity</p>
+    <button onclick=" console.log( 'Cart quantity: ' + quantity); ">Show Quantity</button>
+    <button onclick="  updateCartQuantity(1); ">Add to Cart</button>
+    <button onclick="  updateCartQuantity(2)">+2</button>
+    <button onclick="  updateCartQuantity(3)">+3</button>
+    <button onclick=" 
+      if ( quantity === 0) { 
+        alert('Cart is empty');
+      } else { 
+        quantity = 0; 
+        console.log( 'Cart quantity: ' + quantity);
+      }
+  ">Reset Cart</button>
+</div>
+
+  <div>
+    <button onclick=" updateCartQuantity(-1)">Remove quantity</button>
+    <button onclick=" updateCartQuantity(-2)">-2</button>
+    <button onclick=" updateCartQuantity(-3)">-3</button>
+  </div>
+ 
+  
+<script> 
+  let quantity = 0;
+  
+  function updateCartQuantity (addQuantity) { 
+
+      if ( quantity + addQuantit > 10 ) { 
+        alert('The cart is full');
+        return;
+      } else if ( quantity - ( addQuantity * -1) < 0 ){ 
+        alert('Not enough quantity in the cart');
+      } else { 
+        quantity+=addQuantity;
+        console.log('cart quantity : ' + quantity);
+      }
+    
+      class vampire { 
+
+      }
+  }
+</script>
+</body>
+</html>
