@@ -1,0 +1,81 @@
+body {  
+  font-family: 'Assistant', sans-serif;
+  margin: 0;
+}
+
+.nav-bar {
+  display: flex;
+  padding-left: 200px;
+  padding-right: 200px;
+  justify-content: space-between;
+  height: 150px;
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-color: rgb(231, 231, 231);
+}
+
+.img-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 15px;
+  padding-left: 5px;
+  width: 150px;
+}
+
+.links-section {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  width: 800px;
+  padding-bottom: 10px;
+}
+
+.nav-btn { 
+  background-color: white;
+  color: rgb(111, 111, 111);
+  margin-right: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-links { 
+  text-decoration: none;
+  color: rgb(111, 111, 111);
+  
+}
+.nav-btn:hover, .nav-links:hover { 
+  color: black;
+  text-decoration: underline;
+}
+
+
+.icons-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  padding-bottom: 15px;
+}
+
+.search-icon, .profile-icon, .cart-icon { 
+  height: 25px;
+  padding-right: 20px;
+}
+
+.cart-quantity-modal { 
+  position: absolute;
+  top: 40px;
+  right: 240px;
+  font-size: 15px;
+  padding: 2px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  border-radius: 20px;
+  
+}
+
+.search-icon:hover, .profile-icon:hover, .cart-icon:hover { 
+  height: 26px;
+}

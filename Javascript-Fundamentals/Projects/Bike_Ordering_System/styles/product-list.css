@@ -1,0 +1,124 @@
+p { 
+  margin: 0;
+}
+.category-name-section { 
+  height: 120px;
+  padding-left: 230px;
+}
+
+.category-name { 
+  font-size: 40px;
+  margin-top: 25px;
+}
+
+.filter-section { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  margin-bottom: 25px;
+  column-gap: 265px;
+}
+
+.first-section, .second-section {
+  color: rgb(101, 101, 101);
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter { 
+  margin-right: 15px;
+}
+
+.availability-btn, .price-btn, .product-type-btn, .brand-btn, .more-filters-btn { 
+  color: rgb(101, 101, 101);
+  border: none;
+  background-color: white;
+  margin-right: 18px;
+  cursor: pointer;
+}
+
+.availability-btn:hover, .price-btn:hover, .product-type-btn:hover, .brand-btn:hover, .more-filters-btn:hover { 
+  text-decoration: underline;
+  color: rgb(49, 49, 49);
+}
+
+.sort-by { 
+  margin-right: 10px;
+}
+
+.featured-btn {
+  color: rgb(101, 101, 101);
+  padding-right: 100px;
+  padding-top: 12px;
+  padding-left: 10px;
+  padding-bottom: 12px;
+  margin-right: 20px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.featured-btn:hover { 
+  border-style: solid;
+  border-width: 2px;
+  box-shadow: 0px 0px 1px black ;
+}
+
+.product-list-grid {
+  display: grid;
+  grid-template-columns: 270px 270px 270px 270px;
+  column-gap: 15px;
+  row-gap: 15px;
+  justify-content: center;
+}
+
+.product-image { 
+  width: 270px;
+  height: 270px;
+}
+
+.product-name, .product-price { 
+  margin-bottom: 7px;
+}
+
+.product-name {
+  font-size: 15px;
+  height: 40px;
+}
+
+.quantity {
+  font-size: 15px;
+  padding: 4px 5px 2px 5px;
+  border-radius: 6px;
+  background-color: rgb(237, 237, 237);
+  margin-bottom: 12px;
+}
+
+.addtocart-message {
+  color: green;
+  height: 30px;
+}
+
+.addtocart-btn { 
+  text-align: center;
+  padding: 10px 80px 10px 80px;
+  border: none;
+  border-radius: 30px;
+  background-color: black;
+  font-weight: bold;
+  color: white;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.addtocart-btn:hover { 
+  opacity: 0.8;
+}
+
+
+
+
+
