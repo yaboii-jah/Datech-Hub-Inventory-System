@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+  <title>Dark Mode Animation</title>
+
+  <style>
+    .body-white {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 725px;
+      transition: 0.6s;
+    }
+    
+    .body-dark {
+      background-color: black;
+    }
+
+    .Dark {
+      padding: 3px 45px 3px 3px;
+      border-radius: 20px;
+      border: none;
+      background-color: rgb(217, 217, 217);
+      cursor: pointer;
+      transition: 1s;
+    }
+    
+    .circle-white { 
+      padding: 18px 18px;
+      background-color: white;
+      border-radius: 20px;
+      transition: 0.6s;
+    }
+
+    .Light { 
+      padding: 3px 3px 3px 45px;
+      background-color: white;
+    }
+
+    .circle-black { 
+      background-color: black;
+    }
+
+
+  </style>
+</head>
+<body class="body-white">
+  <button class="Dark"><div class="circle-white" onclick="toggle()"></div></button>
+
+  <script>
+    
+    function toggle () { 
+      document.querySelector('.Dark').classList.toggle('Light');
+      document.querySelector('.circle-white').classList.toggle('circle-black');
+      document.body.classList.toggle('body-dark');
+
+    }
+    
+  </script>
+</body>
+</html>
