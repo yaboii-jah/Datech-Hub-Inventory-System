@@ -1,0 +1,154 @@
+.cart-section {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 80px;
+}
+
+.main-section { 
+  width: 1100px;
+}
+
+.first-section {
+  display: flex;
+  align-items: center;
+  justify-content:space-between ;
+  height: 80px;
+  padding-bottom: 10px;
+}
+
+.your-cart { 
+  font-size: 40px;
+  font-weight: 400;
+}
+
+.continue-shopping {  
+  font-size: 17px;
+  color: black;
+}
+
+.second-section {
+  display: flex;
+  font-size: 10px;
+  font-weight: 500;
+  height: 30px;
+  color: rgb(156, 156, 156);
+  letter-spacing: 2px;
+}
+.cart-product-label { 
+  width: 720px;
+}
+
+.cart-quantity-label {
+  width: 358px;
+}
+
+.third-section {
+  display: flex;
+  flex-direction: column;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-color: rgb(212, 212, 212);
+  padding-top: 40px;
+}
+
+.cart-section-container { 
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.cart-image-section {
+  display: flex;
+  align-items: center;
+  width: 125px;
+  height: 100%;
+}
+
+.cart-product-image {
+  width: 100px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(231, 231, 231);
+}
+
+.cart-product-details-section {
+  width: 550px;
+}
+
+.cart-product-name { 
+  margin-bottom: 5px;
+  margin-left: 20px;
+  width: 280px;
+}
+
+.cart-product-price { 
+  margin-left: 20px;
+}
+
+.cart-quantity-section { 
+  width: 250px;
+}
+
+.cart-quantity-delete { 
+  display: flex;
+  align-items: center;
+}
+
+.cart-product-quantity-input {
+  text-align: center;
+  width: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: 45px;
+}
+
+.cart-trash-icon { 
+  width: 20px;
+}
+
+.cart-trash-btn { 
+  border: none;
+  cursor: pointer;
+  background-color: white;
+}
+
+.cart-total-price-section {
+  width: 185px;
+  text-align: right;
+}
+
+.cart-subtotal-section {
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-end;
+  align-items: end;
+  height: 200px;
+}
+
+.cart-subtotal {
+  font-size: 16px;
+}
+
+.cart-subtotal-span { 
+  font-size: 18px;
+  margin-left: 15px;
+}
+
+.cart-checkout-note { 
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.checkout-btn {
+  font-size: 15px;
+  color: white;
+  background-color: black;
+  padding: 15px 150px 15px 150px;
+  border: none;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+

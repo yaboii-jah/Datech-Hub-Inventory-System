@@ -3,6 +3,10 @@ body {
   margin: 0;
 }
 
+p { 
+  margin: 0;
+}
+
 .nav-bar {
   display: flex;
   padding-left: 200px;

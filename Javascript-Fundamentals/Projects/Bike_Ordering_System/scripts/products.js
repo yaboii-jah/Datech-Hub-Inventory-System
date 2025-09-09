@@ -1,54 +1,4 @@
-let products = [
-  {
-   image: `images/drivetrain/m5120-rd.jpeg`,
-   name: `Shimano Deore M5120 RD With Clutch`,
-   price: `&#8369;1,650.00`
-  }, 
-
-  {
-   image: `images/drivetrain/deckas-chainring.jpg`,
-   name: `Deckas Chainring 104BCD `,
-   price: `&#8369;400.00`
-  },
-
-  {
-   image: `images/drivetrain/cassette_11-46.jpg`,
-   name: `Shimano M4100 Cassette Sprocket 11-46T`,
-   price: `&#8369;1,450.00`
-  },
-
-  {
-   image: `images/drivetrain/m6100-rd.jpeg`,
-   name: `Shimano Deore M6100 RD with Clutch`,
-   price: `&#8369;1,600.00`
-  },
-
-  
-  {
-   image: `images/drivetrain/m6100-crankset.jpg`,
-   name: `Shimano Deore M6100 Crankset 12spd`,
-   price: `&#8369;2,350.00`
-  },
-
-  {
-   image: `images/drivetrain/m8100-rd.jpeg`,
-   name: `Shimano Deore M8100 RD with Clutch`,
-   price: `&#8369;1,600.00`
-  },
-
-  {
-   image: `images/drivetrain/m4100-shifter.jpeg`,
-   name: `Shimano Deore M4100 Left Shifter`,
-   price: `&#8369;850.00`
-  },
-
-  {
-   image: `images/drivetrain/slx-crankset.jpeg`,
-   name: `Shimano SLX Crankset `,
-   price: `&#8369;3,560.00`
-  },
-];
-
+import { products } from './product-list.js';
 let html = '';
 
 products.forEach((product, index) => { 
@@ -60,7 +10,7 @@ products.forEach((product, index) => {
   
       <div>
         <p class="product-name">${product.name}</p>
-        <p class="product-price">${product.price}</p>
+        <p class="product-price">&#8369;${product.price}</p>
         <select class="quantity">
           <option value="1">1</option>
           <option value="2">2</option>
@@ -77,7 +27,7 @@ products.forEach((product, index) => {
 
       <div>
         <div class="addtocart-message"></div>
-        <button class="addtocart-btn">Add to Cart</button>
+        <button class="addtocart-btn" data-name="${product.name}">Add to Cart</button>
       </div>
     </div>
    `
