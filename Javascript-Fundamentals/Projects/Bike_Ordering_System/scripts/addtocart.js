@@ -1,16 +1,16 @@
 import { cart } from './cart-list.js'
 import { products } from './product-list.js';
 
-let cartMessageInterval;
+// fix the delay "added" text when clicking several add to cart buttons
 
 document.querySelectorAll('.addtocart-btn').forEach((btn, index) => {
   btn.addEventListener('click', () => {
+    let cartMessageInterval;
     let cartTimer = 0;
 
-    clearInterval(cartMessageInterval);
     cartMessageInterval = setInterval(function () {
+      
       let cartMessage = document.querySelectorAll('.addtocart-message')[index];
-    
       if (cartTimer === 1500) { 
         clearInterval(cartMessageInterval);
         cartMessage.innerHTML = '';
@@ -20,14 +20,18 @@ document.querySelectorAll('.addtocart-btn').forEach((btn, index) => {
         cartTimer+=100;
       }
     }, 100)
-    updateCartQuantity(index)
     addToCart(index);
+    updateCartQuantity();
   })
 })
 
-
-
-function updateCartQuantity (index) {
+function updateCartQuantity () {
+  let cartElement = document.querySelector('.cart-quantity-modal');
+  let totalCart = 0;
+  cart.forEach((products, index) =>  {
+      totalCart += Number(products.quantity);
+  })
+  cartElement.innerHTML = totalCart;
 }
 
 function addToCart (btn_index) { 
@@ -46,7 +50,6 @@ function addToCart (btn_index) {
           quantity: Number(productQuantity)
         })
       }
-      console.log(cart);
     }
   })
   saveData();
@@ -55,3 +58,6 @@ function addToCart (btn_index) {
 function saveData () { 
   localStorage.setItem('cart', JSON.stringify(cart));
 }
+
+saveData();
+updateCartQuantity();

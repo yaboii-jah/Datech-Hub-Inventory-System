@@ -47,6 +47,30 @@ export let products = [
    name: `Shimano SLX Crankset `,
    price: `3560.00`
   },
+  
+  {
+   image: `images/frames/mtp_everest_pro.jpg`,
+   name: `Mountainpeak Everest Pro 29er M `,
+   price: `6500.00`
+  },
+
+  {
+   image: `images/frames/pinewood_supra.jpg`,
+   name: `Pinewood Supra 29er L `,
+   price: `3400.00`
+  },
+
+  {
+   image: `images/frames/sagmit_brooklyn.jpg`,
+   name: `Sagmit Brooklyn 29er L`,
+   price: `4260.00`
+  },
+
+  {
+   image: `images/frames/pinewood_v2r.jpg`,
+   name: `Sagmit Brooklyn V2R`,
+   price: `5450.00`
+  },
 ];
 
 

@@ -72,7 +72,8 @@
   justify-content: center;
 }
 
-.product-image { 
+.product-image {
+  object-fit:contain;
   width: 270px;
   height: 270px;
 }
