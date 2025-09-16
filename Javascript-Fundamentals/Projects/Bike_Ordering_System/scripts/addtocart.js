@@ -1,8 +1,6 @@
 import { cart } from './cart-list.js'
 import { products } from './product-list.js';
 
-// fix the delay "added" text when clicking several add to cart buttons
-
 document.querySelectorAll('.addtocart-btn').forEach((btn, index) => {
   btn.addEventListener('click', () => {
     let cartMessageInterval;
@@ -26,12 +24,7 @@ document.querySelectorAll('.addtocart-btn').forEach((btn, index) => {
 })
 
 function updateCartQuantity () {
-  let cartElement = document.querySelector('.cart-quantity-modal');
-  let totalCart = 0;
-  cart.forEach((products, index) =>  {
-      totalCart += Number(products.quantity);
-  })
-  cartElement.innerHTML = totalCart;
+  document.querySelector('.cart-quantity-modal').innerHTML = cart.length;
 }
 
 function addToCart (btn_index) { 

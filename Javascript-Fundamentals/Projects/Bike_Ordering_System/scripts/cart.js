@@ -116,12 +116,7 @@ function confirmCheckout () {
 }
 
 function updateCartQuantity () {
-  let cartElement = document.querySelector('.cart-quantity-modal');
-  let totalCart = 0;
-  cartList.forEach((products, index) =>  {
-      totalCart += Number(products.quantity);
-  })
-  cartElement.innerHTML = totalCart;
+  document.querySelector('.cart-quantity-modal').innerHTML = cartList.length;
 }
 
 generateHTML();
