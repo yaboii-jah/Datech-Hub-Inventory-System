@@ -62,8 +62,12 @@
 .order-id { 
   width: 320px;
 }
+.second-scection { 
+  display: flex;
+  flex-direction: column;
+}
 
-.second-section {
+.order-details {
   display: flex;
   margin-bottom: 20px;
 }

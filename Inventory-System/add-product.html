@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles/nav-bar.css">
+  <link rel="stylesheet" href="styles/sidebar.css">
+  <link rel="stylesheet" href="styles/add-product.css">
+</head>
+<body>
+  <div class="nav-bar">
+    <div class="left-section">
+      <p class="page-name">Add Product</p>
+      <p class="date">25th Sep 2025</p>
+    </div>
+    <div class="right-section">
+      <img class="profile-pic" src="images/profile-pic.jpg">
+      <div class="user-details">
+        <p class="user-name">Kurimeow</p>
+        <p class="user-role">Store Admin</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="first-section">
+    </div>
+
+    <div class="second-section">
+      <div class="side-dashboard sidebar-links">
+        <img class="sidebar-image" src="icons/dashboard-icon.svg">
+        <a class="sidebar-link" href="">Dashboard</a>
+      </div>
+      <div class="side-products sidebar-links">
+        <img class="sidebar-image" src="icons/product-icon.svg">
+        <a class="sidebar-link" href="">Products</a>
+        <img class="sidebar-image chevron-icon" src="icons/chevron-down-icon.svg">
+      </div>
+      <div class="side-category sidebar-links">
+        <img class="sidebar-image" src="icons/category-icon.svg">
+        <a class="sidebar-link" href="">Category</a>
+      </div>
+      <div class="side-order sidebar-links">
+        <img class="sidebar-image" src="icons/order-icon.svg">
+        <a class="sidebar-link" href="">Orders</a>
+        <img class="sidebar-image chevron-icon" src="icons/chevron-down-icon.svg">
+      </div>
+      <div class="side-order sidebar-links">
+         <img class="sidebar-image" src="icons/report-icon.svg">
+        <a class="sidebar-link" href="">Report</a>
+      </div>
+    
+    </div>
+
+    <div class="third-section">
+      <div class="side-settings sidebar-links">
+        <img class="sidebar-image" src="icons/settings-icon.svg">
+        <a class="sidebar-link" href="">Settings</a>
+      </div>
+      <div class="side-logout sidebar-links">
+        <img class="sidebar-image" src="icons/logout-icon.svg">
+        <a class="sidebar-link" href="">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="add-product-container">
+    <div class="product-name-container">
+      <img class="add-product-icon" src="icons/product-black-icon.svg">
+      <input class="product-name-input" type="text" placeholder="Product Name">
+    </div>
+    <div class="product-category-status-container">
+      <img class="add-product-category-icon" src="icons/category-black-icon.svg" alt="">
+      <select class="category-select" name="category">
+        <option value="" disabled selected>Select Product Category</option>
+        <option value="Processor">Processor</option>
+        <option value="Motherboard">Motherboard</option>
+        <option value="RAM">RAM</option>
+        <option value="PSU">PSU</option>
+        <option value="GPU">GPU</option>
+      </select>
+      
+      <img class="add-product-status-icon" src="icons/status-icon.svg" alt="">
+      <select class="status-select" name="status">
+        <option value="" disabled selected>Select Product Status</option>
+        <option value="Active">ACTIVE</option>
+        <option value="Inactive">INACTIVE</option>
+      </select>
+    
+    </div>
+
+    <div class="product-quantity-price-photo-container">
+      <img class="quantity-icon" src= "icons/product-quantity-icon.svg">
+      <input class="quantity-input" type="number" placeholder="Quantity">
+      <img class="price-icon" src="icons/product-black-icon.svg">
+      <input class="price-input" type="number" placeholder="Price">
+      <img class="image-icon" src="icons/image-icon.svg" alt="">
+      <input class="file-image-input" type="text" placeholder="Image Path">
+    </div>
+
+    <div class="add-product-button-container">
+      <button class="add-product-button">Add Product</button>
+    </div>
+  </div>
+    
+<script type="module" src="scripts/add-product.js"></script>
+</body>
+</html>

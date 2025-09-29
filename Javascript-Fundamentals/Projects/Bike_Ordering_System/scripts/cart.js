@@ -2,7 +2,7 @@
 let cartList = [];
 let cartTotal = 0;
 cartList = JSON.parse(localStorage.getItem('cart')) || [];
-console.log(cartList);
+
 function generateHTML () {
   let html = '';
   cartTotal = 0;
@@ -107,12 +107,91 @@ function deleteProduct (index) {
   updateCartQuantity();
 }
 
-function confirmCheckout () {
-  let choice = confirm('Are you sure you want to checkout?');
-
-  if (choice) { 
-    window.location.href = "./checkout.html"
+async function fetchUUID () { 
+  try {
+    const response = await fetch('https://www.uuidtools.com/api/generate/v4');
+    const data = await response.json();
+    return data[0];
+    
+  } catch (error) { 
+     console.log.error(error);
   }
+}
+
+
+ async function confirmCheckout () {
+  if ( cartList.length !== 0) { 
+    let choice = confirm('Are you sure you want to checkout?');
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+    if (choice) { 
+        orders.push({
+        orderPlaced :getDate(),
+        total : cartTotal,
+        orderID : await fetchUUID(),
+        totalOrders : []
+      })
+
+      cartList.forEach((product) => {
+        orders[orders.length - 1].totalOrders.push({
+          image : product.image,
+          name : product.name,
+          quantity : product.quantity
+        })
+      });
+      cartList = [];
+      localStorage.setItem('orders', JSON.stringify(orders));
+      localStorage.setItem('cart', JSON.stringify(cartList));
+      window.location.href = "./checkout.html"
+    }
+  } else { 
+     alert('No items in the cart');
+  }
+}
+
+function getDate() { 
+  let time = new Date();
+  let month = '';
+  switch (time.getMonth()) { 
+    case 1: 
+      month = 'January';
+      break;
+    case 2: 
+      month = 'February';
+      break;
+    case 3: 
+      month = 'March';
+      break;
+    case 4: 
+      month = 'April';
+      break;
+    case 5: 
+      month = 'May';
+      break;
+    case 6: 
+      month = 'June';
+      break;
+    case 7: 
+      month = 'July';
+      break;
+    case 8: 
+      month = 'August';
+      break;
+    case 9: 
+      month = 'September';
+      break;
+    case 10: 
+      month = 'October';
+      break;
+    case 11: 
+      month = 'November';
+      break;
+    case 12: 
+      month = 'December';
+      break;
+  }
+
+  return `${month} ${time.getDate()} `
 }
 
 function updateCartQuantity () {

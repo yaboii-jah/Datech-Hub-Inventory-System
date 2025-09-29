@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles/nav-bar.css">
+  <link rel="stylesheet" href="styles/sidebar.css">
+  <link rel="stylesheet" href="styles/products.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+  <div class="nav-bar">
+    <div class="left-section"></div>  
+    <div class="right-section"></div>
+  </div>
+
+  <div class="sidebar">
+    <div class="first-section">
+    </div>
+
+    <div class="second-section">
+      <div class="side-dashboard sidebar-links">
+        <img class="sidebar-image" src="icons/dashboard-icon.svg">
+        <a class="sidebar-link" href="">Dashboard</a>
+      </div>
+      <div class="side-products sidebar-links">
+        <img class="sidebar-image" src="icons/product-icon.svg">
+        <a class="sidebar-link" href="">Products</a>
+        <img class="sidebar-image chevron-icon" src="icons/chevron-down-icon.svg">
+      </div>
+      <div class="side-category sidebar-links">
+        <img class="sidebar-image" src="icons/category-icon.svg">
+        <a class="sidebar-link" href="">Category</a>
+      </div>
+      <div class="side-order sidebar-links">
+        <img class="sidebar-image" src="icons/order-icon.svg">
+        <a class="sidebar-link" href="">Orders</a>
+        <img class="sidebar-image chevron-icon" src="icons/chevron-down-icon.svg">
+      </div>
+      <div class="side-order sidebar-links">
+         <img class="sidebar-image" src="icons/report-icon.svg">
+        <a class="sidebar-link" href="">Report</a>
+      </div>
+    
+    </div>
+
+    <div class="third-section">
+      <div class="side-settings sidebar-links">
+        <img class="sidebar-image" src="icons/settings-icon.svg">
+        <a class="sidebar-link" href="">Settings</a>
+      </div>
+      <div class="side-logout sidebar-links">
+        <img class="sidebar-image" src="icons/logout-icon.svg">
+        <a class="sidebar-link" href="">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <div class="filter-section">
+      <div class="dropdown-filter"> 
+        <select class="category-filter filter" name="category" id="">
+          <option value="default">All Category</option>
+          <option value="PSU">PSU</option>
+          <option value="Processor">Processor</option>
+          <option value="GPU">GPU</option>
+          <option value="RAM">RAM</option>
+          <option value="Motherboard">MOTHERBOARD</option>
+          <option value="ACCESSORIES">ACCESSORIES</option>
+        </select>
+
+        <select class="status-filter filter" name="category" id="">
+          <option value="default">All Status</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </div>
+
+      <div class="price-filter">
+        <p>Price</p>
+        <input class="min-price-filter " type="number" placeholder="Min">
+        <p>to</p>
+        <input class="max-price-filter" type="number" placeholder="Max" >
+      </div>
+
+      <input class="search-input filter" type="text" placeholder="Search Products">
+    </div>
+
+    <div class="product-list-container">
+      <div class="product-header">
+        <div class="left">
+          <p>Product Name</p>
+        </div>
+        <div class="middle">
+          <p>Product ID</p>
+          <p>Price &#8369;</p>
+          <p>Stock</p>
+          <p>Category</p>
+          <p>Status</p>
+        </div>
+        <div class="right">
+          <p>Action</p>
+        </div>
+         
+      </div>
+      <div class="product-container">
+       
+    </div>
+     <div class="pagination-section">
+        <div class="pagination">
+           <button class="page-btn">1</button>
+           <button class="page-btn">2</button>
+           <button class="page-btn">3</button>
+        </div>
+      </div>
+  </div>
+
+  <script type="module" src="scripts/products.js"></script>
+
+</body>
+</html>

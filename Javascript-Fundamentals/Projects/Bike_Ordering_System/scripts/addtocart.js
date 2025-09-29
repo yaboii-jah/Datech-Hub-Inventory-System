@@ -1,6 +1,6 @@
 import { cart } from './cart-list.js'
 import { products } from './product-list.js';
-
+//localStorage.clear();
 document.querySelectorAll('.addtocart-btn').forEach((btn, index) => {
   btn.addEventListener('click', () => {
     let cartMessageInterval;
@@ -23,7 +23,7 @@ document.querySelectorAll('.addtocart-btn').forEach((btn, index) => {
   })
 })
 
-function updateCartQuantity () {
+function updateCartQuantity () { 
   document.querySelector('.cart-quantity-modal').innerHTML = cart.length;
 }
 

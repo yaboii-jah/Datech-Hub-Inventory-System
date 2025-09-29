@@ -1,0 +1,220 @@
+.main-container {
+  width: 1320px;
+  margin-top: 100px;
+  margin-left: 230px;
+}
+
+.filter-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 10px 10px 0px 10px;
+}
+
+.dropdown-filter { 
+  display: flex;
+  justify-content: space-between;
+  width: 420px;
+}
+
+.price-filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 340px;
+  margin-left: -150px;
+}
+
+.min-price-filter, .max-price-filter { 
+  width: 120px;
+  font-size: 16px;
+  background-color: rgb(250, 250, 250);
+  font-family:'Roboto', sans-serif;
+  padding: 11px 0px 11px 10px;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0px 0px 3px rgb(107, 107, 107);
+}
+
+.filter {
+  font-size: 16px;
+  background-color: rgb(250, 250, 250);
+  font-family:'Roboto', sans-serif;
+  padding: 10px 80px 10px 10px;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0px 0px 3px rgb(107, 107, 107);
+}
+
+.search-input { 
+  width: 250px;
+}
+
+.product-list-container {
+  font-size: 16px;
+  border-radius: 30px;
+  border-style: solid;
+  border-width: 2px;
+}
+
+.product-header {
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom-style: solid;
+  border-width: 2px;
+  height: 50px;
+  padding: 0px 20px 0px 20px;
+  background-color: rgb(243, 243, 243);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.middle { 
+  display: flex;
+  justify-content: space-between;
+  width: 750px;
+}
+
+.product-container { 
+  display: flex;
+  flex-direction: column;
+}
+
+.product-details {
+  display: flex;
+  align-items: center;
+  border-bottom-style: solid;
+  border-width: 1px;
+  height: 50px;
+}
+
+.product-name-image {
+  display: flex;
+  align-items: center;
+  width: 310px;
+  overflow: hidden;
+}
+
+.product-image { 
+  width: 50px;
+  margin-left: 20px;
+}
+
+.product-name {
+  margin-left: 12px;
+  width: 190px;
+}
+
+.product-id { 
+  margin-right: 80px;
+  width: 71px;
+  text-align: center;
+}
+
+.price{ 
+  margin-right: 60px;
+  width: 140px;
+  text-align: center;
+}
+
+.stock {
+  margin-right: 75px;
+  width: 70px;
+  text-align: center;
+}
+
+.category {
+  margin-right: 35px;
+  width: 120px;
+  text-align: center;
+}
+
+.status-box {
+  display: flex;
+  justify-content: center;
+  margin-right: 23px;
+  width: 150px;
+}
+
+.status {
+  background-color: #99e17a;
+  color: #2e6417;
+  font-weight: bold;
+  text-align: center;
+  width: 100px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 10px;
+}
+
+.inactive { 
+  color: white;
+  background-color: red;
+}
+
+.action {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 100%;
+}
+
+.edit-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+  background-color: black;
+  border: none;
+  padding: 3px 10px 3px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  opacity: 0.8;
+}
+
+.edit-icon { 
+  width: 25px;
+  margin-right: 10px;
+}
+
+.delete-btn { 
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-icon { 
+  width: 25px;
+}
+
+.pagination-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.page-btn { 
+   font-size: 12px;
+   border: none;
+   border-radius: 5px;
+   padding: 2px 5px 2px 5px;
+}
+
+.page-btn:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+

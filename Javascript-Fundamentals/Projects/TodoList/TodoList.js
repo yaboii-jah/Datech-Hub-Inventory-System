@@ -1,3 +1,4 @@
+import {supabase} from './supabase-client.js'
 
 let taskList = []; // container of the tasks
 let taskListElement = document.querySelector('.task-list');
@@ -7,12 +8,15 @@ let tasklistInnerHTML = "";
 //localStorage.clear();
 function addTask  (event) { 
   if ( event === 'Enter') { 
+    let value = {}
     if ( inputTaskElement.value !== "") { 
       taskList.push({value : inputTaskElement.value});
+      value = { task_description : inputTaskElement.value};
+      insertData(value)
 
       taskList.forEach((task, i ) => {
         taskList[i] =  { id : i + 1, value : task.value};
-      });  
+      });
       generateHTML();
       inputTaskElement.value = ""; 
       setLocalStorage();
@@ -72,10 +76,11 @@ function checkedTask(number) {
   setLocalStorage();
 }
 
-function removeTask (number) { 
+async function removeTask (number) { 
   let taskContainerElement = document.querySelectorAll('.task-container');
   for ( let i = 0; i < taskList.length; i++) { 
-    if (taskList[i].id === number ) { 
+    if (taskList[i].id === number ) {
+      await deleteData(taskList[i].value)
       taskList.splice(i, 1);
       taskContainerElement[i].remove();
     }
@@ -83,6 +88,28 @@ function removeTask (number) {
   configureLastContainerElement();
   setLocalStorage();
 }
+
+async function insertData (task_description) { 
+  const {data, error} =  await supabase.from('task').insert(task_description).single().select();
+
+  if (error) { 
+    console.log('there is an error inserting the data');
+  } else {
+    console.log(data);
+  }
+}
+
+async function deleteData (deleteTask) { 
+  const {data, error} =  await supabase.from('task').delete().eq('task_description', deleteTask)
+
+  if (error) { 
+    console.log('there is an error inserting the data');
+  } else {
+    console.log(data);
+  }
+}
+
+
 
 function setLocalStorage () { 
   tasklistInnerHTML = taskListElement.innerHTML;

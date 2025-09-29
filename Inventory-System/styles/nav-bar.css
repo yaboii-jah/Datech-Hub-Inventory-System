@@ -1,0 +1,66 @@
+body { 
+  font-family:'Roboto', sans-serif;
+}
+
+p { 
+  margin: 0;
+}
+
+.nav-bar {
+  display: flex;
+  background-color: #f4f6fc;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 90px;
+  left: 200px;
+}
+
+.left-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:first baseline;
+  width: 220px;
+  padding-left: 40px;
+}
+
+.page-name {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.date { 
+  color: rgb(145, 142, 142);
+  font-size: 14px;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+}
+
+.profile-pic { 
+  width: 45px;
+  border-radius: 28px;
+  border-style: solid;
+  border-color: green;
+  border-width: 2px;
+  
+}
+
+.user-details {
+  margin-left: 10px;
+}
+
+.user-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.user-role {
+  font-size: 12px;
+}
