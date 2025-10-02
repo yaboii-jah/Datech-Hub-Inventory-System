@@ -1,5 +1,8 @@
 import {supabase} from './supabase-client.js'
+import {setUpdatedData} from './update-module.js';
+
 let dataRetrieved = [{}];
+let filteredData = [{}];
 
 async function retrieveData () { 
   const { data, error} = await supabase.from('product').select();
@@ -12,34 +15,70 @@ async function retrieveData () {
   generateProductHTML();
 }
  
-function generateProductHTML () { 
+function generateProductHTML (limit = 10) { 
   const productContainerElement = document.querySelector('.product-container')
-  let filteredData = dataRetrieved.filter(productFilters)
- 
+  filteredData = dataRetrieved.filter(productFilters)
+
   let html = '';
-  filteredData.forEach((productDetails, index) => {
-    html += `
+  let startingIndex = limit - 10;
+  for ( let i = startingIndex ; i < limit; i++) {
+    if (filteredData[i] === undefined) { 
+      break ;
+    }
+    html += ` 
       <div class="product-details">
         <div class="product-name-image">
-          <img class="product-image" src="${productDetails.image}">
-          <p class="product-name">${productDetails.name}</p>
+          <img class="product-image" src="${filteredData[i].image}">
+          <p class="product-name">${filteredData[i].name}</p>
         </div>
-          <p class="product-id">${productDetails.product_ID}</p>
-          <p class="price">${productDetails.price}</p>
-          <p class="stock">${productDetails.stock}</p>
-          <p class="category">${productDetails.category}</p>
+          <p class="product-id">${filteredData[i].product_ID}</p>
+          <p class="price">${filteredData[i].price}</p>
+          <p class="stock">${filteredData[i].stock}</p>
+          <p class="category">${filteredData[i].category}</p>
           <div class="status-box">
-            ${productStatus(productDetails.status)}
+            ${productStatus(filteredData[i].status)} 
           </div>
         <div class="action">
           <button class="edit-btn"><img class="edit-icon" src="icons/edit-icon.svg">Edit</button>
-          <button class="delete-btn" data-name="${productDetails.name}"><img class="delete-icon" src="icons/delete-icon.svg"></button>
+          <button class="delete-btn" data-name="${filteredData[i].name}"><img class="delete-icon" src="icons/delete-icon.svg"></button>
         </div>
       </div>
     `
-  })
+  }
   productContainerElement.innerHTML = html;
   deleteEventListener();
+  updateEventListener();
+  generatePagination(filteredData);
+}
+
+function generatePagination (filteredData) {
+  console.log(filteredData);
+  let paginationElement = document.querySelector('.pagination');
+  let paginationButton = 1;
+  let limit = 10
+  filteredData.forEach((data, index) => {
+    if (index >= limit) { 
+      paginationButton++
+      limit+=10;
+    }
+  })
+
+  let html = '';
+  for (let i = 1; i <= paginationButton; i++) { 
+    html += `<button class="page-btn page${i}">${i}</button>`
+  }
+  paginationElement.innerHTML = html;
+
+  paginationEventListener();
+}
+
+function paginationEventListener () { 
+  document.querySelectorAll('.page-btn').forEach((button, index) => {
+    index++
+    button.addEventListener( 'click', () => {
+      generateProductHTML(Number(index + "0"))
+    })
+  })
 }
 
 function productFilters (product) {
@@ -91,6 +130,24 @@ function productFilters (product) {
   return isValid;
 }
 
+function filterEventListener () { 
+  document.querySelector('.category-filter').addEventListener('input', () => {
+    generateProductHTML();
+  })
+  document.querySelector('.status-filter').addEventListener('input', () => {
+    generateProductHTML();
+  })
+  document.querySelector('.min-price-filter').addEventListener('change', () => {
+    generateProductHTML();
+  })
+  document.querySelector('.max-price-filter').addEventListener('change', () => {
+    generateProductHTML();
+  })
+  document.querySelector('.search-input').addEventListener('input', () => {
+   generateProductHTML();
+  })
+}
+
 function productStatus (status) { 
   if (status === 'Active') { 
     return  `<p class="status">${status}</p>` 
@@ -98,8 +155,6 @@ function productStatus (status) {
     return  `<p class="status inactive">${status}</p>` 
   }
 }
-
-
 
 async function deleteProduct (data, index) {
   const productDetailsElement = document.querySelectorAll('.product-details')
@@ -117,24 +172,21 @@ function deleteEventListener() {
   })
 }
 
-function filterEventListener () { 
-  document.querySelector('.category-filter').addEventListener('input', () => {
-    generateProductHTML();
-  })
-  document.querySelector('.status-filter').addEventListener('input', () => {
-    generateProductHTML();
-  })
-  document.querySelector('.min-price-filter').addEventListener('change', () => {
-    generateProductHTML();
-  })
-  document.querySelector('.max-price-filter').addEventListener('change', () => {
-    generateProductHTML();
-  })
-  document.querySelector('.search-input').addEventListener('input', () => {
-   generateProductHTML();
-  })
+// do the update functionality
+function updateProduct (index) { 
+  const {category, image, name, price, status, stock, product_ID} = filteredData[index];
+  setUpdatedData(category, image, name, price, status, stock, product_ID),
+  window.location.href = "./add-product.html";
+}
 
+function updateEventListener () {
+  document.querySelectorAll('.edit-btn').forEach((button, index) => {
+    button.addEventListener('click', () => {
+      updateProduct(index);
+    })
+  })
 }
 
 retrieveData();
 filterEventListener();
+updateEventListener();

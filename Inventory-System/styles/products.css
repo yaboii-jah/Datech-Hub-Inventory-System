@@ -81,6 +81,7 @@
 .product-container { 
   display: flex;
   flex-direction: column;
+  height: 510px;
 }
 
 .product-details {
@@ -205,10 +206,12 @@
 }
 
 .page-btn { 
-   font-size: 12px;
-   border: none;
-   border-radius: 5px;
-   padding: 2px 5px 2px 5px;
+  font-size: 12px;
+  border: none;
+  border-radius: 5px;
+  padding: 2px 5px 2px 5px;
+  margin-right: 5px;
+  transition: 0.5s;
 }
 
 .page-btn:hover {

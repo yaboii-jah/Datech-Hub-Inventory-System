@@ -32,6 +32,10 @@
   height: 40px;
 }
 
+.sidebar-products-extension { 
+  height: 100px;
+}
+
 .sidebar-links:hover { 
   background-color: #3e3e3e;
 }
