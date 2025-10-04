@@ -1,0 +1,151 @@
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  width: 1320px;
+  margin-top: 120px;
+  margin-left: 230px;
+}
+
+.add-new-category-container {
+  height: 200px;
+  width: 500px;
+  border-radius: 20px;
+  border-style: solid;
+}
+
+.all-category-container {
+  height: 600px;
+  width: 700px;
+  border-radius: 20px;
+  border-style: solid;
+}
+
+.add-new-category-header, .category-list-header, .category-header {
+  display: flex;
+  align-items: center;
+  border-bottom-style: solid;
+  height: 40px;
+}
+
+.category-icon { 
+  width: 25px;
+  margin-left: 18px;
+}
+
+.add-new-category-title { 
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+.category-input-section {
+  display: flex;
+  flex-direction: column;
+  justify-content:first baseline;
+  align-items: center; 
+  height: 150px;
+}
+
+.category-input { 
+  width: 350px;
+  height: 40px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  margin-top: 25px;
+  font-size: 18px;
+}
+
+.add-category-button {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 15px 10px 15px;
+  margin-top: 10px;
+  border-radius: 8px;
+  color: white;
+  background-color: #1c2120;
+  border: none;
+  margin-top: 25px;
+}
+
+.category-list-section {
+  display: flex;
+  justify-content: center;
+  align-items:flex-start;
+  height: 555px
+}
+
+.category-container {
+  background-color: white;
+  width: 600px;
+  height: 500px;
+  margin-top: 25px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+}
+
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  padding: 0px 50px 0px 20px;
+}
+
+.categories-title { 
+  margin-right: 255px;
+}
+
+.category-list { 
+  display: flex;
+  flex-direction: column;
+}
+
+.category-details { 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  border-bottom-style: solid;
+  padding: 0px 20px 0px 20px;
+}
+
+.category-name { 
+  margin-right: 265px;
+}
+
+.add-new-category-buttons {
+  display: flex;
+}
+
+.edit-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+  background-color: black;
+  border: none;
+  padding: 3px 10px 3px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  opacity: 0.8;
+}
+
+.edit-icon { 
+  width: 25px;
+  margin-right: 10px;
+}
+
+.delete-btn { 
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-icon { 
+  width: 25px;
+}
+

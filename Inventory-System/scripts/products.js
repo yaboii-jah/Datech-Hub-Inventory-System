@@ -39,7 +39,7 @@ function generateProductHTML (limit = 10) {
             ${productStatus(filteredData[i].status)} 
           </div>
         <div class="action">
-          <button class="edit-btn"><img class="edit-icon" src="icons/edit-icon.svg">Edit</button>
+          <button class="edit-btn" data-name="${filteredData[i].name}"><img class="edit-icon" src="icons/edit-icon.svg">Edit</button>
           <button class="delete-btn" data-name="${filteredData[i].name}"><img class="delete-icon" src="icons/delete-icon.svg"></button>
         </div>
       </div>
@@ -52,7 +52,6 @@ function generateProductHTML (limit = 10) {
 }
 
 function generatePagination (filteredData) {
-  console.log(filteredData);
   let paginationElement = document.querySelector('.pagination');
   let paginationButton = 1;
   let limit = 10
@@ -173,19 +172,26 @@ function deleteEventListener() {
 }
 
 // do the update functionality
-function updateProduct (index) { 
-  const {category, image, name, price, status, stock, product_ID} = filteredData[index];
-  setUpdatedData(category, image, name, price, status, stock, product_ID),
-  window.location.href = "./add-product.html";
+function updateProduct (dataSet) {
+  filteredData.forEach((data, index) => {
+    if (data.name === dataSet) {
+      const {category, image, name, price, status, stock, product_ID} = filteredData[index];
+      setUpdatedData(category, image, name, price, status, stock, product_ID)
+      window.location.replace("./update-product.html");
+    }
+  })
 }
 
 function updateEventListener () {
-  document.querySelectorAll('.edit-btn').forEach((button, index) => {
+  
+  document.querySelectorAll('.edit-btn').forEach((button) => { 
+    const buttonDataSet = button.dataset.name
     button.addEventListener('click', () => {
-      updateProduct(index);
+      updateProduct(buttonDataSet);
     })
   })
 }
+
 
 retrieveData();
 filterEventListener();

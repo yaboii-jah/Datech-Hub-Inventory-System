@@ -1,4 +1,5 @@
 //localStorage.clear();
+//sessionStorage.clear();
 let updatedData = {};
 
 export function setUpdatedData (category, image, name, price, status, stock, product_ID) { 
@@ -11,9 +12,10 @@ export function setUpdatedData (category, image, name, price, status, stock, pro
     stock: stock,
     product_ID: product_ID
   }
-  localStorage.setItem('updatedData', JSON.stringify(updatedData));
-}
+  sessionStorage.setItem('updatedData', JSON.stringify(updatedData));
+  
+} 
 
-export function getUpdatedData () { 
-  return JSON.parse(localStorage.getItem('updatedData'));
+export function getUpdatedData () {
+  return JSON.parse(sessionStorage.getItem('updatedData'));
 }
