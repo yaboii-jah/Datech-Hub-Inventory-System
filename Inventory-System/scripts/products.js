@@ -3,6 +3,7 @@ import {setUpdatedData} from './update-module.js';
 
 let dataRetrieved = [{}];
 let filteredData = [{}];
+let categoryData = [{}];
 
 async function retrieveData () { 
   const { data, error} = await supabase.from('product').select();
@@ -11,10 +12,37 @@ async function retrieveData () {
     console.error('there is an error');
   } else {
     dataRetrieved = data;
+    generateProductHTML();
   }
-  generateProductHTML();
+}
+
+async function retrieveCategoryData () { 
+  const { data, error} = await supabase.from('category').select();
+
+  if (error) { 
+    console.error('there is an error');
+  } else {
+    categoryData = data;
+    updateCategoryOption();
+  }
+}
+
+function updateCategoryOption () { 
+  const categoryFilterElement = document.querySelector('.category-filter');
+  
+  let html;
+  categoryData.forEach((category, index) => {
+    html += `
+      <option value="${category.categoryName}">${category.categoryName}</option>
+    `
+  })
+  categoryFilterElement.innerHTML = `
+    <option value="default">All Category</option> 
+    ${html}
+  `
 }
  
+
 function generateProductHTML (limit = 10) { 
   const productContainerElement = document.querySelector('.product-container')
   filteredData = dataRetrieved.filter(productFilters)
@@ -112,7 +140,6 @@ function productFilters (product) {
   // search filter
   const productNameArray = product.name.replace(/ /g, "").toLowerCase().split('');
   for ( let i = 0; i < productNameArray.length; i=0) {
-    console.log(productNameArray);
     let matchText = '';   
     for ( let z = 0; z < searchElement.length; z++ ) {
       matchText += productNameArray[z];
@@ -171,11 +198,10 @@ function deleteEventListener() {
   })
 }
 
-// do the update functionality
 function updateProduct (dataSet) {
   filteredData.forEach((data, index) => {
     if (data.name === dataSet) {
-      const {category, image, name, price, status, stock, product_ID} = filteredData[index];
+      const {category, image, name, price, status, stock, product_ID} = data;
       setUpdatedData(category, image, name, price, status, stock, product_ID)
       window.location.replace("./update-product.html");
     }
@@ -183,7 +209,6 @@ function updateProduct (dataSet) {
 }
 
 function updateEventListener () {
-  
   document.querySelectorAll('.edit-btn').forEach((button) => { 
     const buttonDataSet = button.dataset.name
     button.addEventListener('click', () => {
@@ -192,7 +217,7 @@ function updateEventListener () {
   })
 }
 
-
+retrieveCategoryData();
 retrieveData();
 filterEventListener();
 updateEventListener();

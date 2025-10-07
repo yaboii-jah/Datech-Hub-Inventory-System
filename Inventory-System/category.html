@@ -29,7 +29,11 @@
         <p class="add-new-category-title">ADD NEW CATEGORY</p>
       </div>
       <div class="category-input-section">
-        <input class="category-input" type="text">
+        <input class="category-input" type="text" placeholder="Enter Category Name">
+        <select class="status-select" name="status">
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
         <button class="add-category-button">Add Category</button>
       </div>
     </div>
@@ -41,37 +45,20 @@
       </div>
       <div class="category-list-section">
         <div class="category-container">
-          <div class="category-header">
-            <p>#</p>
-            <p class="categories-title">Categories<p>
-            <p>Actions</p>
+          <div>
+              <div class="category-header">
+              <p>#</p>
+              <p class="categories-title">Categories<p>
+              <p class="status-title">Status</p>
+              <p>Actions</p>
+            </div>
+            <div class="category-list">
+            </div>
           </div>
-          <div class="category-list">
-            <div class="category-details">
-              <p class="category-number">1</p>
-              <p class="category-name">Processor</p>
-              <div class="add-new-category-buttons">
-                  <button class="edit-btn"><img class="edit-icon" src="icons/edit-icon.svg">Edit</button>
-                  <button class="delete-btn"><img class="delete-icon" src="icons/delete-icon.svg"></button>
-              </div>
-            </div>
 
-            <div class="category-details">
-              <p class="category-number">1</p>
-              <p class="category-name">Processor</p>
-              <div class="add-new-category-buttons">
-                  <button class="edit-btn"><img class="edit-icon" src="icons/edit-icon.svg">Edit</button>
-                  <button class="delete-btn"><img class="delete-icon" src="icons/delete-icon.svg"></button>
-              </div>
-            </div>
-
-            <div class="category-details">
-              <p class="category-number">1</p>
-              <p class="category-name">Processor</p>
-              <div class="add-new-category-buttons">
-                  <button class="edit-btn"><img class="edit-icon" src="icons/edit-icon.svg">Edit</button>
-                  <button class="delete-btn"><img class="delete-icon" src="icons/delete-icon.svg"></button>
-              </div>
+          <div class="pagination-section">
+            <div class="pagination">
+              <button class="page-btn">1</button>
             </div>
           </div>
         </div>
@@ -80,6 +67,6 @@
   </div>
 
   <script src="scripts/sidebar.js"></script>
-  <script src="scripts/category.js"></script>
+  <script type="module" src="scripts/category.js"></script>
 </body>
 </html>

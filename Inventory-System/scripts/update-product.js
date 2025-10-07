@@ -1,6 +1,8 @@
 import {supabase} from './supabase-client.js'
 import {getUpdatedData} from './update-module.js';
 
+let categoryData = [{}];
+
 function replaceValues () {
   document.querySelector('.product-name-input').value = getUpdatedData().name;
   document.querySelector('.quantity-input').value = getUpdatedData().stock;
@@ -44,5 +46,33 @@ async function updateData () {
 document.querySelector('.add-product-button').addEventListener('click', () => {
   updateData();
 }) 
+
+async function retrieveCategoryData () { 
+  const { data, error} = await supabase.from('category').select();
+
+  if (error) { 
+    console.error('there is an error');
+  } else {
+    categoryData = data;
+    updateCategoryOption();
+  }
+}
+
+function updateCategoryOption () { 
+  const categoryElement = document.querySelector('.category-select');
+  
+  let html;
+  categoryData.forEach((category, index) => {
+    html += `
+      <option value="${category.categoryName}">${category.categoryName}</option>
+    `
+  })
+  categoryElement.innerHTML = `
+    <option value="" disabled selected>Select Product Category</option>
+    ${html}
+  `
+}
+
+retrieveCategoryData();
 
 replaceValues()
