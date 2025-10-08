@@ -9,10 +9,10 @@ async function addProduct () {
     status: document.querySelector('.status-select').value ,
     price: Number(document.querySelector('.price-input').value) ,
     image: document.querySelector('.file-image-input').value, 
-    category: document.querySelector('.category-select').value 
+    category_ID: Number(document.querySelector('.category-select').value)
   };
   
-  let hasValue = true;
+  let hasValue = true;  
   Object.values(addedProduct).forEach((product) => {
     if ( product === '' || product === 0) { 
       hasValue = false;
@@ -24,7 +24,7 @@ async function addProduct () {
 
     if (choice) { 
       const {data, error} = await supabase.from('product').insert(addedProduct).single();
-
+      console.log(addedProduct);
       alert(`Product added to the inventory`)
       document.querySelectorAll('.product-name-input, .quantity-input, .status-select, .price-input, .file-image-input, .category-select').forEach((value) => {
         value.value = "";
@@ -36,7 +36,7 @@ async function addProduct () {
 }
 
 async function retrieveCategoryData () { 
-  const { data, error} = await supabase.from('category').select();
+  const { data, error} = await supabase.from('category').select().eq('status', 'Active');
 
   if (error) { 
     console.error('there is an error');
@@ -52,7 +52,7 @@ function updateCategoryOption () {
   let html;
   categoryData.forEach((category, index) => {
     html += `
-      <option value="${category.categoryName}">${category.categoryName}</option>
+      <option value="${category.category_ID}">${category.categoryName}</option>
     `
   })
   categoryElement.innerHTML = `

@@ -6,7 +6,12 @@ let filteredData = [{}];
 let categoryData = [{}];
 
 async function retrieveData () { 
-  const { data, error} = await supabase.from('product').select();
+  const { data, error} = await supabase.from('product').
+  select(`*, 
+    category (
+    *
+    )` 
+  );
 
   if (error) { 
     console.error('there is an error');
@@ -17,7 +22,7 @@ async function retrieveData () {
 }
 
 async function retrieveCategoryData () { 
-  const { data, error} = await supabase.from('category').select();
+  const { data, error} = await supabase.from('category').select().eq('status', 'Active');
 
   if (error) { 
     console.error('there is an error');
@@ -62,7 +67,7 @@ function generateProductHTML (limit = 10) {
           <p class="product-id">${filteredData[i].product_ID}</p>
           <p class="price">${filteredData[i].price}</p>
           <p class="stock">${filteredData[i].stock}</p>
-          <p class="category">${filteredData[i].category}</p>
+          <p class="category">${filteredData[i].category.categoryName}</p>
           <div class="status-box">
             ${productStatus(filteredData[i].status)} 
           </div>
@@ -123,7 +128,7 @@ function productFilters (product) {
 
   // categoryFilter
   if (categoryFilter === 'default')  isValid = true; 
-  else if ( categoryFilter === product.category )  isValid = true;
+  else if ( categoryFilter === product.category.categoryName )  isValid = true;
   else return false;
 
   // statusFilter

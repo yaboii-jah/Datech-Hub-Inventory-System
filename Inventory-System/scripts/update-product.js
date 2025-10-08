@@ -2,15 +2,15 @@ import {supabase} from './supabase-client.js'
 import {getUpdatedData} from './update-module.js';
 
 let categoryData = [{}];
-
 function replaceValues () {
   document.querySelector('.product-name-input').value = getUpdatedData().name;
   document.querySelector('.quantity-input').value = getUpdatedData().stock;
   document.querySelector('.status-select').value = getUpdatedData().status;
   document.querySelector('.price-input').value = getUpdatedData().price;
   document.querySelector('.file-image-input').value = getUpdatedData().image;
-  document.querySelector('.category-select').value = getUpdatedData().category;
+  document.querySelector('.category-select').value = getUpdatedData().category.category_ID
   document.querySelector('.add-product-button').innerHTML = 'Update Product';
+  console.log(document.querySelector('.category-select'));
 }
 
 async function updateData () {
@@ -20,7 +20,7 @@ async function updateData () {
     status: document.querySelector('.status-select').value ,
     price: Number(document.querySelector('.price-input').value) ,
     image: document.querySelector('.file-image-input').value, 
-    category: document.querySelector('.category-select').value 
+    category_ID: Number(document.querySelector('.category-select').value)
   };
   
   let hasValue = true;
@@ -43,12 +43,8 @@ async function updateData () {
   }
 }
 
-document.querySelector('.add-product-button').addEventListener('click', () => {
-  updateData();
-}) 
-
 async function retrieveCategoryData () { 
-  const { data, error} = await supabase.from('category').select();
+  const { data, error} = await supabase.from('category').select().eq('status', 'Active');
 
   if (error) { 
     console.error('there is an error');
@@ -64,7 +60,7 @@ function updateCategoryOption () {
   let html;
   categoryData.forEach((category, index) => {
     html += `
-      <option value="${category.categoryName}">${category.categoryName}</option>
+      <option value="${category.category_ID}">${category.categoryName}</option>
     `
   })
   categoryElement.innerHTML = `
@@ -73,6 +69,9 @@ function updateCategoryOption () {
   `
 }
 
-retrieveCategoryData();
+document.querySelector('.add-product-button').addEventListener('click', () => {
+  updateData();
+}) 
 
+await retrieveCategoryData();
 replaceValues()

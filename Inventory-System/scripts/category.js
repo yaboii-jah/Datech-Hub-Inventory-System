@@ -14,7 +14,7 @@ async function insertData () {
       if (choice) {
         try {
           const {error} = await supabase.from('category').insert({categoryName : categoryValue.value, status : statusValue}).single();
-          retrieveData();
+          retrieveData(); 
           categoryValue.value = '';
           alert('Category Added!')
         } catch (err) { 
@@ -131,8 +131,15 @@ function replaceValue (categoryName, status) {
 async function deleteCategory (data, index) {
   const categoryDetailsElement = document.querySelectorAll('.category-details')
   categoryDetailsElement[index].remove();
-  await supabase.from('category').delete().eq('categoryName', data)
+
+  const {error} = await supabase.from('category').delete().eq('categoryName', data)
   retrieveData();
+  
+  if (error) { 
+    alert('There is some products who has this category!')
+  } 
+
+
 }
 
 function categoryStatus (status) { 
