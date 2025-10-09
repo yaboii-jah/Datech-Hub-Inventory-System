@@ -1,4 +1,4 @@
-document.querySelectorAll('.nav-btn')[2].addEventListener("click", () => {
+document.querySelectorAll('.nav-btn')[1].addEventListener("click", () => {
   showProductList();
 })
 

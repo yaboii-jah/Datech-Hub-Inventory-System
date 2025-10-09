@@ -7,23 +7,28 @@ p {
   margin: 0;
 }
 
-.nav-bar {
+.nav-bar-container {
   display: flex;
-  padding-left: 200px;
-  padding-right: 200px;
-  justify-content: space-between;
-  height: 150px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   border-bottom-style: solid;
   border-width: 1px;
   border-color: rgb(231, 231, 231);
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  height: 150px;
+  width: 1240px;
 }
 
 .img-section {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 15px;
-  padding-left: 5px;
+  margin-left: 40px;
   width: 150px;
 }
 
@@ -32,7 +37,6 @@ p {
   align-items: center;
   font-size: 14px;
   width: 800px;
-  padding-bottom: 10px;
 }
 
 .nav-btn { 
@@ -59,7 +63,6 @@ p {
   align-items: center;
   justify-content: center;
   width: 200px;
-  padding-bottom: 15px;
 }
 
 .search-icon, .profile-icon, .cart-icon { 

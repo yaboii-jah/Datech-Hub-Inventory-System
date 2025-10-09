@@ -1,20 +1,32 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-container { 
+  display: flex;
+  flex-direction: column;
+  width: 1155px;
+  margin-top: 25px;
+}
+
 .category-name-section { 
   height: 120px;
-  padding-left: 230px;
 }
 
 .category-name { 
   font-size: 40px;
-  margin-top: 25px;
+  margin-left: 20px;
 }
 
 .filter-section { 
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 50px;
   margin-bottom: 25px;
-  column-gap: 265px;
+  padding: 0px 20px 0px 20px;
 }
 
 .first-section, .second-section {
