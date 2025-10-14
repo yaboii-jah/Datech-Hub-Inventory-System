@@ -46,7 +46,7 @@ document.querySelector('.sidebar').innerHTML
       </div>
       <div class="side-order sidebar-links">
         <img class="sidebar-image" src="icons/order-icon.svg">
-        <a class="sidebar-link" href="">Orders</a>
+        <a class="sidebar-link" href="./order.html">Orders</a>
         <img class="sidebar-image category-chevron-icon" src="icons/chevron-down-icon.svg">
       </div>
       <div class="side-order sidebar-links">

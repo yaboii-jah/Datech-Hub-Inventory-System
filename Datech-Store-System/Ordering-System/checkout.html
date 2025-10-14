@@ -3,58 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Supreme Bikes - Checkout</title>
+  <title>DATECH HUB - Checkout</title>
   <link rel="stylesheet" href="styles/navbar.css">
   <link rel="stylesheet" href="styles/product-dropdown.css">
   <link rel="stylesheet" href="styles/checkout.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 </head>
 <body>
   <div class="nav-bar-container"> 
-    <div class="nav-bar">
-      <div class="img-section">
-        <a href="index.html"><img src="images/shop-logo/supreme_bikes_logo.avif" alt=""></a>
+  </div>
+ 
+  <div class="products-list-container">
+    <div class="product-list"> 
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="main-container">
+      <div class="your-order">
+        Your Orders
+      </div>
+       
+      <div class="order-status">
+        <button class="btn-pending btn-order-status">Pending</button>
+        <button class="btn-completed btn-order-status">Completed</button>
+        <button class="btn-cancelled btn-order-status">Cancel</button>
       </div>
 
-      <div class="links-section">
-        <button class="nav-btn"><a class="nav-links" href="">Home</a></button>
-        <button class="nav-btn">Products</button>
-        <button class="nav-btn"><a class="nav-links" href="">New Products</a></button>
-        <button class="nav-btn"><a class="nav-links" href="">Contact</a></button>
-      </div>
-
-      <div class="icons-section">
-        <a class="nav-icons" href=""><img class="search-icon" src="images/other-logo/search-icon.svg" alt=""></a>
-        <a class="nav-icons" href=""><img class="profile-icon" src="images/other-logo/profile-icon.svg" alt=""></a>
-        <a class="nav-icons" href="cart.html"><img class="cart-icon" src="images/other-logo/cart-icon.svg" alt=""><p class="cart-quantity-modal">0</p></a>
+      <div class="orders-grid">
       </div>
     </div>
   </div>
 
-  <div class="products-list">
-    <div class="Accessories-list"> <a href="">Accessories</a> <a href=""></a> <a href="">All Accessories</a> <a href="">Bike Bags</a> <a href="">Bike Racks</a> <a href="">Bottles & Cages</a> <a href="">Lights</a> <a href="">Pumps</a> <a href="">Saddles</a> <a href="">Tools</a> <a href="">Water Bottles / Hydration</a></div>  
-
-    <div class="Apparel-list"><a href="">Apparel</a> <a href="">All Apparel</a> <a href="">Clothing</a> <a href="">Cycling Shoes</a> <a href="">Gloves</a> <a href="">Helmets</a> <a href="">Kid's Helmet</a> <a href="">Protective Pads</a> <a href="">Shades</a> <a href="">Socks</a> <a href="">Women's Apparel</a> </div>
-
-    <div class="Bikes-list"><a href="">Bikes</a> <a href="">All Bikes</a> <a href="">Road Bikes</a> <a href="">MTB</a> <a href="">Gravel Bikes</a> <a href="">Commuter / Urban/a> <a href="">E-Bikes</a> <a href="">Folding Bikes</a> <a href="">Kids Bikes</a> <a href="">26er Bikes</a> <a href="">27.5 Bikes</a> <a href="">29er Bikes</a> <a href="">Vintage Style Bikes</a> </div>
-
-    <div class="Helmets-list"><a href="">Helmets</a> <a href="">All Helmets</a> <a href="">Road Helmets</a> <a href="">MTB Helmets</a> <a href="">Commuter Helmets</a> <a href="">Gravel Helmets</a> </div>
-
-    <div class="Parts"><a href="">Parts</a> <a href="">All Parts</a> <a href="">Chains</a> <a href="">Bottom Bracket</a> <a href="">Brakes</a> <a href=""> Drivetrain</a> <a href="">Forks</a> <a href="">Handlebar, Cockpit and Grips</a> <a href="">Hubs</a> <a href="">Pedal and Cleats</a> <a href="">Saddle, Post and Clamps</a> <a href="">Stems</a> <a href="">Wheel Parts</a> <a href="">Other Parts</a></div>
-
-    <div class="Tires-Tubes-list"><a href=""> Tires and Tubes</a> <a href="">All tires and Tubes</a> <a href="">Road Bike Tires</a> <a href="">Gravel Bike Tires</a> <a href="">MTB Tires</a> <a href="">Enduro Tires</a> <a href="">Hybrid / Urban Bike Tires</a> <a href="">Folding / BMX Bike Tires</a> <a href="">Tubeless Accessories</a> <a href="">Inner Tubes</a> <a href="">26er Tires</a> <a href="">27.5 Tires</a> <a href="">29er Tires</a> <a href="">650B Tires</a> <a href="">Tubular Tires</a></div>
-  </div>
-
-<div class="container">
-  <div class="main-container">
-    <div class="your-order">
-      Your Orders
-    </div>
-    <div class="orders-grid">
-    </div>
-  </div>
-</div>
-
-  <script src="scripts/product-dropdown.js"></script>
-  <script src="scripts/checkout.js"></script>
+    <script src="scripts/nav-bar.js"></script>
+    <script type="module" src="scripts/product-dropdown.js"></script>
+    <script type="module" src="scripts/checkout.js"></script>
 </body>
 </html>

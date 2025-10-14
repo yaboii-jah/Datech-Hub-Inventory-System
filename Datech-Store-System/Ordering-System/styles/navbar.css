@@ -57,6 +57,35 @@ p {
   text-decoration: underline;
 }
 
+.search-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-right: 25px;
+}
+
+.search-icon { 
+  height: 20px;
+  padding: 0px 5px 0px 5px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: rgb(111, 111, 111);;
+}
+
+.search-input {
+  height: 25px;
+  width: 250px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
 
 .icons-section {
   display: flex;
@@ -65,24 +94,35 @@ p {
   width: 200px;
 }
 
-.search-icon, .profile-icon, .cart-icon { 
-  height: 25px;
+.nav-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 35px;
+}
+
+.nav-icons {  
   padding-right: 20px;
+}
+
+.profile-icon, .cart-icon, .order-icon{ 
+  height: 25px;
+}
+
+.profile-icon:hover, .cart-icon:hover, .order-icon:hover { 
+  height: 28px;
 }
 
 .cart-quantity-modal { 
   position: absolute;
-  top: 40px;
-  right: 240px;
+  top: 52px;
+  right: 238px;
   font-size: 15px;
-  padding: 2px;
+  padding: 2px 7px 2px 7px;
   background-color: black;
   color: white;
   font-weight: bold;
   border-radius: 20px;
-  
 }
 
-.search-icon:hover, .profile-icon:hover, .cart-icon:hover { 
-  height: 26px;
-}
