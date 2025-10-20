@@ -168,6 +168,107 @@ function generatePagination (filteredData) {
   paginationEventListener();
 }
 
+function checkCart (btn_index) { 
+  const data_name = document.querySelectorAll('.addtocart-btn')[btn_index].dataset.name;
+  const productQuantity = document.querySelectorAll('.quantity')[btn_index].value;
+  let targetProduct = dataRetrieved.find((product) => { if ( data_name === product.name ) return product})
+  let targetCart = 0;
+
+  cart.forEach((cart) => {
+    if (cart.product.name === data_name) { 
+      targetCart = cart;
+    }
+  })
+
+  if ( targetCart === 0 && productQuantity <= targetProduct.stock) {
+    addToCart(btn_index)
+    return true;
+  } else if (productQuantity > targetProduct.stock) {
+    console.log('hi')
+    alert('Cannot add above the product stock');
+    return false;
+  }
+   
+  if (targetCart.quantity + Number(productQuantity) <= targetProduct.stock) { 
+    addToCart(btn_index);
+    return true;
+  } else {
+    console.log('hello')
+    alert('Cannot add above the product stock');
+    return false;
+  }
+}
+
+function addToCart (btn_index) {
+  const data_name = document.querySelectorAll('.addtocart-btn')[btn_index].dataset.name;
+  const productQuantity = document.querySelectorAll('.quantity')[btn_index].value;
+  
+  let productsToBeAdded = [];
+  dataRetrieved.forEach( async (product, index) => { 
+    if ( data_name === product.name ) {
+      const products = cart.find(p => p.product.name === product.name);
+        if ( products ) {
+          products.quantity += Number(productQuantity)
+          products.subTotal = Number(products.quantity) * product.price;
+          await updateCart(products)
+        } else { 
+          productsToBeAdded.push({
+          product_ID: product.product_ID,
+          subTotal : Number(productQuantity) * product.price,
+          quantity: Number(productQuantity),
+          customer_ID: 1
+        })
+        await insertCart(productsToBeAdded)
+        await retrieveCart();
+      }
+    }
+  })
+  document.querySelectorAll('.addtocart-btn')[btn_index].setAttribute('disabled', '');
+  document.querySelectorAll('.addtocart-btn')[btn_index].style.cursor = 'not-allowed'
+  setTimeout(() => {
+    document.querySelectorAll('.addtocart-btn')[btn_index].removeAttribute('disabled')
+    document.querySelectorAll('.addtocart-btn')[btn_index].style.cursor = 'pointer'
+  }, 1500)
+}
+
+async function insertCart (productsToBeAdded) {
+  const {error} = await supabase.from('cart').insert(productsToBeAdded).single();
+  if ( error ) { 
+    console.error(error)
+  } else { 
+  }
+} 
+
+async function updateCart (product) {
+  const {error} = await supabase.from('cart').update({quantity : product.quantity, subTotal : product.subTotal}).eq('cart_id', product.cart_id);
+  if ( error ) { 
+    console.error(error)
+  } else { 
+  }
+}
+
+function checkProductStatus () { 
+  let updatedProductStock = []
+
+  dataRetrieved.forEach((product, index) => {
+    if ( product.stock === 0 ) {
+      product.status = 'Out of Stock';
+      delete product.category
+      updatedProductStock.push(product) 
+    }
+  })
+  updateProductStatus(updatedProductStock)
+
+}
+
+async function updateProductStatus (updatedProductStock) { 
+  const {error} = await supabase.from('product').upsert(updatedProductStock);
+  if (error) { 
+    console.error(error.message)
+  }
+}
+
+
 function paginationEventListener () {
   let limit = 12
   document.querySelectorAll('.page-btn').forEach((button, index) => {
@@ -203,19 +304,19 @@ function addToCartEventListener () {
       let cartMessageInterval;
       let cartTimer = 0;
 
-      cartMessageInterval = setInterval(function () {
-        
-        let cartMessage = document.querySelectorAll('.addtocart-message')[index];
-        if (cartTimer === 1500) { 
-          clearInterval(cartMessageInterval);
-          cartMessage.innerHTML = '';
-          cartTimer = 0;
-        } else { 
-          cartMessage.innerHTML = `&#10004 Added`
-          cartTimer+=100;
-        }
-      }, 100)
-      addToCart(index);
+      if (checkCart(index)) { 
+        cartMessageInterval = setInterval(function () {
+          let cartMessage = document.querySelectorAll('.addtocart-message')[index];
+          if (cartTimer === 1500) { 
+            clearInterval(cartMessageInterval);
+            cartMessage.innerHTML = '';
+            cartTimer = 0;
+          } else { 
+            cartMessage.innerHTML = `&#10004 Added`
+            cartTimer+=100;
+          }
+        }, 100)
+      }
     })
   })
 } 
@@ -225,50 +326,10 @@ function updateCartQuantity () {
   document.querySelector('.cart-quantity-modal').innerHTML = cart.length;
 }
 
-function addToCart (btn_index) {
-  let productsToBeAdded = [];
-  const data_name = document.querySelectorAll('.addtocart-btn')[btn_index].dataset.name;
-  const productQuantity = document.querySelectorAll('.quantity')[btn_index].value;
-  dataRetrieved.forEach( async (product, index) => { 
-    if ( data_name === product.name ) {
-      const products = cart.find(p => p.product.name === product.name);
-        if ( products ) {
-          products.quantity += Number(productQuantity)
-          products.subTotal = Number(products.quantity) * product.price;
-          await updateCart(products)
-        } else { 
-          productsToBeAdded.push({
-          product_ID: product.product_ID,
-          subTotal : Number(productQuantity) * product.price,
-          quantity: Number(productQuantity),
-          customer_ID: 1
-        })
-        await insertCart(productsToBeAdded)
-        await retrieveCart();
-      }
-    }
-  })
-}
-
-async function insertCart (productsToBeAdded) {
-  const {error} = await supabase.from('cart').insert(productsToBeAdded).single();
-  if ( error ) { 
-    console.error(error)
-  } else { 
-  }
-} 
-
-async function updateCart (product) {
-  const {error} = await supabase.from('cart').update({quantity : product.quantity, subTotal : product.subTotal}).eq('cart_id', product.cart_id);
-  if ( error ) { 
-    console.error(error)
-  } else { 
-  }
-}
-
 await categoryRetrieve();
-await retrieveCart();
 await retrieveData();
+checkProductStatus();
+retrieveCart();
 filterEventListener();
 showPriceFilter();
 updateCartQuantity();

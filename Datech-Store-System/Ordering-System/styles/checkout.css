@@ -33,7 +33,7 @@
   font-family: Roboto;
   font-size: 16px;
   padding: 10px 15px 10px 15px;
-  width: 280px;
+  width: 160px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -54,7 +54,7 @@
   
 }
 
-.order-container { 
+.order-container {
   border-radius: 10px;
   border-style: solid;
   border-width: 1px;
@@ -95,14 +95,15 @@
 .order-id { 
   width: 320px;
 }
-.second-scection { 
+
+.second-section { 
   display: flex;
-  flex-direction: column;
 }
 
 .order-details {
   display: flex;
   margin-bottom: 20px;
+  width: 580px;
 }
 
 .product-image-section {
@@ -149,26 +150,106 @@
 
 .track-package {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items:start;
-  width: 265px;
+  align-items: center;
+  gap: 20px;
 }
 
-.track-package-btn {
+.track-package-btn, .cancel-package-btn {
   font-size: 15px;
-  padding: 8px 60px 8px 60px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   border-radius: 6px;
   border-style: solid;
   border-width: 1px;
   border-color: rgb(191, 191, 191);
   background-color: white;
-  margin-top: 30px;
+  width: 200px;
   cursor: pointer;
 }
 
-.track-package-btn:hover {
+.track-package-btn:hover, .cancel-package-btn:hover {
   font-weight: bold;
   color: white;
   background-color: rgb(47, 47, 47);
   transition: 0.9s;
+}
+
+.modal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 100;
+  background-color: red;
+  top: 0;
+  left: 0;
+  height: 100%;
+  right: 0px;
+  overflow: auto;
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-container {
+   display: flex;
+   flex-direction: column;
+   background-color: white;
+   height: 350px;
+   width: 500px;
+   padding: 20px;
+}
+
+.close-container {
+   text-align: right;
+   font-weight: bold;
+   font-size: 28px;
+}
+
+.close:hover { 
+  color: red;
+  cursor: pointer;
+}
+
+.cancel-reason { 
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.cancel-reminder {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: rgb(228, 0, 0);
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+.cancel-label { 
+  font-weight: bold;
+  color: rgb(55, 55, 55);
+}
+
+.cancel-reason { 
+  margin-top: 10px;
+}
+
+.cancel-yes, .cancel-no {
+  padding: 5px 10px 5px 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.cancel-yes:hover, .cancel-no:hover { 
+  opacity: 0.9;
+} 
+
+.cancel-yes { 
+  background-color: rgba(32, 50, 208, 0.99);
+}
+
+.cancel-no {
+  background-color: red;
 }

@@ -5,17 +5,16 @@ let orderDetailsData = [{}];
 let cartList = [{}];
 
 async function retrieveOrder () { 
-    try { 
-        const {data, error} = await supabase.from('orders').select(`*, Customer ( * )`);
-        orders = data;
-    } catch (error) { 
-        console.error(error);
+    const {data, error} = await supabase.from('orders').select(`*, Customer ( * )`);
+    orders = data;
+    if (error) {
+        console.error(error)
     }
 }
 
 async function retrieveOrderDetails () { 
     try { 
-        const {data, error} = await supabase.from('orderDetails').select(`*, product ( * )`);
+        const {data, error} = await supabase.from('orderDetails').select(`*, product ( * ), orders ( * )`);
         orderDetailsData = data;
     } catch (error) { 
         console.error(error);
@@ -30,31 +29,68 @@ async function retrieveCart () {
   } 
 }
 
-function generateOrderContainer (filter = 'pending') {
+function generateOrderContainer (filter = 'All') {
     let html = '';
     orders.forEach((order, index) => {
-        html += `
-        <div class="order-container">
-            <div class="first-section">
-                <div class="order-placed">
-                <p class="order-placed-text">Order Placed:</p>
-                <p>${order.orderDate}</p>
+        if ( filter !== 'All') { 
+            if (order.status === filter) { 
+                html += `
+                <div class="order-container">
+                    <div class="first-section">
+                        <div class="order-placed">
+                        <p class="order-placed-text">Order Placed:</p>
+                        <p>${order.orderDate}</p>
+                        </div>
+                        <div class="order-total">
+                        <p class="order-total-text">Total</p>
+                        <p>&#8369;${order.totalAmount}</p>
+                        </div>
+                        <div class="order-id">
+                        <p class="order-id-text">Order ID:</p>
+                        <p>${order.orderID}</p>
+                        </div>
+                    </div>
+                    <div class="second-section">
+                        <div>
+                        ${orderDetails(index)}
+                        </div>
+                        <div class="track-package">
+                            ${getOrderStatus(order)}
+                        </div> 
+                    </div>
+                </div>`
+            }
+        } else { 
+            html += `
+            <div class="order-container">
+                <div class="first-section">
+                    <div class="order-placed">
+                    <p class="order-placed-text">Order Placed:</p>
+                    <p>${order.orderDate}</p>
+                    </div>
+                    <div class="order-total">
+                    <p class="order-total-text">Total</p>
+                    <p>&#8369;${order.totalAmount}</p>
+                    </div>
+                    <div class="order-id">
+                    <p class="order-id-text">Order ID:</p>
+                    <p>${order.orderID}</p>
+                    </div>
                 </div>
-                <div class="order-total">
-                <p class="order-total-text">Total</p>
-                <p>&#8369;${order.totalAmount}</p>
+                <div class="second-section">
+                    <div>
+                    ${orderDetails(index)}
+                    </div>
+                    <div class="track-package">
+                        ${getOrderStatus(order)}
+                    </div> 
                 </div>
-                <div class="order-id">
-                <p class="order-id-text">Order ID:</p>
-                <p>${order.orderID}</p>
-                </div>
-            </div>
-            <div class="second-section"> 
-                ${orderDetails(index)}
-            </div>
-        </div>`
-        })
+            </div>`
+
+        }
+    });
     document.querySelector('.orders-grid').innerHTML = html;
+    trackCancelEventListener();
 }
 
 function orderDetails (index) { 
@@ -69,22 +105,68 @@ function orderDetails (index) {
 
                 <div class="product-details">
                     <p class="product-name">${orderDetails.product.name}</p>
-                    <p class="delivery-date">Arriving on: September 19</p>
+                    ${checkOrderStatus(orderDetails)}
                     <p class="quantity">Quantity: ${orderDetails.quantity}</p>
                     <button class="buy-again-btn" data-id="${orderDetails.orderDetail_ID}"><img class="buy-again-icon" src="images/other-logo/buy-again-icon.svg">Buy it again</button>
                 </div>
-
-                <div class="track-package">
-                    <button class="track-package-btn">Track package</button>
-                </div>
             </div>`
        }
-       
     })
     return html;
 }
 
-// fix buyagain button
+function getOrderStatus (order) { 
+    let status;
+    const orderStatus = order.status
+    if ( orderStatus === 'Cancelled') {
+       status = ''
+    } else if ( orderStatus === 'Shipped' || orderStatus === 'pending') { 
+       status = `
+            <button class="cancel-package-btn" data-id="${order.orderID}">Cancel Order</button>
+            <button class="track-package-btn" data-id="${order.orderID}">Track Order</button>
+       `
+    } else if ( orderStatus === 'Delivered') { 
+        status = `
+            <button class="track-package-btn" data-id="${order.orderID}">Track Order</button>
+        `
+    }
+    return status;
+} 
+
+function checkOrderStatus (orderDetails) {
+    let status;
+    const orderStatus = orderDetails.orders.status;
+    const time = new Date();
+    
+    if ( orderStatus === 'pending' || orderStatus === 'Shipped') { 
+        status = `<p class="delivery-date">Arriving on ${orderDetails.orders.orderEnd}</p>`
+    } else if ( orderStatus === 'Delivered') { 
+        status = `<p class="delivery-date">Delivered on ${orderDetails.orders.orderEnd}</p>`
+    } else if ( orderStatus === 'Cancelled') { 
+        status = `<p class="delivery-date">Order Cancelled on ${time.getFullYear()}-${time.getMonth()+1}-${time.getDate()}</p>`
+    }
+    return status;
+} 
+
+function generateModal () { 
+    document.querySelector('.modal').innerHTML = `
+       <div class="modal-container">
+            <div class="close-container">
+                <span class="close">&times;</span>
+            </div>
+            <div>
+                <p class="cancel-reminder">Are you sure to cancel this order?</p>
+                <label class="cancel-label">What is the reason you want to cancel this order?</label>
+                <textarea class="cancel-reason" rows="7" cols="63" placeholder="Why do you want to cancel this order"></textarea>
+            </div>
+            <div>
+                <button class="cancel-yes">Yes</button>
+                <button class="cancel-no">No</button>
+            </div>
+        </div>
+    `
+}
+
 async function buyAgain (dataSet) {
    const choice = confirm('Are you sure you want to buy this product again?')
    if ( choice ) {
@@ -129,6 +211,106 @@ async function updateCart(cart, productsToBeAdded) {
     const {error} = await supabase.from('cart').update({quantity : productsToBeAdded[0].quantity, subTotal : productsToBeAdded[0].subTotal}).eq('cart_id', cart.cart_id);
     if (error) { 
         console.error(error);
+    }   
+}
+
+function trackCancelEventListener () {
+    document.querySelectorAll('.buy-again-btn').forEach((button, index) => {
+        const dataSet = button.dataset.id;
+        button.addEventListener('click', () => {
+            buyAgain(Number(dataSet));
+        });
+    });
+   
+    document.querySelectorAll('.track-package-btn').forEach((button) => {
+       const dataId = button.dataset.id;
+       button.addEventListener('click', () => {
+           window.location.href = `./track-package.html?orderID=${dataId}`
+       })
+    })
+
+    document.querySelectorAll('.cancel-package-btn').forEach((button, index) => {
+       const dataId = button.dataset.id;
+       button.addEventListener('click', () => {
+            showModal(dataId);
+       })
+    })
+}
+
+function showModal (dataID) { 
+   const orderStatus = orders.find(order => order.orderID === dataID) 
+
+   if ( orderStatus.status !== 'Shipped') { 
+        const modal = document.querySelector('.modal');
+        const span = document.querySelector('.close');
+
+        modal.style.display = 'flex'
+
+        span.addEventListener('click', () => {
+            modal.style.display = 'none'
+        })
+
+        window.addEventListener('click', (event) => {
+            if (event.target == modal) {
+            modal.style.display = "none";
+            }
+        })
+
+        document.querySelector('.cancel-yes').addEventListener('click', async () => {
+                await cancelOrder(dataID);
+        })
+
+        document.querySelector('.cancel-no').addEventListener('click', () => {
+            modal.style.display = 'none'
+        })
+   } else { 
+        alert(`Order is already shipped`);
+   }
+}
+
+async function cancelOrder (dataID) {
+   const orderStatus = orders.find(order => order.orderID === dataID)
+   const modal = document.querySelector('.modal');
+   const updatedProductStock = [];
+
+   if ( orderStatus.status === 'pending') { 
+        if (document.querySelector('.cancel-reason').value !== '') { 
+            orderDetailsData.forEach((order) => {
+                if (order.orderID === dataID) {
+                    updatedProductStock.push({
+                        product_ID : order.productID,
+                        name : order.product.name,
+                        stock : order.product.stock + order.quantity,
+                        status : order.product.status,
+                        price : order.product.price,
+                        image : order.product.image,
+                        category_ID : order.product.category_ID
+                    })
+                }
+            })
+            updateProductStock(updatedProductStock);
+            await updateOrderStatus(dataID);
+            await retrieveOrder();
+            modal.style.display = 'none'
+            alert('Order Successfully Cancelled!')
+            window.location.href = "./checkout.html"
+        } else { 
+            alert('Please provide an explanation')
+        }
+   } 
+}
+
+async function updateProductStock (updatedProductStock) { 
+    const {productError} = await supabase.from('product').upsert(updatedProductStock)
+    if (productError) { 
+        console.error(productError);
+    }
+}
+
+async function updateOrderStatus (dataID) { 
+    const {orderError} = await supabase.from('orders').update({status : 'Cancelled'}).eq('orderID', dataID);
+    if (orderError) { 
+        console.error(orderError);
     }
 }
 
@@ -137,46 +319,27 @@ function updateCartQuantity () {
 }
 
 function addEventListener () {
-    document.querySelectorAll('.buy-again-button').forEach((button, index) => {
-        const dataSet = button.dataset.id;
-        button.addEventListener('click', () => {
-            buyAgain(Number(dataSet));
-        });
-    });
     document.querySelector('.btn-pending').addEventListener('click', () => {
        generateOrderContainer('pending')
     })
      document.querySelector('.btn-completed').addEventListener('click', () => {
-       generateOrderContainer('completed')
+       generateOrderContainer('Delivered')
     })
      document.querySelector('.btn-cancelled').addEventListener('click', () => {
-       generateOrderContainer('cancelled')
+       generateOrderContainer('Cancelled')
     })
-
+      document.querySelector('.btn-shipped').addEventListener('click', () => {
+       generateOrderContainer('Shipped')
+    })
+      document.querySelector('.btn-all').addEventListener('click', () => {
+       generateOrderContainer('All')
+    })
 }
 
 await retrieveOrder();
 await retrieveOrderDetails();
-await retrieveCart(); 
+await retrieveCart();
 updateCartQuantity();
 generateOrderContainer();
+generateModal();
 addEventListener();
-
-/*
-    <div class="order-details">
-        <div class="product-image-section">
-            <img class="product-image" src="${orderDetails.image}">
-        </div>
-
-        <div class="product-details">
-            <p class="product-name">${orderDetails.name}</p>
-            <p class="delivery-date">Arriving on: September 19</p>
-            <p class="quantity">Quantity: ${orderDetails.quantity}</p>
-            <button class="buy-again-btn"><img class="buy-again-icon" src="images/other-logo/buy-again-icon.svg">Buy it again</button>
-        </div>
-
-        <div class="track-package">
-            <button class="track-package-btn">Track package</button>
-        </div>
-    </div>`
-*/

@@ -49,7 +49,7 @@ function generateHTML () {
     `
     let html = '';
     cartTotal = 0;
-    cartList.forEach((product, index) => {
+    cartList.forEach((product, index) => { 
       cartTotal += Number(product.price) * Number(product.quantity);
       html += ` 
       <div class="cart-section-container">
@@ -192,8 +192,8 @@ async function fetchUUID () {
   
     if (choice) { 
       await insertOrders();
-      deleteCart();
-      window.location.href = "./checkout.html"
+      await deleteCart();
+      setTimeout(() => {window.location.href = "./checkout.html" }, 1000)
     }
   } else { 
      alert('No items in the cart');
@@ -204,14 +204,14 @@ async function insertOrders () {
   let orders = [];
   orders.push({
     orderID : await fetchUUID(),
-    orderDate : getDate(),
     totalAmount : cartTotal,
     customerID : 1, 
-    status : 'pending'
+    status : 'pending',
+    orderEnd : getEndDate()
   })
   try { 
     const { error } = await supabase.from('orders').insert(orders[0])
-    await insertOrderDetails(orders);
+    insertOrderDetails(orders);
     if (error) {
       console.error(error);
     }
@@ -234,7 +234,7 @@ async function insertOrderDetails (orders) {
   }); 
   try { 
     const {error} = await supabase.from('orderDetails').insert(orderDetails)
-    await updateProductStock(orderDetails)
+    updateProductStock(orderDetails)
     if (error) {
       console.error(error);
     }
@@ -244,7 +244,7 @@ async function insertOrderDetails (orders) {
   }
 }
 
-function deleteCart () {
+async function deleteCart () {
   cartList.forEach( async (product) => { 
      const {error} = await supabase.from('cart').delete().eq('cart_id', product.cart_id);
      if (error) {
@@ -285,49 +285,9 @@ async function updateProductStock (orderDetails) {
  
 }
 
-function getDate() { 
-  let time = new Date();
-  let month = '';
-  switch (time.getMonth()) { 
-    case 1: 
-      month = 'January';
-      break;
-    case 2: 
-      month = 'February';
-      break;
-    case 3: 
-      month = 'March';
-      break;
-    case 4: 
-      month = 'April';
-      break;
-    case 5: 
-      month = 'May';
-      break;
-    case 6: 
-      month = 'June';
-      break;
-    case 7: 
-      month = 'July';
-      break;
-    case 8: 
-      month = 'August';
-      break;
-    case 9: 
-      month = 'September';
-      break;
-    case 10: 
-      month = 'October';
-      break;
-    case 11: 
-      month = 'November';
-      break;
-    case 12: 
-      month = 'December';
-      break;
-  }
-
-  return `${month} ${time.getDate()} `
+function getEndDate() {
+  const date = new Date(); 
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate() + 6}`
 }
 
 function updateCartQuantity () {

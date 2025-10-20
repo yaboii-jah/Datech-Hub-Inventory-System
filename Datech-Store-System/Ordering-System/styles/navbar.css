@@ -1,6 +1,7 @@
 body {  
   font-family: 'Assistant', sans-serif;
   margin: 0;
+  width: 1585px;
 }
 
 p { 
@@ -90,7 +91,7 @@ p {
 .icons-section {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 200px;
 }
 
@@ -102,12 +103,11 @@ p {
   width: 35px;
 }
 
-.nav-icons {  
-  padding-right: 20px;
-}
-
 .profile-icon, .cart-icon, .order-icon{ 
   height: 25px;
+}
+
+.order-icon { 
 }
 
 .profile-icon:hover, .cart-icon:hover, .order-icon:hover { 
@@ -115,9 +115,9 @@ p {
 }
 
 .cart-quantity-modal { 
-  position: absolute;
-  top: 52px;
-  right: 238px;
+  position: relative;
+  top: -8px;
+  right: 12px;
   font-size: 15px;
   padding: 2px 7px 2px 7px;
   background-color: black;
