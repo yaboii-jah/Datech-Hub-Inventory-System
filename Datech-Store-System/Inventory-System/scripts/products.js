@@ -222,7 +222,7 @@ function updateEventListener () {
   })
 }
 
-retrieveCategoryData();
-retrieveData();
+await retrieveCategoryData();
 filterEventListener();
+await retrieveData();
 updateEventListener();

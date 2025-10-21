@@ -119,7 +119,7 @@ function getOrderStatus (order) {
     let status;
     const orderStatus = order.status
     if ( orderStatus === 'Cancelled') {
-       status = ''
+       status = `Reason : ${order.reason}` 
     } else if ( orderStatus === 'Shipped' || orderStatus === 'pending') { 
        status = `
             <button class="cancel-package-btn" data-id="${order.orderID}">Cancel Order</button>
@@ -141,7 +141,7 @@ function checkOrderStatus (orderDetails) {
     if ( orderStatus === 'pending' || orderStatus === 'Shipped') { 
         status = `<p class="delivery-date">Arriving on ${orderDetails.orders.orderEnd}</p>`
     } else if ( orderStatus === 'Delivered') { 
-        status = `<p class="delivery-date">Delivered on ${orderDetails.orders.orderEnd}</p>`
+        status = `<p class="delivery-date">Delivered on ${time.getFullYear()}-${time.getMonth()+1}-${time.getDate()}</p>`
     } else if ( orderStatus === 'Cancelled') { 
         status = `<p class="delivery-date">Order Cancelled on ${time.getFullYear()}-${time.getMonth()+1}-${time.getDate()}</p>`
     }
@@ -168,33 +168,37 @@ function generateModal () {
 }
 
 async function buyAgain (dataSet) {
-   const choice = confirm('Are you sure you want to buy this product again?')
-   if ( choice ) {
-    let productsToBeAdded = []; 
-        orderDetailsData.forEach((data, index) => { 
-            if ( dataSet === data.orderDetail_ID) {
-                productsToBeAdded.push({
-                    product_ID: data.productID,
-                    subTotal: data.subTotal,
-                    quantity: data.quantity,
-                    customer_ID: 1
-                })
-            }
-        })
+   const targetProduct = orderDetailsData.find((order) => { if (dataSet === order.orderDetail_ID) return order; })
 
-        cartList.forEach((cart) => {
-            if (productsToBeAdded[0].product_ID === cart.product_ID) {
-                updateCart(cart, productsToBeAdded)
-                productsToBeAdded = []
-            }
-        })
+   if ( targetProduct.quantity <= targetProduct.product.stock) {
+        const choice = confirm('Are you sure you want to buy this product again?')
+        if ( choice ) {
+            let productsToBeAdded = []; 
+            orderDetailsData.forEach((data, index) => { 
+                if ( dataSet === data.orderDetail_ID) {
+                    productsToBeAdded.push({
+                        product_ID: data.productID,
+                        subTotal: data.subTotal,
+                        quantity: data.quantity,
+                        customer_ID: 1
+                    })
+                }
+            })
 
-        console.log(productsToBeAdded)
-        if ( productsToBeAdded.length !== 0 ) {
-           await insertCart(productsToBeAdded)
+            cartList.forEach((cart) => {
+                if (productsToBeAdded[0].product_ID === cart.product_ID) {
+                    updateCart(cart, productsToBeAdded)
+                    productsToBeAdded = []
+                }
+            })
+            if ( productsToBeAdded.length !== 0 ) {
+            await insertCart(productsToBeAdded)
+            }
+            await retrieveCart();
+            updateCartQuantity()
         }
-        await retrieveCart();
-        updateCartQuantity()
+    } else { 
+        alert('Cannot add beyond the product stock')
     }
 }
 
@@ -271,10 +275,11 @@ function showModal (dataID) {
 async function cancelOrder (dataID) {
    const orderStatus = orders.find(order => order.orderID === dataID)
    const modal = document.querySelector('.modal');
+   const cancelReason = document.querySelector('.cancel-reason').value
    const updatedProductStock = [];
 
    if ( orderStatus.status === 'pending') { 
-        if (document.querySelector('.cancel-reason').value !== '') { 
+        if (cancelReason !== '') { 
             orderDetailsData.forEach((order) => {
                 if (order.orderID === dataID) {
                     updatedProductStock.push({
@@ -289,7 +294,7 @@ async function cancelOrder (dataID) {
                 }
             })
             updateProductStock(updatedProductStock);
-            await updateOrderStatus(dataID);
+            await updateOrderStatus(dataID, cancelReason);
             await retrieveOrder();
             modal.style.display = 'none'
             alert('Order Successfully Cancelled!')
@@ -307,8 +312,8 @@ async function updateProductStock (updatedProductStock) {
     }
 }
 
-async function updateOrderStatus (dataID) { 
-    const {orderError} = await supabase.from('orders').update({status : 'Cancelled'}).eq('orderID', dataID);
+async function updateOrderStatus (dataID, reason) { 
+    const {orderError} = await supabase.from('orders').update({status : 'Cancelled', reason : reason}).eq('orderID', dataID);
     if (orderError) { 
         console.error(orderError);
     }

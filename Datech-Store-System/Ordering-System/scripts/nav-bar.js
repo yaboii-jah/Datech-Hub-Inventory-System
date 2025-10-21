@@ -19,7 +19,7 @@ document.querySelector('.nav-bar-container').innerHTML = `
       </div>
 
       <div class="icons-section">
-        <a class="nav-icons" href=""><img class="profile-icon" src="images/other-logo/profile-icon.svg" alt=""></a>
+        <a class="nav-icons" href="login.html"><img class="profile-icon" src="images/other-logo/profile-icon.svg" alt=""></a>
         <a class="nav-icons" href="cart.html"><img class="cart-icon" src="images/other-logo/cart-icon.svg" alt=""><p class="cart-quantity-modal">0</p></a>
         <a class="nav-icons" href="checkout.html"><img class="order-icon" src="images/other-logo/order-icon.svg" alt=""></a>
       </div>

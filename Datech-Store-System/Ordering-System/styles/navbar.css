@@ -2,6 +2,10 @@ body {
   font-family: 'Assistant', sans-serif;
   margin: 0;
   width: 1585px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 p { 

@@ -19,6 +19,7 @@ async function retrieveCart () {
     console.error(error);
   } else { 
     cartList = data;
+    console.log(cartList)
   }
 }
 
@@ -118,12 +119,16 @@ function addEventListeners () {
 function addQuantity (dataName) {
   cartList.forEach((product, index) => {
     if ( product.product.name === dataName ) {
-      document.querySelectorAll('.subtract-quantity-btn')[index].removeAttribute("disabled", "");
-      product.quantity++
-      product.subTotal = product.quantity * product.product.price
-      updateQuantity(product);
-      document.querySelectorAll('.cart-product-quantity-input')[index].value = product.quantity;
-      document.querySelectorAll('.cart-product-total')[index].innerHTML = `&#8369;${Number(product.product.price) * Number(product.quantity)}`
+      if (Number(document.querySelectorAll('.cart-product-quantity-input')[index].value) + 1 <= product.product.stock) {
+        document.querySelectorAll('.subtract-quantity-btn')[index].removeAttribute("disabled", "");
+        product.quantity++
+        product.subTotal = product.quantity * product.product.price
+        updateQuantity(product);
+        document.querySelectorAll('.cart-product-quantity-input')[index].value = product.quantity;
+        document.querySelectorAll('.cart-product-total')[index].innerHTML = `&#8369;${Number(product.product.price) * Number(product.quantity)}`
+      } else {
+        alert('Cannot add beyond product stock')
+      }
     }
   })
   updateSubTotal();
