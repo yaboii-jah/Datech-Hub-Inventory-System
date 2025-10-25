@@ -3,12 +3,12 @@ import {supabase} from './supabase-client.js'
 let category = [{}];
 
 async function dataRetrieve () {
-  try { 
-    const {data, error} = await supabase.from('category').select().eq('status', 'Active');
-    category = data;
+  const {data, error} = await supabase.from('category').select().eq('status', 'Active');
+  category = data;
+  if (error) {
+    console.error(error) 
+  } else {
     generateProductDrop()
-  } catch (error) { 
-    console.error(error);
   }
 }
 

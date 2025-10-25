@@ -154,8 +154,13 @@ body {
   justify-content: center;
 }
 
+.product-image-container {
+  width: 270px;
+  height: 270px;
+}
+
 .product-image {
-  object-fit:contain;
+  object-fit: contain;
   width: 270px;
   height: 270px;
 }

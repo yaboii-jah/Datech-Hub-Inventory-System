@@ -1,20 +1,30 @@
 import { supabase } from './supabase-client.js'
-//localStorage.clear();
+import { getSession } from './supabase-client.js';
 
 let dataRetrieved = [{}];
 let category = [{}];
 let filteredData = [{}];
 let cart = [{}];
+let customers = [{}];
+let session = getSession();
 
 async function retrieveData () { 
   try { 
     const {data, error} = await supabase.from('product').select(`*, category (*)`).eq('status', 'Active');
 
     dataRetrieved = data;
-    console.log(dataRetrieved)
     generateProductHTML();
   } catch (error) { 
     console.error(error)
+  }
+}
+
+async function retrieveCustomer () { 
+  const {data, error} = await supabase.from('Customer').select();
+  if (error) { 
+    console.error(error.message);
+  } else { 
+    customers = data;
   }
 }
 
@@ -67,7 +77,7 @@ function generateProductHTML (limit = 12) {
     }
     html += `
     <div class="product-container">
-      <div>
+      <div class="product-image-container">
         <img class="product-image" src="../Inventory-System/${filteredData[i].image}" alt="">
       </div>
   
@@ -180,43 +190,48 @@ function checkCart (btn_index) {
     }
   })
 
-  if ( targetCart === 0 && productQuantity <= targetProduct.stock) {
-    addToCart(btn_index)
-    return true;
-  } else if (productQuantity > targetProduct.stock) {
-    console.log('hi')
-    alert('Cannot add above the product stock');
-    return false;
-  }
-   
-  if (targetCart.quantity + Number(productQuantity) <= targetProduct.stock) { 
-    addToCart(btn_index);
-    return true;
+  if (session) { 
+    if ( targetCart === 0 && productQuantity <= targetProduct.stock) {
+      addToCart(btn_index)
+      return true;
+    } else if (productQuantity > targetProduct.stock) {
+      alert('Cannot add above the product stock');
+      return false;
+    }
+    
+    if (targetCart.quantity + Number(productQuantity) <= targetProduct.stock) { 
+      addToCart(btn_index);
+      return true;
+    } else {
+      console.log('hello')
+      alert('Cannot add above the product stock');
+      return false;
+    }
   } else {
-    console.log('hello')
-    alert('Cannot add above the product stock');
-    return false;
+    window.location.href = "./login.html"
   }
 }
 
 function addToCart (btn_index) {
+  console.log('hi')
   const data_name = document.querySelectorAll('.addtocart-btn')[btn_index].dataset.name;
   const productQuantity = document.querySelectorAll('.quantity')[btn_index].value;
   
   let productsToBeAdded = [];
   dataRetrieved.forEach( async (product, index) => { 
     if ( data_name === product.name ) {
-      const products = cart.find(p => p.product.name === product.name);
+      const products = cart.find(p => p.product.name === product.name && p.Customer.email === session.user.email);
         if ( products ) {
           products.quantity += Number(productQuantity)
           products.subTotal = Number(products.quantity) * product.price;
           await updateCart(products)
         } else { 
+          const customer = customers.find(c => c.email === session.user.email)
           productsToBeAdded.push({
           product_ID: product.product_ID,
           subTotal : Number(productQuantity) * product.price,
           quantity: Number(productQuantity),
-          customer_ID: 1
+          customer_ID: customer.customerID
         })
         await insertCart(productsToBeAdded)
         await retrieveCart();
@@ -321,15 +336,23 @@ function addToCartEventListener () {
   })
 } 
 
-
-function updateCartQuantity () { 
-  document.querySelector('.cart-quantity-modal').innerHTML = cart.length;
+function updateCartQuantity () {
+  let customerCart = []
+  if ( session ) { 
+    customerCart = cart.filter((p) => {
+      if (p.Customer.email === session.user.email) { 
+        return true;
+      }
+    }) || [];
+  }
+  document.querySelector('.cart-quantity-modal').innerHTML = customerCart.length;
 }
 
+await retrieveCustomer();
 await categoryRetrieve();
 await retrieveData();
+await retrieveCart();
 checkProductStatus();
-retrieveCart();
 filterEventListener();
 showPriceFilter();
 updateCartQuantity();
