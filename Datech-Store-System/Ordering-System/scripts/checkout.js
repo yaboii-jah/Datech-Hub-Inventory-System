@@ -1,8 +1,11 @@
-//localStorage.clear();
 import {supabase} from './supabase-client.js'
+import { getSession } from './supabase-client.js';
+
 let orders = [{}];
 let orderDetailsData = [{}];
 let cartList = [{}];
+let customerCart = [];
+let session = getSession();
 
 async function retrieveOrder () { 
     const {data, error} = await supabase.from('orders').select(`*, Customer ( * )`);
@@ -29,66 +32,80 @@ async function retrieveCart () {
   } 
 }
 
+function getCustomerCart () {
+  if ( session ) { 
+    customerCart = cartList.filter((c) => { 
+      if (c.Customer.email === session.user.email ) {
+        return true; 
+      }
+    })
+  }
+}
+
 function generateOrderContainer (filter = 'All') {
     let html = '';
-    orders.forEach((order, index) => {
-        if ( filter !== 'All') { 
-            if (order.status === filter) { 
-                html += `
-                <div class="order-container">
-                    <div class="first-section">
-                        <div class="order-placed">
-                        <p class="order-placed-text">Order Placed:</p>
-                        <p>${order.orderDate}</p>
+    if ( session ) { 
+        orders.forEach((order, index) => {
+            if (session.user.email === order.Customer.email) {
+                if ( filter !== 'All') { 
+                    if (order.status === filter) { 
+                        html += `
+                        <div class="order-container">
+                            <div class="first-section">
+                                <div class="order-placed">
+                                <p class="order-placed-text">Order Placed:</p>
+                                <p>${order.orderDate}</p>
+                                </div>
+                                <div class="order-total">
+                                <p class="order-total-text">Total</p>
+                                <p>&#8369;${order.totalAmount}</p>
+                                </div>
+                                <div class="order-id">
+                                <p class="order-id-text">Order ID:</p>
+                                <p>${order.orderID}</p>
+                                </div>
+                            </div>
+                            <div class="second-section">
+                                <div>
+                                ${orderDetails(index)}
+                                </div>
+                                <div class="track-package">
+                                    ${getOrderStatus(order)}
+                                </div> 
+                            </div>
+                        </div>`
+                    }
+                } else { 
+                    html += `
+                    <div class="order-container">
+                        <div class="first-section">
+                            <div class="order-placed">
+                            <p class="order-placed-text">Order Placed:</p>
+                            <p>${order.orderDate}</p>
+                            </div>
+                            <div class="order-total">
+                            <p class="order-total-text">Total</p>
+                            <p>&#8369;${order.totalAmount}</p>
+                            </div>
+                            <div class="order-id">
+                            <p class="order-id-text">Order ID:</p>
+                            <p>${order.orderID}</p>
+                            </div>
                         </div>
-                        <div class="order-total">
-                        <p class="order-total-text">Total</p>
-                        <p>&#8369;${order.totalAmount}</p>
+                        <div class="second-section">
+                            <div>
+                            ${orderDetails(index)}
+                            </div>
+                            <div class="track-package">
+                                ${getOrderStatus(order)}
+                            </div> 
                         </div>
-                        <div class="order-id">
-                        <p class="order-id-text">Order ID:</p>
-                        <p>${order.orderID}</p>
-                        </div>
-                    </div>
-                    <div class="second-section">
-                        <div>
-                        ${orderDetails(index)}
-                        </div>
-                        <div class="track-package">
-                            ${getOrderStatus(order)}
-                        </div> 
-                    </div>
-                </div>`
-            }
-        } else { 
-            html += `
-            <div class="order-container">
-                <div class="first-section">
-                    <div class="order-placed">
-                    <p class="order-placed-text">Order Placed:</p>
-                    <p>${order.orderDate}</p>
-                    </div>
-                    <div class="order-total">
-                    <p class="order-total-text">Total</p>
-                    <p>&#8369;${order.totalAmount}</p>
-                    </div>
-                    <div class="order-id">
-                    <p class="order-id-text">Order ID:</p>
-                    <p>${order.orderID}</p>
-                    </div>
-                </div>
-                <div class="second-section">
-                    <div>
-                    ${orderDetails(index)}
-                    </div>
-                    <div class="track-package">
-                        ${getOrderStatus(order)}
-                    </div> 
-                </div>
-            </div>`
+                    </div>`
 
-        }
-    });
+                }
+            }
+        });
+    }
     document.querySelector('.orders-grid').innerHTML = html;
     trackCancelEventListener();
 }
@@ -173,20 +190,15 @@ async function buyAgain (dataSet) {
    if ( targetProduct.quantity <= targetProduct.product.stock) {
         const choice = confirm('Are you sure you want to buy this product again?')
         if ( choice ) {
-            let productsToBeAdded = []; 
-            orderDetailsData.forEach((data, index) => { 
-                if ( dataSet === data.orderDetail_ID) {
-                    productsToBeAdded.push({
-                        product_ID: data.productID,
-                        subTotal: data.subTotal,
-                        quantity: data.quantity,
-                        customer_ID: 1
-                    })
-                }
-            })
+            const productsToBeAdded = { 
+                product_ID: targetProduct.productID,
+                subTotal: targetProduct.subTotal,
+                quantity: targetProduct.quantity,
+                customer_ID: targetProduct.orders.customerID
+            }
 
-            cartList.forEach((cart) => {
-                if (productsToBeAdded[0].product_ID === cart.product_ID) {
+            customerCart.forEach((cart) => {
+                if (productsToBeAdded.product_ID === cart.product_ID) {
                     updateCart(cart, productsToBeAdded)
                     productsToBeAdded = []
                 }
@@ -195,6 +207,7 @@ async function buyAgain (dataSet) {
             await insertCart(productsToBeAdded)
             }
             await retrieveCart();
+            getCustomerCart();
             updateCartQuantity()
         }
     } else { 
@@ -210,9 +223,9 @@ async function insertCart (productsToBeAdded) {
 }
 
 async function updateCart(cart, productsToBeAdded) {
-    productsToBeAdded[0].quantity += cart.quantity
-    productsToBeAdded[0].subTotal += cart.subTotal
-    const {error} = await supabase.from('cart').update({quantity : productsToBeAdded[0].quantity, subTotal : productsToBeAdded[0].subTotal}).eq('cart_id', cart.cart_id);
+    productsToBeAdded.quantity += cart.quantity
+    productsToBeAdded.subTotal += cart.subTotal
+    const {error} = await supabase.from('cart').update({quantity : productsToBeAdded.quantity, subTotal : productsToBeAdded.subTotal}).eq('cart_id', cart.cart_id);
     if (error) { 
         console.error(error);
     }   
@@ -320,7 +333,7 @@ async function updateOrderStatus (dataID, reason) {
 }
 
 function updateCartQuantity () {
-  document.querySelector('.cart-quantity-modal').innerHTML = cartList.length;
+  document.querySelector('.cart-quantity-modal').innerHTML = customerCart.length;
 }
 
 function addEventListener () {
@@ -344,6 +357,7 @@ function addEventListener () {
 await retrieveOrder();
 await retrieveOrderDetails();
 await retrieveCart();
+getCustomerCart();
 updateCartQuantity();
 generateOrderContainer();
 generateModal();

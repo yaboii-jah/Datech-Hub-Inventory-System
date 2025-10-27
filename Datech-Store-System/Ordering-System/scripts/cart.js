@@ -111,29 +111,27 @@ function generateHTML () {
 } 
 
 function addEventListeners () { 
-  if (cartList != '') { 
-    let addBtnElement = document.querySelectorAll('.add-quantity-btn')
-    let subtractBtnElement = document.querySelectorAll('.subtract-quantity-btn');
-    let cartBtnElement = document.querySelectorAll('.cart-trash-btn');
+  let addBtnElement = document.querySelectorAll('.add-quantity-btn')
+  let subtractBtnElement = document.querySelectorAll('.subtract-quantity-btn');
+  let cartBtnElement = document.querySelectorAll('.cart-trash-btn');
 
-    for ( let i = 0; i < subtractBtnElement.length; i++) { 
-      let dataName = addBtnElement[i].dataset.name;
-      subtractBtnElement[i].addEventListener('click', () => { 
-        subtractQuantity(dataName);
-      })
-      addBtnElement[i].addEventListener('click', () => {
-        console.log('hello')
-        addQuantity(dataName);
-      })
-      cartBtnElement[i].addEventListener('click', () => {
-        deleteProduct(dataName);
-      })
-    }
-
-    document.querySelector('.checkout-btn').addEventListener('click', () => {
-      confirmCheckout();
+  for ( let i = 0; i < subtractBtnElement.length; i++) { 
+    let dataName = addBtnElement[i].dataset.name;
+    subtractBtnElement[i].addEventListener('click', () => { 
+      subtractQuantity(dataName);
     })
-  } 
+    addBtnElement[i].addEventListener('click', () => {
+      console.log('hello')
+      addQuantity(dataName);
+    })
+    cartBtnElement[i].addEventListener('click', () => {
+      deleteProduct(dataName);
+    })
+  }
+
+  document.querySelector('.checkout-btn').addEventListener('click', () => {
+    confirmCheckout();
+  })
 }
 
 
@@ -211,37 +209,30 @@ async function fetchUUID () {
   }
 }
 
-
- async function confirmCheckout () {
-  if ( cartList.length !== 0) { 
-    let choice = confirm('Are you sure you want to checkout?');
-  
-    if (choice) { 
-      await insertOrders();
-      await deleteCart();
-      setTimeout(() => {window.location.href = "./checkout.html" }, 1000)
-    }
-  } else { 
-     alert('No items in the cart');
+async function confirmCheckout () {
+  let choice = confirm('Are you sure you want to checkout?');
+  if (choice) { 
+    await insertOrders();
+    await deleteCart();
+    setTimeout(() => {window.location.href = "./checkout.html" }, 1000)
   }
 }
 
-async function insertOrders () { 
-  let orders = [];
-  orders.push({
+async function insertOrders () {
+  const orders = {
     orderID : await fetchUUID(),
     totalAmount : cartTotal,
-    customerID : 1, 
+    customerID : customerCart[0].Customer.customerID, 
     status : 'pending',
     orderEnd : getEndDate()
-  })
+  }
+
   try { 
-    const { error } = await supabase.from('orders').insert(orders[0])
+    const { error } = await supabase.from('orders').insert(orders)
     insertOrderDetails(orders);
     if (error) {
       console.error(error);
     }
-
   } catch (error) { 
     console.error(error)
   }
@@ -249,15 +240,16 @@ async function insertOrders () {
 
 async function insertOrderDetails (orders) {
   let orderDetails = [];
-  cartList.forEach((product) => {
+  customerCart.forEach((product) => {
     orderDetails.push({
       productID : product.product.product_ID,
       quantity : product.quantity,
       unitPrice : product.product.price,
       subTotal : product.subTotal,
-      orderID :  orders[0].orderID
+      orderID :  orders.orderID
     })
   }); 
+
   try { 
     const {error} = await supabase.from('orderDetails').insert(orderDetails)
     updateProductStock(orderDetails)
@@ -271,7 +263,7 @@ async function insertOrderDetails (orders) {
 }
 
 async function deleteCart () {
-  cartList.forEach( async (product) => { 
+  customerCart.forEach( async (product) => { 
      const {error} = await supabase.from('cart').delete().eq('cart_id', product.cart_id);
      if (error) {
       console.error(error);
@@ -298,8 +290,6 @@ async function updateProductStock (orderDetails) {
     })
   })
 
-  console.log(productUpdatedStock);
-
   try { 
     const {error} = await supabase.from('product').upsert(productUpdatedStock)
     if (error) { 
@@ -310,10 +300,12 @@ async function updateProductStock (orderDetails) {
   }
  
 }
-
+ 
 function getEndDate() {
-  const date = new Date(); 
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate() + 6}`
+  const today = new Date(); 
+  today.setDate(today.getDate() + 6)
+
+  return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
 }
 
 function updateCartQuantity () {

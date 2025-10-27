@@ -1,9 +1,5 @@
-import { setArray } from "./module.js"; 
+const today = new Date();
+today.setDate(today.getDate() + 6)
 
-let array = 5
-setArray(array)
-
-const date = new Date();
-
-console.log(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`)
-
+console.log(today)
+console.log(`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`);
