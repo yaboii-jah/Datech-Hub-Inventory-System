@@ -55,6 +55,7 @@ function signInEventListener () {
   })
 }
 
+
 function logOutEventListener () { 
   document.querySelector('.logout-btn').addEventListener('click', () => {
     logOut();

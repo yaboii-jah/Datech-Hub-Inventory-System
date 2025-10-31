@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-  height: 280px;
+  height: 330px;
   margin-bottom: 200px;
   padding: 0px 5px 0px 5px;
 }
@@ -34,7 +34,7 @@
 
 .sidebar-links:hover {
   background-color: #3e3e3e;
-  .sidebar-product-button { 
+  .sidebar-product-button, .sidebar-order-button { 
     background-color: #3e3e3e;
   }
 }
@@ -52,7 +52,7 @@
   width: 100px;
 }
 
-.sidebar-product-button {
+.sidebar-product-button, .sidebar-order-button {
   text-align: left;
   background-color: #1c2120;
   color: white;
@@ -63,7 +63,7 @@
   cursor: pointer;
 }
 
-.products-extension-section {
+.products-extension-section, .orders-extension-section {
   display: flex;
   flex-direction: column;
 }
@@ -78,7 +78,7 @@
   opacity: 0.8;
 }
 
-.product-extension {
+.product-extension, .orders-extension {
   display: flex;
   align-items: center;
   margin-left: 40px;

@@ -1,28 +1,5 @@
-function isProductExtension () { 
-  if ( localStorage.getItem('isProductExtension') === 'true') { 
-    return ` 
-    <div class="product-extension">
-      <img class="product-dot-icon" src="icons/product-dot-icon.svg">
-      <a class="extension-link" href="./add-product.html">Add product</a>
-    </div>
-    <div class="product-extension">
-      <img class="product-dot-icon" src="icons/product-dot-icon.svg">
-      <a class="extension-link" href="./products.html">Manage Products</a>
-    </div> `
-   } else { 
-    return '';
-   }
-}
-
-function isChevron () {
-  if ( localStorage.getItem('isProductExtension') === 'true') { 
-    return `icons/chevron-up-icon.svg`
-  } else {
-    return `icons/chevron-down-icon.svg`
-  }
-}
-
-document.querySelector('.sidebar').innerHTML 
+function generateSideBar () { 
+  document.querySelector('.sidebar').innerHTML 
   = 
   ` <div class="first-section">
       </div>
@@ -33,23 +10,21 @@ document.querySelector('.sidebar').innerHTML
         <a class="sidebar-link" href="">Dashboard</a>
       </div>
       <div class="side-products sidebar-links">
-        <img class="sidebar-image" src="icons/product-icon.svg">
-        <button class="sidebar-product-button">Products</button>
-        <img class="sidebar-image product-chevron-icon" src="${isChevron()}">
       </div>
 
-      <div class="products-extension-section">${isProductExtension()}</div>
+      <div class="products-extension-section"></div>
 
       <div class="side-category sidebar-links">
         <img class="sidebar-image" src="icons/category-icon.svg">
         <a class="sidebar-link" href="./category.html">Category</a>
       </div>
+
       <div class="side-order sidebar-links">
-        <img class="sidebar-image" src="icons/order-icon.svg">
-        <a class="sidebar-link" href="./order.html">Orders</a>
-        <img class="sidebar-image category-chevron-icon" src="icons/chevron-down-icon.svg">
       </div>
-      <div class="side-order sidebar-links">
+
+      <div class="orders-extension-section"></div>
+
+      <div class="side-report sidebar-links">
          <img class="sidebar-image" src="icons/report-icon.svg">
         <a class="sidebar-link" href="">Report</a>
       </div>
@@ -66,11 +41,12 @@ document.querySelector('.sidebar').innerHTML
       </div>
     </div> 
   `
-document.querySelector('.sidebar-product-button').addEventListener('click', () => {
-  const productExtensionElement = document.querySelector('.products-extension-section')
+}
 
-  if(productExtensionElement.innerHTML === '') {
-    productExtensionElement.innerHTML = `
+
+function isProductExtension () { 
+  if ( localStorage.getItem('isProductExtension') === 'true') { 
+    return ` 
     <div class="product-extension">
       <img class="product-dot-icon" src="icons/product-dot-icon.svg">
       <a class="extension-link" href="./add-product.html">Add product</a>
@@ -79,52 +55,117 @@ document.querySelector('.sidebar-product-button').addEventListener('click', () =
       <img class="product-dot-icon" src="icons/product-dot-icon.svg">
       <a class="extension-link" href="./products.html">Manage Products</a>
     </div> `
-    localStorage.setItem('isProductExtension', 'true')
-    document.querySelector('.product-chevron-icon').setAttribute('src', isChevron());
+   } else { 
+    return '';
+   }
+}
+
+function isProductChevron () {
+  if ( localStorage.getItem('isProductExtension') === 'true') { 
+    return `icons/chevron-up-icon.svg`
   } else {
-    productExtensionElement.innerHTML = '';
-    localStorage.setItem('isProductExtension', 'false')
-    document.querySelector('.product-chevron-icon').setAttribute('src', isChevron());
+    return `icons/chevron-down-icon.svg`
   }
-})
+}
 
-/*  
-  <div class="products-extension-section activated">     
-    <div class="product-extension">
+function generateProductExtension () { 
+  document.querySelector('.side-products').innerHTML 
+  =  `
+  <img class="sidebar-image" src="icons/product-icon.svg">
+  <button class="sidebar-product-button">Products</button>
+  <img class="sidebar-image product-chevron-icon" src="${isProductChevron()}">
+  `
+  document.querySelector('.products-extension-section').innerHTML
+  = `${isProductExtension()}`
+
+  productExtensionEventListener();
+}
+
+function productExtensionEventListener () { 
+  document.querySelector('.sidebar-product-button').addEventListener('click', () => {
+    const productExtensionElement = document.querySelector('.products-extension-section')
+
+    if(productExtensionElement.innerHTML === '') {
+      productExtensionElement.innerHTML = `
+      <div class="product-extension">
+        <img class="product-dot-icon" src="icons/product-dot-icon.svg">
+        <a class="extension-link" href="./add-product.html">Add product</a>
+      </div>
+      <div class="product-extension">
+        <img class="product-dot-icon" src="icons/product-dot-icon.svg">
+        <a class="extension-link" href="./products.html">Manage Products</a>
+      </div> `
+      localStorage.setItem('isProductExtension', 'true')
+      document.querySelector('.product-chevron-icon').setAttribute('src', isProductChevron());
+    } else {
+      productExtensionElement.innerHTML = '';
+      localStorage.setItem('isProductExtension', 'false')
+      document.querySelector('.product-chevron-icon').setAttribute('src', isProductChevron());
+    }
+  })
+}
+
+function generateOrderExtension () {
+  document.querySelector('.side-order').innerHTML 
+  = `
+  <img class="sidebar-image" src="icons/order-icon.svg">
+  <button class="sidebar-order-button">Orders</button>
+  <img class="sidebar-image category-chevron-icon" src="${isOrderChevron()}">
+  `
+  document.querySelector('.orders-extension-section').innerHTML
+  = `${isOrderExtension()}`
+
+  orderExtensionEventListener();
+}
+
+function isOrderExtension () { 
+  if ( localStorage.getItem('isOrdersExtension') === 'true') { 
+    return ` 
+    <div class="orders-extension">
       <img class="product-dot-icon" src="icons/product-dot-icon.svg">
-      <a class="extension-link" href="add-product.html">Add product</a>
+      <a class="extension-link" href="./add-product.html">Add Order</a>
     </div>
-    <div class="product-extension">
+    <div class="orders-extension">
       <img class="product-dot-icon" src="icons/product-dot-icon.svg">
-      <a class="extension-link" href="add-product.html">Manage Products</a>
-    </div>
-  </div>
-
-
-
-
-.products-extension-section {
-  display: flex;
-  flex-direction: column;
+      <a class="extension-link" href="./order.html">Manage Orders</a>
+    </div> `
+   } else { 
+    return '';
+   }
 }
 
-.extension-link { 
-  color: white;
-  font-size: 14px;
-  text-decoration: none;
+function isOrderChevron () {
+  if ( localStorage.getItem('isOrdersExtension') === 'true') { 
+    return `icons/chevron-up-icon.svg`
+  } else {
+    return `icons/chevron-down-icon.svg`
+  }
 }
 
-.extension-link:hover {
-  opacity: 0.8;
+function orderExtensionEventListener () { 
+  document.querySelector('.sidebar-order-button').addEventListener('click', () => {
+    const ordersExtensionElement = document.querySelector('.orders-extension-section')
+
+    if(ordersExtensionElement.innerHTML === '') {
+      ordersExtensionElement.innerHTML = `
+      <div class="orders-extension">
+        <img class="product-dot-icon" src="icons/product-dot-icon.svg">
+        <a class="extension-link" href="./add-product.html">Add Order</a>
+      </div>
+      <div class="orders-extension">
+        <img class="product-dot-icon" src="icons/product-dot-icon.svg">
+        <a class="extension-link" href="./products.html">Manage Orders</a>
+      </div> `
+      localStorage.setItem('isOrdersExtension', 'true')
+      document.querySelector('.category-chevron-icon').setAttribute('src', isOrderChevron());
+    } else {
+      ordersExtensionElement.innerHTML = '';
+      localStorage.setItem('isOrdersExtension', 'false')
+      document.querySelector('.category-chevron-icon').setAttribute('src', isOrderChevron());
+    }
+  })
 }
 
-.product-extension {
-  display: flex;
-  align-items: center;
-  margin-left: 40px;
-}
-
-.product-dot-icon {
-  width: 25px;
-}
-*/
+generateSideBar();
+generateProductExtension();
+generateOrderExtension();
