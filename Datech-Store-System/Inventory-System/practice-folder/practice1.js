@@ -1,5 +1,1 @@
-
-
-const time = $('input[name="dates"]').daterangepicker();
-
-console.log(time[0].value)
+console.log('09161163458'.length)

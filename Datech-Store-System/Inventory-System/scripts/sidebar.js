@@ -28,6 +28,13 @@ function generateSideBar () {
          <img class="sidebar-image" src="icons/report-icon.svg">
         <a class="sidebar-link" href="">Report</a>
       </div>
+
+      <div class="side-report sidebar-links">
+         <img class="sidebar-image" src="icons/users-icon.svg">
+        <a class="sidebar-link" href="">Users</a>
+      </div>
+
+
     </div>
 
     <div class="third-section">
@@ -123,7 +130,7 @@ function isOrderExtension () {
     return ` 
     <div class="orders-extension">
       <img class="product-dot-icon" src="icons/product-dot-icon.svg">
-      <a class="extension-link" href="./add-product.html">Add Order</a>
+      <a class="extension-link" href="./add-order.html">Add Order</a>
     </div>
     <div class="orders-extension">
       <img class="product-dot-icon" src="icons/product-dot-icon.svg">
@@ -150,11 +157,11 @@ function orderExtensionEventListener () {
       ordersExtensionElement.innerHTML = `
       <div class="orders-extension">
         <img class="product-dot-icon" src="icons/product-dot-icon.svg">
-        <a class="extension-link" href="./add-product.html">Add Order</a>
+        <a class="extension-link" href="./add-order.html">Add Order</a>
       </div>
       <div class="orders-extension">
         <img class="product-dot-icon" src="icons/product-dot-icon.svg">
-        <a class="extension-link" href="./products.html">Manage Orders</a>
+        <a class="extension-link" href="./order.html">Manage Orders</a>
       </div> `
       localStorage.setItem('isOrdersExtension', 'true')
       document.querySelector('.category-chevron-icon').setAttribute('src', isOrderChevron());

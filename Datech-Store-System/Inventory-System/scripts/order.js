@@ -21,13 +21,22 @@ async function retrieveOrderDetails (orderID) {
 
 function generateDateFilter () {
   const time = new Date()
-  const formattedTime = `${time.getFullYear()}-${time.getMonth()+1}-${time.getDate()}`
+  const formattedTime = `${time.getFullYear()}-${time.getMonth()+1}-${dateFormat(time.getDate())}`
+
   document.querySelector('.date-filter').innerHTML = `
     <label>Date From :</Label>
     <input type="date" class="date-picker start-date" value="2025-10-25" min="2025-10-25" max="${formattedTime}">
     <label>Date To :</label>
     <input type="date" class="date-picker end-date" value="${formattedTime}" value="2025-10-25" min="2025-10-25" max="${formattedTime}">
   `
+}
+
+function dateFormat (date) {
+  let dateFormat = date;
+  if ( date < 10 ) { 
+    dateFormat = `0${date}`
+  }
+  return dateFormat;
 }
 
 function generateOrders (limit = 10) {

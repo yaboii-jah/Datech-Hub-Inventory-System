@@ -190,7 +190,10 @@ function productStatus (status) {
 async function deleteProduct (data, index) {
   const productDetailsElement = document.querySelectorAll('.product-details')
   productDetailsElement[index].remove();
-  await supabase.from('product').delete().eq('name', data)
+  const {error} = await supabase.from('product').delete().eq('name', data)
+  if (error) { 
+    console.error(error.message)
+  }
   retrieveData();
 }
 
