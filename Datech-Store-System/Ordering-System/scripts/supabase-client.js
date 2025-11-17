@@ -2,13 +2,20 @@ import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 export const supabase = createClient(
   "https://fqfvvdqboxjiyxhfhymf.supabase.co",
-  "REMOVED"
+  "REMOVED",
+   {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+    }
+  }
 )
 
-const currentSession = await supabase.auth.getSession();
-
-export function getSession () { 
-  const session = currentSession.data.session;
-  return session;
+export async function getSession() {
+  const { data, error } = await supabase.auth.getSession();
+  if (error) { 
+    console.error(error.message)
+  } else {
+    return data.session;
+  }
 }
-

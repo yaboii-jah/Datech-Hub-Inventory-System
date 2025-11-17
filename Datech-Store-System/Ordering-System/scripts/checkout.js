@@ -5,7 +5,7 @@ let orders = [{}];
 let orderDetailsData = [{}];
 let cartList = [{}];
 let customerCart = [];
-let session = getSession();
+let session = await getSession();
 
 async function retrieveOrder () { 
     const {data, error} = await supabase.from('orders').select(`*, Customer ( * )`);

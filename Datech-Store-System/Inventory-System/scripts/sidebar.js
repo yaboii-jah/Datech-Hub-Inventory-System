@@ -2,12 +2,13 @@ function generateSideBar () {
   document.querySelector('.sidebar').innerHTML 
   = 
   ` <div class="first-section">
-      </div>
+      <img class="logo" src="./images/login/553500235_828562962933788_5955920113283277374_n.png">
+    </div>
 
     <div class="second-section">
       <div class="side-dashboard sidebar-links">
         <img class="sidebar-image" src="icons/dashboard-icon.svg">
-        <a class="sidebar-link" href="">Dashboard</a>
+        <a class="sidebar-link" href="./dashboard.html">Dashboard</a>
       </div>
       <div class="side-products sidebar-links">
       </div>
@@ -26,14 +27,12 @@ function generateSideBar () {
 
       <div class="side-report sidebar-links">
          <img class="sidebar-image" src="icons/report-icon.svg">
-        <a class="sidebar-link" href="">Report</a>
+        <a class="sidebar-link" href="./reports.html">Report</a>
       </div>
 
-      <div class="side-report sidebar-links">
-         <img class="sidebar-image" src="icons/users-icon.svg">
-        <a class="sidebar-link" href="">Users</a>
-      </div>
+      <div class="side-users sidebar-links"></div>
 
+      <div class="users-extension-section"></div>
 
     </div>
 
@@ -44,12 +43,11 @@ function generateSideBar () {
       </div>
       <div class="side-logout sidebar-links">
         <img class="sidebar-image" src="icons/logout-icon.svg">
-        <a class="sidebar-link" href="">Logout</a>
+        <a class="sidebar-link" href="./login.html">Logout</a>
       </div>
     </div> 
   `
 }
-
 
 function isProductExtension () { 
   if ( localStorage.getItem('isProductExtension') === 'true') { 
@@ -173,6 +171,68 @@ function orderExtensionEventListener () {
   })
 }
 
+function isUserExtension () { 
+  if ( localStorage.getItem('isUsersExtension') === 'true') { 
+    return ` 
+    <div class="users-extension">
+      <img class="product-dot-icon" src="icons/product-dot-icon.svg">
+      <a class="extension-link" href="./add-user.html">Add Users</a>
+    </div>
+    <div class="users-extension">
+      <img class="product-dot-icon" src="icons/product-dot-icon.svg">
+      <a class="extension-link" href="./users.html">Manage Users</a>
+    </div> `
+   } else { 
+    return '';
+   }
+}
+
+function isUserChevron () {
+  if ( localStorage.getItem('isUsersExtension') === 'true') { 
+    return `icons/chevron-up-icon.svg`
+  } else {
+    return `icons/chevron-down-icon.svg`
+  }
+}
+
+function generateUserExtension () { 
+  document.querySelector('.side-users').innerHTML 
+  =  `
+   <img class="sidebar-image" src="icons/users-icon.svg">
+   <button class="sidebar-users-button">Users</button>
+   <img class="sidebar-image users-chevron-icon" src="${isUserChevron()}">
+  `
+  document.querySelector('.users-extension-section').innerHTML
+  = `${isUserExtension()}`
+
+  UserExtensionEventListener();
+}
+
+function UserExtensionEventListener () { 
+  document.querySelector('.sidebar-users-button').addEventListener('click', () => {
+    const usersExtensionElement = document.querySelector('.users-extension-section')
+
+    if(usersExtensionElement.innerHTML === '') {
+      usersExtensionElement.innerHTML = `
+      <div class="users-extension">
+        <img class="product-dot-icon" src="icons/product-dot-icon.svg">
+        <a class="extension-link" href="./add-user.html">Add Users</a>
+      </div>
+      <div class="users-extension">
+        <img class="product-dot-icon" src="icons/product-dot-icon.svg">
+        <a class="extension-link" href="./users.html">Manage Users</a>
+      </div> `
+      localStorage.setItem('isUsersExtension', 'true')
+      document.querySelector('.users-chevron-icon').setAttribute('src', isUserChevron());
+    } else {
+      usersExtensionElement.innerHTML = '';
+      localStorage.setItem('isUsersExtension', 'false')
+      document.querySelector('.users-chevron-icon').setAttribute('src', isUserChevron());
+    }
+  })
+}
+
 generateSideBar();
 generateProductExtension();
 generateOrderExtension();
+generateUserExtension();

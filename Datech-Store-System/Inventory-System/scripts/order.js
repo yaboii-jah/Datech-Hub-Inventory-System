@@ -62,11 +62,12 @@ function generateOrders (limit = 10) {
     </div>`
   }
   document.querySelector('.order-list').innerHTML = html;
-  generatePagination(orders)
+  generatePagination(filteredOrderDetails)
   ordersEventListener();
 }
 
 function generatePagination (filteredData) {
+  console.log(filteredData)
   let paginationElement = document.querySelector('.pagination');
   let paginationButton = 1
   let limit = 10
@@ -307,7 +308,6 @@ function ordersEventListener () {
     })
   })
 }
-
 
 await retrieveOrders()
 generateDateFilter();

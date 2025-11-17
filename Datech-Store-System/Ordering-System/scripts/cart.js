@@ -6,7 +6,7 @@ let cartList = [];
 let cartTotal = 0;
 let productList = [{}];
 let customerCart = []
-let session = getSession();
+let session = await getSession();
 
 async function retrieveProducts () {
   try { 

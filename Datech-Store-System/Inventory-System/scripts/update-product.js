@@ -2,6 +2,7 @@ import {supabase} from './supabase-client.js'
 import {getUpdatedData} from './update-module.js';
 
 let categoryData = [{}];
+
 function replaceValues () {
   document.querySelector('.product-name-input').value = getUpdatedData().name;
   document.querySelector('.quantity-input').value = getUpdatedData().stock;

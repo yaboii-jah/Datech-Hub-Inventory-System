@@ -1,11 +1,11 @@
 document.querySelector('.nav-bar-container').innerHTML = `
   <div class="nav-bar">
       <div class="img-section">
-        <a href="index.html"><img src="images/shop-logo/supreme_bikes_logo.avif" alt=""></a>
+        <a href="index.html"><img src="" alt=""></a>
       </div>
 
       <div class="links-section">
-        <button class="nav-btn"><a class="nav-links" href="">Home</a></button>
+        <button class="nav-btn"><a class="nav-links" href="./index.html">Home</a></button>
         <button class="nav-btn">Products</button>
         <button class="nav-btn"><a class="nav-links" href="">New Products</a></button>
         <button class="nav-btn"><a class="nav-links" href="">Contact</a></button>

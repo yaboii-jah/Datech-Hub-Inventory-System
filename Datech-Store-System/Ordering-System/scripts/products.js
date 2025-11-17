@@ -1,12 +1,11 @@
 import { supabase } from './supabase-client.js'
-import { getSession } from './supabase-client.js';
 
 let dataRetrieved = [{}];
 let category = [{}];
 let filteredData = [{}];
 let cart = [{}];
 let customers = [{}];
-let session = getSession();
+const { data: { session } } = await supabase.auth.getSession();
 
 async function retrieveData () { 
   try { 
@@ -62,7 +61,7 @@ function showProductType () {
     `
   })
   document.querySelector('.product-type-select').innerHTML = `
-    <option value="default">Product Type</option>
+    <option value="default">All Products</option>
     ${html}
   `
 }

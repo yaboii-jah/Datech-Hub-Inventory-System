@@ -1,7 +1,18 @@
-import { supabase } from './supabase-client.js'
-import { getSession } from './supabase-client.js';
+import { supabase, getSession } from './supabase-client.js'
 
-let session = getSession();
+let session = await getSession();
+  
+supabase.auth.onAuthStateChange((event, Session ) => {
+  if (event === 'SIGNED_IN') { 
+    window.location.href = "./index.html"
+  } 
+  if ( event === 'SIGNED_OUT') {
+    window.location.href = "./index.html"
+  }
+  if (event === 'TOKEN_REFRESHED'){
+    session = Session 
+  }
+})
 
 async function getCustomerInfo () { 
   const customerInfo = {
@@ -15,16 +26,11 @@ async function logIn (customerInfo) {
   const {error} = await supabase.auth.signInWithPassword(customerInfo);
   if (error) { 
     console.error(error.message);
-  } else {
-    await getSession();
-    window.location.href = "./index.html"
-  }
+  } 
 }
 
 async function logOut () { 
   await supabase.auth.signOut();
-  await getSession()
-  window.location.href = "./index.html"
 }
 
 function generateHTML () {
