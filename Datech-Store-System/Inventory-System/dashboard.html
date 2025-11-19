@@ -49,7 +49,7 @@
       </div>
         <div class="information-container">
         <div class="icon-section">
-          <img class="icons" src="icons/users-icon.svg">
+          <img class="icons" src="icons/sales-icon.svg">
         </div>
         <div class="details">
           <p class="number">7950</p>
@@ -57,13 +57,111 @@
         </div>
       </div>
     </div>
-    <div class="statistical-information">
+    <div class="middle-section">
+      <div class="sales-information">
+        <div class="sales-chart-section">
+          <div class="chart-headers-filter">
+            <p class="chart-title">Total Sales</p>
+            <select class="sales-dropdown" name="option" id="">
+              <option value="">This Year</option>
+            </select>
+          </div>
+          <canvas class="sales-chart"></canvas>
+        </div>
+      </div> 
       
+      <div class="out-of-stock">
+        <div class="header">
+          <p>Out of Stock</p>
+          <Select></Select>
+        </div>
+        <div class="product-table">
+          <div class="table-headers">
+            <p class="product-name">Name</p>
+            <p>Category</p>
+            <p>Price</p>
+          </div>
+          <div class="product-list">
+            <div class="product-container">
+              <p class="name">AMD Ryzen 5 3600 6 Core 12 Threads With Fan</p>
+              <p class="product-category">Processor</p>
+              <p class="product-price">&#8369; 120500</p>
+            </div>  
+          </div>
+          <div class="product-pagination-section">
+            <div class="product-pagination">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-section">
+      <div class="recent-orders">
+        <div class="recent-order-header">
+          <p>Recent Orders</p>
+        </div>
+        <div class="order-header">  
+          <p>Customer</p>
+          <p>Order ID</p>
+          <p>Total</p>
+          <p>Status</p>
+        </div>
+        <div class="order-list">
+          <div class="order-container">
+            <p class="customer-name">Jahmell Dorias</p>
+            <p class="orderID">3ed6393e-ccad-4cb0-9a0a-732c3d5892e8</p>
+            <p class="total">&#8369; 150000</p>
+            <p class="status">Pending</p>
+          </div>
+          <div class="order-container">
+            <p class="customer-name">Jahmell Dorias</p>
+            <p class="orderID">3ed6393e-ccad-4cb0-9a0a-732c3d5892e8</p>
+            <p class="total">&#8369; 150000</p>
+            <p class="status">Pending</p>
+          </div>
+           <div class="order-container">
+            <p class="customer-name">Jahmell Dorias</p>
+            <p class="orderID">3ed6393e-ccad-4cb0-9a0a-732c3d5892e8</p>
+            <p class="total">&#8369; 150000</p>
+            <p class="status">Pending</p>
+          </div> <div class="order-container">
+            <p class="customer-name">Jahmell Dorias</p>
+            <p class="orderID">3ed6393e-ccad-4cb0-9a0a-732c3d5892e8</p>
+            <p class="total">&#8369; 150000</p>
+            <p class="status">Pending</p>
+          </div>
+           <div class="order-container">
+            <p class="customer-name">Jahmell Dorias</p>
+            <p class="orderID">3ed6393e-ccad-4cb0-9a0a-732c3d5892e8</p>
+            <p class="total">&#8369; 150000</p>
+            <p class="status">Pending</p>
+          </div>
+           <div class="order-container">
+            <p class="customer-name">Jahmell Dorias</p>
+            <p class="orderID">3ed6393e-ccad-4cb0-9a0a-732c3d5892e8</p>
+            <p class="total">&#8369; 150000</p>
+            <p class="status">Pending</p>
+          </div>
+        </div>
+        <div>
+          <div class="order-pagination-section">
+            <div class="order-pagination"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sales-category">
+        <p class="category-header">Category Sales</p>
+        <div class="category-section">
+          <canvas class="category-chart"></canvas>
+        </div>
+      </div>
     </div>
   </div>
-  
-  <script src="scripts/sidebar.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="scripts/sidebar.js"></script>
   <script type="module" src="scripts/navbar.js"></script>
   <script src="scripts/dashboard.js"></script>
+ 
 </body>
 </html>

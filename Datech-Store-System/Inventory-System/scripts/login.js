@@ -27,13 +27,14 @@ async function logIn () {
   if (isValid) {
     await updateUserStatus(userID)
     window.location.href = './dashboard.html'
-  } else { 
-    alert('Invalid Details!')
-  }
+  }  else {
+    alert('Invalid Details')
+  } 
+
 }
 
 async function updateUserStatus (userID) {
-  const {error} = await supabase.from('users').update({status : 'active'}).eq('userID', userID)
+  const {error} = await supabase.from('users').update({status : 'Active'}).eq('userID', userID)
   if (error) { 
     console.error(error.message)
   }

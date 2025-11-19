@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   width: 200px;
-  height:   100%;
+  height: 100%;
   background-color: #1c2120;
 }
 
@@ -25,9 +25,8 @@
 .second-section {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  height: 430px;
-  margin-bottom: 40px;
+  gap: 10px;
+  height: 520px;
   padding: 0px 5px 0px 5px;
 }
 
@@ -41,7 +40,7 @@
 
 .sidebar-links:hover {
   background-color: #3e3e3e;
-  .sidebar-product-button, .sidebar-order-button, .sidebar-users-button { 
+  .sidebar-product-button, .sidebar-order-button, .sidebar-users-button, .sidebar-logout-button { 
     background-color: #3e3e3e;
   }
 }
@@ -59,7 +58,7 @@
   width: 100px;
 }
 
-.sidebar-product-button, .sidebar-order-button, .sidebar-users-button {
+.sidebar-product-button, .sidebar-order-button, .sidebar-users-button, .sidebar-logout-button {
   text-align: left;
   background-color: #1c2120;
   color: white;
@@ -99,5 +98,5 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 120px;
+  height: 60px;
 }

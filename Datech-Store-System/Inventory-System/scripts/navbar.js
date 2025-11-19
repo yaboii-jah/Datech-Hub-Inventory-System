@@ -20,7 +20,7 @@ function setNavBarDetails () {
     <img class="profile-pic" src="images/profile-pic.jpg">
     <div class="user-details">
       <p class="user-name">${getUserName()}</p>
-      <p class="user-role">Store Admin</p>
+      <p class="user-role">Store ${getUserRole()}</p>
     </div>
   </div>
   `
@@ -39,6 +39,16 @@ function getDate () {
   }
 
   return `${numDay} ${monthName} ${date.getFullYear()}`
+}
+
+function getUserRole () {
+  let role;
+  users.forEach((user) => {
+    if (user.status === 'Active') {
+      role = `${user.role}`
+    }
+  })
+  return role;
 }
 
 function getUserName () {
