@@ -155,7 +155,12 @@
 
 .inactive { 
   color: white;
-  background-color: red;
+  background-color: #9CA3AF;
+}
+
+.out-of-stock {
+  color: white;
+  background-color: #EF4444;
 }
 
 .action {

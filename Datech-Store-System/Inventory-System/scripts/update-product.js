@@ -8,7 +8,7 @@ function replaceValues () {
   document.querySelector('.quantity-input').value = getUpdatedData().stock;
   document.querySelector('.status-select').value = getUpdatedData().status;
   document.querySelector('.price-input').value = getUpdatedData().price;
-  document.querySelector('.file-image-input').value = getUpdatedData().image;
+  document.querySelector('.custom-file-upload').innerHTML = getUpdatedData().image;
   document.querySelector('.category-select').value = getUpdatedData().category.category_ID
   document.querySelector('.add-product-button').innerHTML = 'Update Product';
   console.log(document.querySelector('.category-select'));
@@ -23,13 +23,26 @@ async function updateData () {
     image: document.querySelector('.file-image-input').value, 
     category_ID: Number(document.querySelector('.category-select').value)
   };
-  
   let hasValue = true;
+
   Object.values(addedProduct).forEach((product) => {
     if ( product === '' || product === 0) { 
       hasValue = false;
     }
   })
+
+  if ( addedProduct.status === 'Inactive') {
+    hasValue = true;
+  }
+
+  if (addedProduct.status === 'Active' && addedProduct.stock === 0) {
+    alert('Please Increase The Stock')
+    return
+  }
+
+  if (addedProduct.status === 'Out of Stock' && addedProduct.stock === 0) {
+    hasValue = true;
+  }
 
   if (hasValue) { 
     const choice = confirm('Are you sure you want to update this product?')
@@ -45,7 +58,7 @@ async function updateData () {
 }
 
 async function retrieveCategoryData () { 
-  const { data, error} = await supabase.from('category').select().eq('status', 'Active');
+  const { data, error} = await supabase.from('category').select();
 
   if (error) { 
     console.error('there is an error');

@@ -31,8 +31,8 @@
       <img class="add-product-status-icon" src="icons/status-icon.svg" alt="">
       <select class="status-select" name="status">
         <option value="" disabled selected>Select Product Status</option>
-        <option value="Active">ACTIVE</option>
-        <option value="Inactive">INACTIVE</option>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
         <option value="Out of Stock">Out of Stock</option>
       </select>
     
@@ -44,7 +44,10 @@
       <img class="price-icon" src="icons/product-black-icon.svg">
       <input class="price-input" type="number" placeholder="Price">
       <img class="image-icon" src="icons/image-icon.svg" alt="">
-      <input class="file-image-input" type="text" placeholder="Image Path">
+      <label for="file-upload" class="custom-file-upload">
+        Select Image
+      </label>
+      <input id="file-upload" type="file">
     </div>
 
     <div class="add-product-button-container">

@@ -1,18 +1,20 @@
 import { supabase, getSession } from './supabase-client.js'
 
 let session = await getSession();
-  
-supabase.auth.onAuthStateChange((event, Session ) => {
+ 
+function authEventListener () {
+  supabase.auth.onAuthStateChange((event, session ) => {
   if (event === 'SIGNED_IN') { 
-    window.location.href = "./index.html"
+  
   } 
   if ( event === 'SIGNED_OUT') {
-    window.location.href = "./index.html"
+    
   }
   if (event === 'TOKEN_REFRESHED'){
     session = Session 
   }
 })
+}
 
 async function getCustomerInfo () { 
   const customerInfo = {
@@ -68,4 +70,5 @@ function logOutEventListener () {
   })
 }
 
+authEventListener();
 generateHTML();

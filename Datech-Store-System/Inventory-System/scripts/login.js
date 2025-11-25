@@ -26,7 +26,13 @@ async function logIn () {
 
   if (isValid) {
     await updateUserStatus(userID)
-    window.location.href = './dashboard.html'
+    const activeUser = users.find((user) => { if (user.userID === userID) return user})
+    if ( activeUser.role === 'Admin') { 
+      window.location.href = './dashboard.html'
+    } else {
+      window.location.href = './products.html'
+    }
+
   }  else {
     alert('Invalid Details')
   } 

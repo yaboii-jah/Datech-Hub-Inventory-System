@@ -2,6 +2,7 @@ import {supabase} from './supabase-client.js'
 
 let orderDetails = []
 let products = []
+let modifiedProducts = []
 let targetProduct;
 
 async function retrieveProducts () { 
@@ -11,7 +12,7 @@ async function retrieveProducts () {
     console.error(error.message)
   } else {
     products = data;
-    console.log(products)
+    modifiedProducts = structuredClone(data);
   }
 }
 
@@ -63,7 +64,7 @@ function searchFilterEventListener () {
 function generateProductList(limit = 9) {
   let html = ''
   const startingIndex = limit - 9;
-  const filteredData = products.filter(searchFilter)
+  const filteredData = modifiedProducts.filter(searchFilter)
   for ( let i = startingIndex; i < limit; i++)  {
     if (filteredData[i] === undefined) { 
       break;
@@ -149,7 +150,7 @@ function productSelectEventListener () {
 
 function replacedOrderValues (dataID) {
   targetProduct = dataID
-  const selectedProduct = products.find( p => { if (p.product_ID === Number(targetProduct)) return p})
+  const selectedProduct = modifiedProducts.find( p => { if (p.product_ID === Number(targetProduct)) return p})
   document.querySelector('.select-product').innerHTML = selectedProduct.name
   document.querySelector('.product-quantity').value = 1
   document.querySelector('.product-unit-price').innerHTML = selectedProduct.price
@@ -159,7 +160,7 @@ function replacedOrderValues (dataID) {
 
 function adjustSubTotalByQuantity (dataID) {
   if (document.querySelector('.select-product').innerHTML !== 'Select Product') {
-    const selectedProduct = products.find( p => { if (p.product_ID === Number(dataID)) return p})
+    const selectedProduct = modifiedProducts.find( p => { if (p.product_ID === Number(dataID)) return p})
     document.querySelector('.product-subtotal').innerHTML = document.querySelector('.product-quantity').value * selectedProduct.price;
   } else { 
     alert('Please Select a Product');
@@ -167,15 +168,16 @@ function adjustSubTotalByQuantity (dataID) {
   } 
 }
 
-function checkStock () { 
-
-}
-
-
 function addOrder () {
+  console.log(modifiedProducts)
+  console.log(products)
   if (document.querySelector('.select-product').innerHTML !== 'Select Product') { 
-    const subtotal = Number(document.querySelector('.product-quantity').value) * Number(document.querySelector('.product-unit-price').innerHTML)
-    const isOrder = orderDetails.find(order => {if (Number(targetProduct) === order.productID) return order})
+    const product = modifiedProducts.find(products => { if (Number(targetProduct) === products.product_ID) return products})
+    console.log(product)
+    const quantity = Number(document.querySelector('.product-quantity').value)
+    if ( quantity <= product.stock) {
+      const subtotal = quantity * Number(document.querySelector('.product-unit-price').innerHTML)
+      const isOrder = orderDetails.find(order => {if (Number(targetProduct) === order.productID) return order})
     
     if ( isOrder ) { 
       orderDetails.forEach((order) => {
@@ -192,8 +194,17 @@ function addOrder () {
         subTotal : subtotal
       })
     }
+    // this the part that suppostedly deduct the product stock
+    modifiedProducts.forEach((product) => {
+      if ( Number(targetProduct) === product.product_ID) {
+        product.stock -= quantity;
+      }
+    })
     generateOrderDetails()
     orderTotal();
+    } else {
+      alert('Quantity exceeds available stock.')
+    }
   } else { 
     alert('Please Select a Product');
   }
@@ -202,7 +213,7 @@ function addOrder () {
 function generateOrderDetails () {
   let html = ''
   orderDetails.forEach((orders) => {
-    const selectedProduct = products.find( p => { if (p.product_ID === orders.productID) return orders })
+    const selectedProduct = modifiedProducts.find( p => { if (p.product_ID === orders.productID) return orders })
     html += `
     <div class="order-details-container" data-id="${orders.productID}">
       <p class="product-name">${selectedProduct.name}</p>
@@ -217,10 +228,23 @@ function generateOrderDetails () {
   deleteOrderDetailsEventListener();
 }
 
-function deleteOrderDetails (dataID) { 
-  const deleteOrderDetailsElement = document.querySelector('.delete-btn');
-  const index = orderDetails.findIndex(order => { if (order.productID === dataID) return true; })
-  orderDetails.splice(index, 1);
+function deleteOrderDetails (dataID) {
+  let quantity;
+
+  orderDetails.forEach((products, index) => {
+    if ( products.productID === dataID ) {
+      quantity = products.quantity;
+      orderDetails.splice(index, 1);
+    }
+  })
+
+  // this is the error, make a seperate products container for finalizing order and adding order
+  modifiedProducts.forEach((product) => {
+    if ( dataID === product.product_ID) {
+      product.stock += quantity;
+    } 
+  }) 
+
   document.querySelectorAll('.order-details-container').forEach((container) => {
     const productID = Number(container.dataset.id);
     if ( productID === dataID) { 
@@ -231,7 +255,7 @@ function deleteOrderDetails (dataID) {
 }
 
 function deleteOrderDetailsEventListener () { 
-  document.querySelectorAll('.delete-btn').forEach((deleteBtn) => {
+  document.querySelectorAll('.delete-btn').forEach((deleteBtn, index) => {
     deleteBtn.addEventListener('click', () => {
       const dataID = deleteBtn.dataset.id
       deleteOrderDetails(Number(dataID))
@@ -280,9 +304,10 @@ async function createOrder () {
     order = {
       orderID : await fetchUUID(),
       totalAmount : Number(document.querySelector('.total-input').value),
-      status : 'pending',
+      status : checkStatus(),
       customerID : getCustomerID(customerData),
-      orderEnd : getOrderEnd()
+      orderEnd : getOrderEnd(),
+      orderType : checkOrderType()
     }
 
     orderDetails.forEach((orderDetail) => {
@@ -312,6 +337,24 @@ async function createOrder () {
     setTimeout(window.location.href = "./order.html" , 1000)
   } else { 
     alert('Please Fill All The Details!')
+  }
+}
+
+function checkStatus () {
+  const orderType = document.querySelector('.select-order-type').value
+  if ( orderType === 'COD') {
+    return 'pending'
+  } else if ( orderType === 'Walk-In') {
+    return 'Paid'
+  }
+}
+
+function checkOrderType () {
+  const orderType = document.querySelector('.select-order-type').value
+  if ( orderType === 'COD') {
+    return 'COD'
+  } else if ( orderType === 'Walk-In') {
+    return 'Walk In'
   }
 }
 

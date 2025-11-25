@@ -17,6 +17,7 @@ async function retrieveData () {
     console.error('there is an error');
   } else {
     dataRetrieved = data;
+    checkProductStatus()
     generateProductHTML();
   }
 }
@@ -29,6 +30,38 @@ async function retrieveCategoryData () {
   } else {
     categoryData = data;
     updateCategoryOption();
+  }
+}
+
+async function checkProductStatus () {
+  let productToBeUpdated =  []
+
+  dataRetrieved.forEach((product) => {
+    if (product.stock === 0 || product.status === 'Out of Stock') {
+      product.status = 'Out of Stock'
+      product.stock = 0;
+      productToBeUpdated.push({
+        product_ID : product.product_ID,
+        stock : 0,
+        name : product.name,
+        status : product.status,
+        price : product.price, 
+        image : product.image,
+        category_ID : product.category_ID
+      }) 
+    }
+  })
+  console.log(productToBeUpdated)
+
+  if (productToBeUpdated.length !== 0 ) {
+    updateProductStatus(productToBeUpdated)
+  }
+}
+
+async function updateProductStatus (productToBeUpdated) {
+  const {error} = await supabase.from('product').upsert(productToBeUpdated)
+  if (error) { 
+    console.error(error.message);
   }
 }
 
@@ -182,19 +215,45 @@ function filterEventListener () {
 function productStatus (status) { 
   if (status === 'Active') { 
     return  `<p class="status">${status}</p>` 
-  } else { 
+  } else if (status === 'Inactive') { 
     return  `<p class="status inactive">${status}</p>` 
+  } else if ( status === 'Out of Stock') {
+    return `<p class="status out-of-stock">${status}</p>` 
   }
 }
 
+function urlToPath(url, bucketName = 'Product Images') {
+  const encodedBucket = encodeURIComponent(bucketName);
+  const splitStr = `/object/public/${encodedBucket}/`;
+  const path = url.split(splitStr)[1];
+  const decodedPath = decodeURIComponent(path);
+
+  return decodedPath; 
+}
+
 async function deleteProduct (data, index) {
-  const productDetailsElement = document.querySelectorAll('.product-details')
-  productDetailsElement[index].remove();
-  const {error} = await supabase.from('product').delete().eq('name', data)
-  if (error) { 
-    console.error(error.message)
+  const choice = confirm('Are you sure you want to delete this product?')
+
+  if (choice) {
+    const productDetailsElement = document.querySelectorAll('.product-details')
+    productDetailsElement[index].remove();
+
+    dataRetrieved.forEach(async (product) => {
+      if ( product.name === data) {
+        const path = urlToPath(product.image, 'Product Images')
+        console.log(path)
+        await supabase.storage
+        .from('Product Images')
+        .remove([path]);
+      }
+    })
+
+    const {error} = await supabase.from('product').delete().eq('name', data)
+    if (error) { 
+      console.error(error.message)
+    }
+    retrieveData();
   }
-  retrieveData();
 }
 
 function deleteEventListener() { 
