@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Product</title>
+  <link rel="stylesheet" href="styles/nav-bar.css">
+  <link rel="stylesheet" href="styles/sidebar.css">
+  <link rel="stylesheet" href="styles/add-product.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="nav-bar">
+  </div>
+
+  <div class="sidebar">
+  </div>
+
+  <div class="add-product-container">
+    <div class="product-name-container">
+      <img class="add-product-icon" src="icons/product-black-icon.svg">
+      <input class="product-name-input" type="text" placeholder="Product Name">
+    </div>
+    <div class="product-category-status-container">
+      <img class="add-product-category-icon" src="icons/category-black-icon.svg" alt="">
+      <select class="category-select" name="category">
+      
+      </select>
+      
+      <img class="add-product-status-icon" src="icons/status-icon.svg" alt="">
+      <select class="status-select" name="status">
+        <option value="" disabled selected>Select Product Status</option>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+        <option value="Out of Stock">Out of Stock</option>
+      </select>
+    
+    </div>
+
+    <div class="product-quantity-price-photo-container">
+      <img class="quantity-icon" src= "icons/product-quantity-icon.svg">
+      <input class="quantity-input" type="number" placeholder="Quantity">
+      <img class="price-icon" src="icons/product-black-icon.svg">
+      <input class="price-input" type="number" placeholder="Price">
+      <img class="price-icon" src="icons/product-black-icon.svg">
+      <label for="file-upload" class="custom-file-upload">
+        Select Image
+      </label>
+      <input id="file-upload" type="file">
+    </div>
+
+    <div class="add-product-button-container">
+      <button class="add-product-button">Add Product</button>
+    </div>
+  </div>
+
+  <script type="module" src="scripts/sidebar.js"></script>
+  <script type="module" src="scripts/navbar.js"></script>
+  <script type="module" src="scripts/add-product.js"></script>
+</body>
+</html>

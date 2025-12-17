@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles/nav-bar.css">
+  <link rel="stylesheet" href="styles/sidebar.css">
+  <link rel="stylesheet" href="styles/dashboard.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+   <div class="nav-bar">  
+  </div>
+
+   <div class="sidebar">
+  </div>
+
+  <div class="main-container">
+    <div class="initial-information">
+      <div class="information-container">
+        <div class="icon-section">
+          <img class="icons" src="icons/users-icon.svg">
+        </div>
+        <div class="details">
+          <p class="number users">0</p>
+          <p class="title">Users</p>
+        </div>
+      </div>
+        <div class="information-container">
+        <div class="icon-section">
+          <img class="icons" src="icons/category-icon.svg">
+        </div>
+        <div class="details">
+          <p class="number categories">0</p>
+          <p class="title">Categories</p>
+        </div>
+      </div>
+        <div class="information-container">
+        <div class="icon-section">
+          <img class="icons" src="icons/product-icon.svg">
+        </div>
+        <div class="details">
+          <p class="number products">0</p>
+          <p class="title">Products</p>
+        </div>
+      </div>
+        <div class="information-container">
+        <div class="icon-section">
+          <img class="icons" src="icons/sales-icon.svg">
+        </div>
+        <div class="details">
+          <p class="number sales">0</p>
+          <p class="title">Sales</p>
+        </div>
+      </div>
+    </div>
+    <div class="middle-section">
+      <div class="sales-information">
+        <div class="sales-chart-section">
+          <div class="chart-headers-filter">
+            <p class="chart-title">Total Sales</p>
+            <select class="sales-dropdown" name="option" id="">
+              <option value="year">This Year</option>
+              <option value="month">This Month</option>
+              <option value="week">This Week</option>
+            </select>
+          </div>
+          <canvas class="sales-chart"></canvas>
+        </div>
+      </div> 
+      
+      <div class="out-of-stock">
+        <div class="header">
+          <p>Out of Stock / Low stock</p>
+        </div>
+        <div class="product-table">
+          <div class="table-headers">
+            <p class="product-name">Name</p>
+            <p>Category</p>
+            <p>Price</p>
+            <p>Stock</p>
+          </div>
+          <div class="product-list">
+          </div>
+          <div class="product-pagination-section">
+            <div class="product-pagination">
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+    <div class="bottom-section">
+      <div class="recent-orders">
+        <div class="recent-order-header">
+          <p>Recent Orders</p>
+          <p>Last 7 Days</p>
+        </div>
+        <div class="order-header">  
+          <p>Customer</p>
+          <p>Order ID</p>
+          <p>Total</p>
+          <p>Status</p>
+        </div>
+        <div class="order-list">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="scripts/sidebar.js"></script>
+  <script type="module" src="scripts/navbar.js"></script>
+  <script type="module" src="scripts/dashboard.js"></script>
+ 
+</body>
+</html>

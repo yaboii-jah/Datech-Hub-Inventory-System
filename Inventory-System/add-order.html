@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Order</title>
+  <link rel="stylesheet" href="styles/nav-bar.css">
+  <link rel="stylesheet" href="styles/sidebar.css">
+  <link rel="stylesheet" href="styles/add-order.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <div class="nav-bar">
+  </div>
+
+   <div class="sidebar">z 
+  </div>
+  
+  <div class="main-container">
+    <div class="customer-info">
+      <div class="customer-info-first-section">
+        <p class="customer-info-label">Order Type</p>
+        <Select class="select-order-type">
+          <option value="COD">Cash On Delivery</option>
+          <option value="Walk-In">Walk In</option>
+        </Select>
+        <p class="customer-info-label">First Name</p>
+        <input class="customer-info-input first-name" type="text" placeholder="Enter First Name" required>
+        <p class="customer-info-label">Last Name</p>
+        <input class="customer-info-input last-name" type="text" placeholder="Enter Last Name" required>
+      </div>
+      <div class="customer-info-second-section">
+        <p class="customer-info-label">Address</p>
+        <input class="customer-info-input address" type="text" placeholder="Enter Address" required>
+        <p class="customer-info-label">Phone Number</p>
+        <input class="customer-info-input phone-number" type="number" placeholder="Enter Phone Number" required>
+      </div>
+    </div>
+
+    <div class="add-order-section">
+      <div class="add-order">
+        <div class="add-order-header">
+          <p class="product">Product</p>
+          <p class="quantity">Quantity</p>
+          <p class="unit-price">Unit Price</p>
+          <p class="subtotal">Subtotal</p>
+        </div>
+        <div class="order-details">
+          <button class="select-product">Select Product</button>
+          <input class="product-quantity" type="number" value="0">
+          <p class="product-unit-price">0</p>
+          <p class="product-subtotal">0</p>
+          <button class="add-order-btn"><img class="add-icon" src="icons/add-icon.svg"></button>
+        </div>
+      </div>
+
+      <div class="select-product-modal">
+      </div>
+
+      <div class="order-details-list">
+        <div class="order-details-box">
+        
+        </div>
+
+        <div class="pagination-section">
+          <div class="pagination">
+  
+          </div>
+        </div>
+      </div>
+
+      <div class="create-order">
+        <button class="create-order-btn">Create Order</button>
+        <div class="total">
+          <p class="order-total">Total</p>
+          <input class="total-input" type="number" value="0">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="scripts/sidebar.js"></script>
+  <script type="module" src="scripts/navbar.js"></script>
+  <script type="module" src="scripts/add-order.js"></script>
+</body>
+</html>

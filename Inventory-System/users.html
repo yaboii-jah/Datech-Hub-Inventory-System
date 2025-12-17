@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Users</title>
+  <link rel="stylesheet" href="styles/nav-bar.css">
+  <link rel="stylesheet" href="styles/sidebar.css">
+  <link rel="stylesheet" href="styles/users.css">
+</head>
+<body>
+  <div class="nav-bar">
+  </div>
+
+  <div class="sidebar">
+  </div>
+
+  <div class="main-container">
+    <div class="filter-section">
+      <div class="filters">
+        <input class="search-filter" type="text" placeholder="Search User">
+        <select class="select-role" name="user">
+          <option value="default">All Roles</option>
+          <option value="Admin">Admin</option>
+          <option value="Staff">Staff</option>
+        </select>
+
+        <select class="status-filter" name="user">
+          <option value="default">All Status</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </div>
+    
+      <button class="add-user-btn">Add User <img class="add-icon" src="icons/add-icon.svg"></button>
+    </div>
+    <div class="user-section">
+      <div class="user-header">
+        <p>Username</p>
+        <p>Role</p>
+        <p>Status</p>
+        <p>Last Login</p>
+        <p>Password</p>
+        <p>Actions</p>
+      </div>
+      <div class="user-list">
+      </div>
+    </div>
+  </div>
+  
+
+  <script type="module" src="scripts/sidebar.js"></script>
+  <script type="module" src="scripts/users.js"></script>
+  <script type="module" src="scripts/navbar.js"></script>
+</body>
+</html>

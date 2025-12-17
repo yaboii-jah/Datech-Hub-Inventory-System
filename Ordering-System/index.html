@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=preconnect, initial-scale=1.0">
+  <title>DATECH HUB - All Products</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/navbar.css">
+  <link rel="stylesheet" href="styles/product-dropdown.css">
+  <link rel="stylesheet" href="styles/product-list.css">
+
+</head>
+<body>
+  <div class="nav-bar-container"> 
+  </div>
+
+  <div class="products-list-container">
+    <div class="product-list"> 
+    </div>
+  </div>
+
+  <div class="main-container">
+    <div class="category-name-section">
+      <p class="category-name"> All Products</p>
+    </div>
+    
+    <div class="filter-section">
+      <div class="first-section">
+        <p class="filter">Filter: </p>
+        <select class="availability-select" name="availability">
+          <option value="default">All Status</option>
+          <option value="Active">In Stock</option>
+          <option value="Out-Of-Stock">Out of Stock</option>
+        </select>
+        <button class="price-btn">Price <img class="chevron-icon" src="images/other-logo/chevron-down-svgrepo-com.svg" alt=""></button>
+        <select class="product-type-select" name="product-type">
+        </select>
+      </div>  
+
+      <div class="price-filter">
+        <div class="price-filter-upper">
+          <p>The highest price is $35,000.00</p>
+          <button class="Reset-btn">Reset</button>
+        </div>
+        <div class="price-filter-lower">
+          <img class="peso-icon" src="images/other-logo/peso-icon.svg">
+          <input class="min-input" type="number" placeholder="From">
+          <img class="peso-icon" src="images/other-logo/peso-icon.svg">
+          <input class="max-input" type="number" placeholder="To"> 
+        </div>
+      </div>
+
+      <div class="second-section">
+        <p class="sort-by">Sort by:</p>
+        <select class="featured-select" name="featured">
+          <option value="Featured">Featured</option>
+          <option value="A-Z">Alphabetically, A-Z</option>
+          <option value="Z-A">Alphabetically, Z-A</option>
+          <option value="Low-High">Price, Low to High</option>
+          <option value="High-Low">Price, High to Low</option>
+        </select>
+        <p class="total-products"></p>
+
+      </div>
+    </div>
+
+    <div class="product-list-grid">
+    </div>
+
+    <div class="pagination-section">
+      <div class="pagination">
+      </div>
+    </div>
+  </div>
+ 
+ 
+<script src="scripts/nav-bar.js"></script>
+<script type="module" src="scripts/product-dropdown.js"></script>
+<script type="module" src="scripts/products.js"></script>
+</body>
+</html>

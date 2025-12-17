@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Categories</title>
+  <link rel="stylesheet" href="styles/nav-bar.css">
+  <link rel="stylesheet" href="styles/sidebar.css">
+  <link rel="stylesheet" href="styles/category.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <div class="nav-bar">
+  </div>
+
+  <div class="sidebar">
+  </div>
+  
+  <div class="main-container">
+    <div class="add-new-category-container">
+      <div class="add-new-category-header">
+        <img class="category-icon" src="icons/category-black-icon.svg">
+        <p class="add-new-category-title">ADD NEW CATEGORY</p>
+      </div>
+      <div class="category-input-section">
+        <input class="category-input" type="text" placeholder="Enter Category Name">
+        <select class="status-select" name="status">
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+        <button class="add-category-button">Add Category</button>
+      </div>
+    </div>
+
+    <div class="all-category-container">
+      <div class="category-list-header">
+        <img class="category-icon" src="icons/category-black-icon.svg">
+        <p class="add-new-category-title">ALL CATEGORY</p>
+      </div>
+      <div class="category-list-section">
+        <div class="category-container">
+          <div>
+              <div class="category-header">
+              <p>#</p>
+              <p class="categories-title">Categories<p>
+              <p class="status-title">Status</p>
+              <p>Actions</p>
+            </div>
+            <div class="category-list">
+            </div>
+          </div>
+
+          <div class="pagination-section">
+            <div class="pagination">
+              <button class="page-btn">1</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="scripts/sidebar.js"></script>
+  <script type="module" src="scripts/navbar.js"></script>
+  <script type="module" src="scripts/category.js"></script>
+</body>
+</html>

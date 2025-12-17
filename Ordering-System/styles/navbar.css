@@ -1,0 +1,138 @@
+body {  
+  font-family: 'Assistant', sans-serif;
+  margin: 0;
+  width: 1585px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+p { 
+  margin: 0;
+}
+
+.nav-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-color: rgb(231, 231, 231);
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  height: 150px;
+  width: 1240px;
+}
+
+.img-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 40px;
+  width: 150px;
+}
+
+.system-logo {
+  width: 115px;
+  margin-top: 25px;
+  margin-right: 10px;
+}
+
+.links-section {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  width: 800px;
+}
+
+.nav-btn { 
+  background-color: white;
+  color: rgb(111, 111, 111);
+  margin-right: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-links { 
+  text-decoration: none;
+  color: rgb(111, 111, 111);
+  
+}
+.nav-btn:hover, .nav-links:hover { 
+  color: black;
+  text-decoration: underline;
+}
+
+.search-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-right: 25px;
+}
+
+.search-icon { 
+  height: 20px;
+  padding: 0px 5px 0px 5px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: rgb(111, 111, 111);;
+}
+
+.search-input {
+  height: 25px;
+  width: 250px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
+
+.icons-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+}
+
+.nav-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 35px;
+}
+
+.profile-icon, .cart-icon, .order-icon{ 
+  height: 25px;
+}
+
+.order-icon { 
+}
+
+.profile-icon:hover, .cart-icon:hover, .order-icon:hover { 
+  height: 28px;
+}
+
+.cart-quantity-modal { 
+  position: relative;
+  top: -8px;
+  right: 12px;
+  font-size: 15px;
+  padding: 2px 7px 2px 7px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  border-radius: 20px;
+}
+

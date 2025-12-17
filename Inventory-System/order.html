@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Order</title>
+  <link rel="stylesheet" href="styles/nav-bar.css">
+  <link rel="stylesheet" href="styles/sidebar.css">
+  <link rel="stylesheet" href="styles/order.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  
+   <div class="nav-bar">
+  </div>
+
+   <div class="sidebar">
+  </div>
+  
+  <div class="modal">
+  </div>
+
+  <div class="main-container">
+    <div class="filter-section">
+      <select class="status-filter" name="Status">
+        <option value="default">All Status</option>
+        <option value="pending">Pending</option>
+        <option value="Shipped">Shipped</option>
+        <option value="Delivered">Delivered</option>
+        <option value="Cancelled">Cancelled</option>
+        <option value="Paid">Paid</option>
+      </select>
+       
+      <div class="date-filter">
+      </div>
+
+      <div class="price-filter">
+        <label>Price</label>
+        <input class="Min" type="number" placeholder="Min">
+        <label>To</label>
+        <input class="Max" type="number" placeholder="Max">
+      </div>
+
+      <input class="search-filter" type="text" placeholder="Search Customer Name">
+    </div>
+    
+    <div class="order-details">
+      <div class="order-details-header">
+        <p class="header">Customer Name</p>
+        <p class="header">Order ID</p>
+        <p class="header">Total</p>
+        <p class="header">Date</p>
+        <p class="header">Status</p>
+        <p class="header">Actions</p>
+      </div>
+      <div class='order-list'>
+      </div>
+      <div>
+        
+      </div>
+
+      <div class="pagination-section">
+        <div class="pagination">
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script type="module" src="scripts/sidebar.js"></script>
+<script type="module" src="scripts/navbar.js"></script>
+<script type="module" src="scripts/order.js"></script>
+</body>
+</html>
