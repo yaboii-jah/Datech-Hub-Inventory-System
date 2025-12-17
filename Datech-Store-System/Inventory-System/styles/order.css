@@ -132,8 +132,37 @@
   margin-left: 85px;
 }
 
-.status { 
-  margin-left: 100px;
+.status {
+  text-align: center;
+  align-content: center;
+  width: 80px;
+  height: 25px;
+  border-radius: 10px;
+  margin-left: 85px;
+}
+
+.pending {
+  background-color: #EDC001;
+  color: #9e8203;
+  font-weight: bold;
+}
+
+.delivered {
+  background-color: #99e17a;
+  color: #397c1c;
+  font-weight: bold;
+}
+
+.shipped { 
+  background-color: #587dff;
+  color: #1338BE;
+  font-weight: bold;
+} 
+
+.cancelled { 
+  background-color: #d42a1e;
+  color: rgb(248, 189, 189);
+  font-weight: bold;
 }
 
 .update-btn, .view-btn {

@@ -163,6 +163,12 @@
   background-color: #EF4444;
 }
 
+.low-stock {
+  background-color: #EDC001;
+  color: #8d7403;
+  font-weight: bold;
+}
+
 .action {
   display: flex; 
   justify-content: center;

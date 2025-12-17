@@ -10,6 +10,8 @@ async function getSalesReport () {
     console.error(error.message)
   } else {
     getMonthlySales(data)
+    const date = new Date();
+    console.log(date.getDate())
   }
 }
 

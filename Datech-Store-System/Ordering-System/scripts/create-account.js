@@ -23,7 +23,6 @@ async function getCustomerDetails () {
     document.querySelectorAll('.firstname-input, .lastname-input, .address-input, .email-input, .password-input').forEach((input) => {
       input.value = '';
     })
-    alert('Check your email account')
   }
 }
 
@@ -42,13 +41,17 @@ async function signUpNewUser (customerDetails) {
     email: customerDetails.email,
     password: customerDetails.password,
     options: {
-      emailRedirectTo: 'http://localhost:5500/Datech-Store-System/Ordering-System/login.html',
+      emailRedirectTo: 'http://localhost:5500/Datech-Store-System/Ordering-System/index.html',
     },
   })
   if (error) { 
     console.log(error.message)
   }
+
+  alert('Signup successful! Please check your email to confirm.')
+  await supabase.auth.signOut()
 }
+
 function addEventListener () { 
   document.querySelector('.create-btn').addEventListener('click',   (createBtn) => {
     getCustomerDetails();

@@ -127,8 +127,6 @@
 }
 
 .status { 
-  background-color: #99e17a;
-  color: #2e6417;
   font-weight: bold;
   text-align: center;
   width: 80px;
@@ -136,9 +134,14 @@
   border-radius: 10px;
 }
 
+.active {
+  background-color: #99e17a;
+  color: #2e6417;
+}
+
 .inactive { 
   color: white;
-  background-color: red;
+  background-color: #9CA3AF;
 }
 
 .last-login { 
@@ -152,7 +155,6 @@
   width: 150px;
   margin-right: 40px;
 }
-
 
 .action {
   display: flex; 

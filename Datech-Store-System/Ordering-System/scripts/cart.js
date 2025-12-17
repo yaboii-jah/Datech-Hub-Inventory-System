@@ -70,7 +70,7 @@ function generateHTML () {
         html += ` 
         <div class="cart-section-container">
           <div class="cart-image-section">
-            <img class="cart-product-image" src="../Inventory-System/${product.product.image}" alt="">
+            <img class="cart-product-image" src="${product.product.image}" alt="">
           </div>
 
           <div class="cart-product-details-section">
@@ -224,7 +224,8 @@ async function insertOrders () {
     totalAmount : cartTotal,
     customerID : customerCart[0].Customer.customerID, 
     status : 'pending',
-    orderEnd : getEndDate()
+    orderEnd : getEndDate(),
+    orderType : 'COD'
   }
 
   try { 

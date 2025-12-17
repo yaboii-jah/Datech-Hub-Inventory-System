@@ -1,7 +1,7 @@
 document.querySelector('.nav-bar-container').innerHTML = `
   <div class="nav-bar">
       <div class="img-section">
-        <a href="index.html"><img src="" alt=""></a>
+        <a href="index.html"><img class="system-logo" src="../Inventory-System/images/login/553500235_828562962933788_5955920113283277374_n.png" alt=""></a>
       </div>
 
       <div class="links-section">

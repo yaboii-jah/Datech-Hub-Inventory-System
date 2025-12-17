@@ -10,9 +10,13 @@ const { data: { session } } = await supabase.auth.getSession();
 async function retrieveData () { 
   try { 
     const {data, error} = await supabase.from('product').select(`*, category (*)`).eq('status', 'Active');
-
+    
+    console.log(data)
     dataRetrieved = data;
     generateProductHTML();
+    if(error) {
+      console.error(error.message)
+    }
   } catch (error) { 
     console.error(error)
   }
@@ -68,6 +72,7 @@ function showProductType () {
 
 function generateProductHTML (limit = 12) {
   filteredData = dataRetrieved.filter(productFilters);
+  console.log(filteredData)
   let html = '';
   let startingIndex = limit - 12;
   for ( let i = startingIndex; i < limit; i++ ) {
@@ -77,7 +82,7 @@ function generateProductHTML (limit = 12) {
     html += `
     <div class="product-container">
       <div class="product-image-container">
-        <img class="product-image" src="../Inventory-System/${filteredData[i].image}" alt="">
+        <img class="product-image" src="${filteredData[i].image}" alt="">
       </div>
   
       <div>

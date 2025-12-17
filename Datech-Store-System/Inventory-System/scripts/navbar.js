@@ -17,7 +17,6 @@ function setNavBarDetails () {
     <p class="date">${getDate()}</p>
   </div>
   <div class="right-section">
-    <img class="profile-pic" src="images/profile-pic.jpg">
     <div class="user-details">
       <p class="user-name">${getUserName()}</p>
       <p class="user-role">Store ${getUserRole()}</p>

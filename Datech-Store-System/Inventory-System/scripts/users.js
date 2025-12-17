@@ -12,6 +12,15 @@ async function retrieveUsers () {
   }
 }
 
+function checkUserStatus (userStatus) {
+  switch (userStatus) {
+    case 'Active' :
+      return `<div class="status-section"><p class="status active">${userStatus}</p></div>`
+    case 'Inactive' :
+      return `<div class="status-section"><p class="status inactive">${userStatus}</p></div>`
+  }
+}
+
 function generateUserHtml () { 
   let html = ''
   const filteredUsers = users.filter(UserFilters)
@@ -24,7 +33,7 @@ function generateUserHtml () {
     <div class="user-container" data-id="${user.userID}">
       <p class="name">${user.username}</p>
       <p class="role">${user.role}</p>
-      <div class="status-section"><p class="status">${user.status}</p></div>
+      ${checkUserStatus(user.status)}
       <p class="last-login">${user.lastLogin}</p>
       <p class="password">${user.password}</p>
       <div class="action">

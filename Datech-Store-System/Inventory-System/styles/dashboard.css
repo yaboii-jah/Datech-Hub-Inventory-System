@@ -152,6 +152,7 @@
   flex-direction: column;
   gap: 3px;
   height: 300px;
+  overflow-y: scroll;
 }
 
 .product-container {
@@ -212,6 +213,8 @@
 }
 
 .recent-order-header {
+  display: flex;
+  justify-content: space-between;
   font-weight: bold;
   font-size: 20px;
   margin-bottom: 15px;
@@ -240,7 +243,6 @@
   border-color: rgb(153, 153, 153);
   height: 280px;
   gap: 5px;
-  overflow-y: scroll;
 }
 
 .order-container {
@@ -259,7 +261,7 @@
 
 .orderID {
   width: 200px;
-  margin-right: 72px;
+  margin-right: 112px;
 }
 
 .total {

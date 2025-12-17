@@ -63,7 +63,9 @@
           <div class="chart-headers-filter">
             <p class="chart-title">Total Sales</p>
             <select class="sales-dropdown" name="option" id="">
-              <option value="">This Year</option>
+              <option value="year">This Year</option>
+              <option value="month">This Month</option>
+              <option value="week">This Week</option>
             </select>
           </div>
           <canvas class="sales-chart"></canvas>
@@ -72,7 +74,7 @@
       
       <div class="out-of-stock">
         <div class="header">
-          <p>Out of Stock</p>
+          <p>Out of Stock / Low stock</p>
         </div>
         <div class="product-table">
           <div class="table-headers">
@@ -94,6 +96,7 @@
       <div class="recent-orders">
         <div class="recent-order-header">
           <p>Recent Orders</p>
+          <p>Last 7 Days</p>
         </div>
         <div class="order-header">  
           <p>Customer</p>
@@ -103,12 +106,6 @@
         </div>
         <div class="order-list">
           
-        </div>
-      </div>
-      <div class="sales-category">
-        <p class="category-header">Category Sales</p>
-        <div class="category-section">
-          <canvas class="category-chart"></canvas>
         </div>
       </div>
     </div>

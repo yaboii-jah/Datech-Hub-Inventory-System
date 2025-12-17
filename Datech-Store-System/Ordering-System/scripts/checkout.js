@@ -117,7 +117,7 @@ function orderDetails (index) {
             html+= `
             <div class="order-details">
                 <div class="product-image-section">
-                    <img class="product-image" src="../Inventory-System/${orderDetails.product.image}">
+                    <img class="product-image" src="${orderDetails.product.image}">
                 </div>
 
                 <div class="product-details">

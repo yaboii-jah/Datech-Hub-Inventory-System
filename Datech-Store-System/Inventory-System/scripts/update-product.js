@@ -2,13 +2,39 @@ import {supabase} from './supabase-client.js'
 import {getUpdatedData} from './update-module.js';
 
 let categoryData = [{}];
+let imageEvent;
+async function uploadImage() {
+  
+  const file = imageEvent
+
+  if (!file) return;
+
+  const fileName = `${Date.now()}-${file.name}`;
+
+  const { data, error } = await supabase.storage
+    .from('Product Images') 
+    .upload(fileName, file);
+
+  if (error) {
+    console.error(error);
+  } else {
+   return getImageUrl(fileName);
+  }
+}
+
+function getImageUrl (fileName) {  
+  const { data: { publicUrl } } = supabase.storage
+  .from('Product Images')
+  .getPublicUrl(fileName);
+  return publicUrl 
+}
 
 function replaceValues () {
   document.querySelector('.product-name-input').value = getUpdatedData().name;
   document.querySelector('.quantity-input').value = getUpdatedData().stock;
   document.querySelector('.status-select').value = getUpdatedData().status;
   document.querySelector('.price-input').value = getUpdatedData().price;
-  document.querySelector('.custom-file-upload').innerHTML = getUpdatedData().image;
+  document.querySelector('.custom-file-upload').innerHTML = getUpdatedData().image
   document.querySelector('.category-select').value = getUpdatedData().category.category_ID
   document.querySelector('.add-product-button').innerHTML = 'Update Product';
   console.log(document.querySelector('.category-select'));
@@ -20,11 +46,11 @@ async function updateData () {
     stock: Number(document.querySelector('.quantity-input').value),
     status: document.querySelector('.status-select').value ,
     price: Number(document.querySelector('.price-input').value) ,
-    image: document.querySelector('.file-image-input').value, 
+    image: getUpdatedData().image,
     category_ID: Number(document.querySelector('.category-select').value)
   };
   let hasValue = true;
-
+  console.log(addedProduct.image)
   Object.values(addedProduct).forEach((product) => {
     if ( product === '' || product === 0) { 
       hasValue = false;
@@ -82,10 +108,16 @@ function updateCategoryOption () {
     ${html}
   `
 }
-
-document.querySelector('.add-product-button').addEventListener('click', () => {
-  updateData();
-}) 
+function addEventListener() {
+  document.querySelector('#file-upload').addEventListener('change', (event) => {
+    imageEvent = event.target.files[0];
+    document.querySelector('.custom-file-upload').innerHTML = imageEvent ? imageEvent.name : 'Select Image' 
+  })
+  document.querySelector('.add-product-button').addEventListener('click', () => {
+    updateData();
+  });
+}
 
 await retrieveCategoryData();
 replaceValues()
+addEventListener();

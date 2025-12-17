@@ -65,11 +65,6 @@ function generateSideBar (role) {
         <div class="side-users sidebar-links"></div>
 
         <div class="users-extension-section"></div>
-
-        <div class="side-settings sidebar-links">
-          <img class="sidebar-image" src="icons/settings-icon.svg">
-          <a class="sidebar-link" href="">Settings</a>
-        </div>
       </div>
 
       <div class="third-section">

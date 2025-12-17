@@ -39,6 +39,25 @@ function dateFormat (date) {
   return dateFormat;
 }
 
+function checkOrderStatus (orderStatus) {
+  switch(orderStatus) {
+    case 'pending' : 
+      return `<div class="details"><p class="status pending">${orderStatus}</p></div>`
+
+    case 'Shipped' :
+      return `<div class="details"><p class="status shipped">${orderStatus}</p></div>`
+
+    case 'Delivered' :
+      return `<div class="details"><p class="status delivered">${orderStatus}</p></div>`
+
+    case 'Paid' : 
+      return `<div class="details"><p class="status delivered">${orderStatus}</p></div>`
+
+    case 'Cancelled' :
+      return `<div class="details"><p class="status cancelled">${orderStatus}</p></div>`
+  }
+}
+
 function generateOrders (limit = 10) {
   let html = '';
   let startingIndex = limit - 10;
@@ -54,7 +73,7 @@ function generateOrders (limit = 10) {
       <div class="details"><p class="order-ID">${filteredOrderDetails[i].orderID}</p></div>
       <div class="details"><p class="total">${filteredOrderDetails[i].totalAmount}</p></div>
       <div class="details"><p class="order-date">${filteredOrderDetails[i].orderDate}</p></div>
-      <div class="details"><p class="status">${filteredOrderDetails[i].status}</p></div>
+      ${checkOrderStatus(filteredOrderDetails[i].status)}
       <div class="action-section">
         <button class="view-btn" data-id="${filteredOrderDetails[i].orderID}"><img class="view-icon" src="icons/view-icon.svg">View</button>
         <button class="update-btn" data-id="${filteredOrderDetails[i].orderID}"><img class="update-icon" src="icons/edit-icon.svg">Edit</button>
@@ -99,7 +118,7 @@ function orderFilters (order) {
   let targetDate = new Date(order.orderDate)
   let searchElement = document.querySelector('.search-filter').value;
   let isValid = false;
-
+  
   if (!startDate.getTime()) {
     formatedStartDate = `${startDate.getFullYear() || 2025}-${startDate.getMonth()+1 || 10}-${startDate.getDate()+1 || 25}`
     document.querySelector('.start-date').value = formatedStartDate;
@@ -109,7 +128,7 @@ function orderFilters (order) {
     formatedEndDate = `${endDate.getFullYear() || currentTime.getFullYear()}-${endDate.getMonth()+1 || currentTime.getMonth()+1}-${endDate.getDate()+1|| currentTime.getDate()}`
     document.querySelector('.end-date').value = formatedEndDate;
   }
-
+  
   if ( statusFilter === 'default' && formatedStartDate === '2025-10-25' && formatedEndDate === '2025-10-29' && minPriceElement === 0 && maxPriceElement === 0 && searchElement === '') {
     isValid = true;
     return isValid;
@@ -229,7 +248,7 @@ function viewOrderList (orderDetails, limit = 3) {
     html += `
     <div class="view-order-container">
       <div class="view-product-image-section"> 
-        <img class="view-product-image" src="../Inventory-System/${orderDetails[i].product.image}">
+        <img class="view-product-image" src="${orderDetails[i].product.image}">
       </div>
   
       <div class="view-order-product-details">
@@ -291,6 +310,10 @@ function viewOrderPaginationEventListener (orderDetails) {
   })
 }
 
+function viewOrderEdit () { 
+  
+}
+
 function paginationEventListener () { 
   document.querySelectorAll('.page-btn').forEach((button, index) => {
     index++
@@ -307,6 +330,14 @@ function ordersEventListener () {
       generateViewModal(orderID)
     })
   })
+
+  document.querySelectorAll('.update-btn').forEach((button, index) => {
+    const orderID = button.dataset.id;
+    button.addEventListener('click', () => { 
+    
+    })
+  })
+
 }
 
 await retrieveOrders()

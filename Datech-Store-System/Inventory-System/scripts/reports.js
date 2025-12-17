@@ -125,10 +125,12 @@ async function getDailySummaryReports () {
   const endDate = document.querySelector('.end-date').value || formattedTime
   
   console.log(endDate)
+  
   const {data, error} = await supabase.rpc('get_daily_sales_summary', {
     start_date : startDate, 
     end_date : endDate
   })
+
   if (error) { 
     console.error(error.message)
   } else {

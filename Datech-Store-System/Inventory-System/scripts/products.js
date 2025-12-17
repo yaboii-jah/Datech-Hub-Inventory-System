@@ -40,19 +40,19 @@ async function checkProductStatus () {
     if (product.stock === 0 || product.status === 'Out of Stock') {
       product.status = 'Out of Stock'
       product.stock = 0;
-      productToBeUpdated.push({
-        product_ID : product.product_ID,
-        stock : 0,
-        name : product.name,
-        status : product.status,
-        price : product.price, 
-        image : product.image,
-        category_ID : product.category_ID
-      }) 
+      productToBeUpdated.push(structuredClone(product)) 
+    }
+
+    if (product.stock <= 5 && product.stock > 0) {
+      product.status = 'Low Stock'
+      productToBeUpdated.push(structuredClone(product)) 
     }
   })
-  console.log(productToBeUpdated)
 
+  productToBeUpdated.forEach((product) => {
+    delete product.category
+  })
+ 
   if (productToBeUpdated.length !== 0 ) {
     updateProductStatus(productToBeUpdated)
   }
@@ -81,7 +81,7 @@ function updateCategoryOption () {
 }
  
 
-function generateProductHTML (limit = 10) { 
+function generateProductHTML (limit = 10) {
   const productContainerElement = document.querySelector('.product-container')
   filteredData = dataRetrieved.filter(productFilters)
 
@@ -219,6 +219,8 @@ function productStatus (status) {
     return  `<p class="status inactive">${status}</p>` 
   } else if ( status === 'Out of Stock') {
     return `<p class="status out-of-stock">${status}</p>` 
+  } else if ( status === 'Low Stock') {
+    return `<p class="status low-stock">${status}</p>` 
   }
 }
 

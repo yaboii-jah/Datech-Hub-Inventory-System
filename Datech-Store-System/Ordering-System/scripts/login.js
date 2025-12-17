@@ -4,14 +4,14 @@ let session = await getSession();
  
 function authEventListener () {
   supabase.auth.onAuthStateChange((event, session ) => {
-  if (event === 'SIGNED_IN') { 
-  
+  if (event === 'SIGNED_IN') {
+    window.location.href = 'index.html'
   } 
   if ( event === 'SIGNED_OUT') {
-    
+    window.location.href = 'index.html'
   }
   if (event === 'TOKEN_REFRESHED'){
-    session = Session 
+    session = session 
   }
 })
 }

@@ -1,15 +1,106 @@
 import {supabase} from './supabase-client.js'
 
-function displaySalesChart () { 
+let salesChart;
+
+function checkSalesFilter() {
+  const salesFilter =  document.querySelector('.sales-dropdown')
+  salesFilter.addEventListener('change', () => {
+    const value = salesFilter.value
+    const ctx = document.querySelector('.sales-chart');
+    
+    switch (value) {
+      case 'year' :
+        salesChart.destroy()
+        getMonthlySales()
+        break
+      case 'month' :
+        salesChart.destroy()
+        getDailySales()
+        break;
+      case 'week' :
+        salesChart.destroy()
+        getWeeklySales()
+    }
+  })
+}
+
+async function getMonthlySales () {
+  const {data, error} = await supabase.rpc('get_monthly_sales_this_year')
+  if (error) {
+    console.error(error.message)
+  } else {
+    let label = []
+    let chartData = []
+
+    for ( const sales of data) {
+      label.push(sales.month_name)
+      chartData.push(sales.total_sales)
+    }
+    displaySalesChart(label, chartData)
+  }
+}
+
+async function getDailySales () {
+  const {data, error} = await supabase.rpc('get_daily_sales_current_month')
+  if (error) {
+    console.error(error.message)
+  } else {
+    let label = []
+    let chartData = new Array(getDaysInMonth()).fill(0)
+    
+    for ( let i = 1; i <= getDaysInMonth(); i++ ) {
+      label.push(i)
+      for ( let z = 0; z < data.length; z++ ) {
+        const currentDate = new Date(data[z].sale_date)
+        if (label[i - 1] === currentDate.getDate() + 1) {
+          chartData[i - 1] = data[z].total_sales
+        }
+      }
+    }
+    displaySalesChart(label, chartData)
+  }
+
+  function getDaysInMonth () { 
+    const date = '27'
+    const year = '2025'
+
+    return new Date(date, year, 0).getDate()
+
+  }
+}
+
+async function getWeeklySales () {
+  const {data, error} = await supabase.rpc('get_weekly_sales_full')
+  if (error) {
+    console.error(error.message)
+  } else {
+    let label = []
+    let chartData = new Array(7).fill(0)
+    
+    for ( let i = 0; i < 7; i++ ) {
+      const date = new Date(data[i].sale_date)
+      label.push(date.getDate() + 1)
+      for ( let z = 0; z < data.length; z++ ) {
+        const currentDate = new Date(data[z].sale_date)
+        if (label[i - 1] === currentDate.getDate() + 1) {
+          chartData[i - 1] = data[z].total_sales
+        }
+      }
+    }
+    displaySalesChart(label, chartData)
+  }
+}
+
+function displaySalesChart (label, data) { 
   const ctx = document.querySelector('.sales-chart');
 
-  new Chart(ctx, {
+  salesChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      labels: label,
       datasets: [{
-        label: '# of Sales',
-        data: [0, 3200, 0, 0, 0, 0, 0, 4000, 0, 0, 0, 5000],
+        label: '# of Sales',  
+        data: data,
         borderWidth: 1,
         backgroundColor: 'rgb(255, 99, 132)'
       }]
@@ -26,34 +117,9 @@ function displaySalesChart () {
   });
 }
 
-function displayCategorySales () { 
-  const ctx = document.querySelector('.category-chart');
-
-  new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['PSU', 'Motherboard', 'Processor', 'GPU', 'RAM', 'SSD', 'Chassis', 'Fan'],
-      datasets: [{
-        label: '# of Sales',
-        data: [1200, 4000, 6500, 2200, 100, 2500, 15000, 4000],
-        borderWidth: 0,
-        backgroundColor: ['Blue', 'Green', 'Purple', 'Red', 'Yellow', 'Pink', 'Black', 'Orange']
-      }]
-    },
-    options: {  
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      },
-      maintainAspectRatio : false,
-      responsive: true
-    } 
-  });
-}
-
 async function getDashboardTotal () { 
   const {data, error} = await supabase.rpc('get_dashboard_totals');
+  
   if ( error ) {
     console.error(error.message)
   } else {
@@ -65,11 +131,13 @@ function replaceDashboardTotals (data) {
   document.querySelector('.users').innerHTML = data[0].total_users
   document.querySelector('.categories').innerHTML = data[0].total_categories
   document.querySelector('.products').innerHTML = data[0].total_products
-  document.querySelector('.sales').innerHTML = data[0].total_sales
+  document.querySelector('.sales').innerHTML = data[0].total_sales || '0'
 }
 
 async function getRecentOrders () {
+
   const {data, error} = await supabase.rpc('get_recent_orders', {days_back : 7})
+
   if (error) { 
     console.error(error.message)
   } else {
@@ -116,16 +184,8 @@ function displayOutOfStock(data) {
   document.querySelector('.product-list').innerHTML = html
 }
 
+checkSalesFilter()
+getMonthlySales()
 getOutOfStockProducts();
 getRecentOrders()
 getDashboardTotal()
-displaySalesChart()
-displayCategorySales();
-/*
-  <div class="product-container">
-    <p class="name">AMD Ryzen 5 3600 6 Core 12 Threads With Fan</p>
-    <p class="product-category">Processor</p>
-    <p class="product-price">&#8369; 120500</p>
-    <p class="product-stock">0</p>
-  </div>  
-*/

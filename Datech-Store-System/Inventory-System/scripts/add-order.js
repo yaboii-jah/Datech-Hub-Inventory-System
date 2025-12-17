@@ -7,7 +7,7 @@ let targetProduct;
 
 async function retrieveProducts () { 
   const {data, error} = await supabase.from('product').select(`* , category (categoryName)`).eq('status', 'Active')
-
+  
   if (error) { 
     console.error(error.message)
   } else {
@@ -169,8 +169,6 @@ function adjustSubTotalByQuantity (dataID) {
 }
 
 function addOrder () {
-  console.log(modifiedProducts)
-  console.log(products)
   if (document.querySelector('.select-product').innerHTML !== 'Select Product') { 
     const product = modifiedProducts.find(products => { if (Number(targetProduct) === products.product_ID) return products})
     console.log(product)
@@ -290,53 +288,57 @@ async function createOrder () {
     isInput = false;
   }
 
-  if ( isInput) { 
-    let order;
-    const customer = {
-      firstName : document.querySelector('.first-name').value,
-      lastName : document.querySelector('.last-name').value,
-      address : document.querySelector('.address').value,
-      phoneNumber : document.querySelector('.phone-number').value
-    }
+  const choice = confirm('Add this order?')
+ 
+  if (choice) {
+    if ( isInput) { 
+      let order;
+      const customer = {
+        firstName : document.querySelector('.first-name').value,
+        lastName : document.querySelector('.last-name').value,
+        address : document.querySelector('.address').value,
+        phoneNumber : document.querySelector('.phone-number').value
+      }
 
-    const customerData = await insertCustomer(customer)
+      const customerData = await insertCustomer(customer)
 
-    order = {
-      orderID : await fetchUUID(),
-      totalAmount : Number(document.querySelector('.total-input').value),
-      status : checkStatus(),
-      customerID : getCustomerID(customerData),
-      orderEnd : getOrderEnd(),
-      orderType : checkOrderType()
-    }
+      order = {
+        orderID : await fetchUUID(),
+        totalAmount : Number(document.querySelector('.total-input').value),
+        status : checkStatus(),
+        customerID : getCustomerID(customerData),
+        orderEnd : getOrderEnd(),
+        orderType : checkOrderType()
+      }
 
-    orderDetails.forEach((orderDetail) => {
-      orderDetail.orderID = order.orderID
-    })
-
-    orderDetails.forEach((orderDetails) => { 
-      products.forEach((product) => {
-        if (product.product_ID === orderDetails.productID) {
-          updatedProduct.push({
-            product_ID : product.product_ID,
-            name : product.name,
-            stock : product.stock - orderDetails.quantity,
-            status : product.status,
-            price : product.price,
-            image: product.image,
-            category_ID : product.category_ID
-          })
-        }
+      orderDetails.forEach((orderDetail) => {
+        orderDetail.orderID = order.orderID
       })
-    })
 
-    await insertOrder(order)
-    await insertOrderDetails(orderDetails)
-    await updateProductDetails(updatedProduct)
-    alert('Order Added!')
-    setTimeout(window.location.href = "./order.html" , 1000)
-  } else { 
-    alert('Please Fill All The Details!')
+      orderDetails.forEach((orderDetails) => { 
+        products.forEach((product) => {
+          if (product.product_ID === orderDetails.productID) {
+            updatedProduct.push({
+              product_ID : product.product_ID,
+              name : product.name,
+              stock : product.stock - orderDetails.quantity,
+              status : product.status,
+              price : product.price,
+              image: product.image,
+              category_ID : product.category_ID
+            })
+          }
+        })
+      })
+
+      await insertOrder(order)
+      await insertOrderDetails(orderDetails)
+      await updateProductDetails(updatedProduct)
+      alert('Order Added!')
+      setTimeout(window.location.href = "./order.html" , 1000)
+    } else { 
+      alert('Please Fill All The Details!')
+    }
   }
 }
 

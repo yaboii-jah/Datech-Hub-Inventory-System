@@ -110,6 +110,7 @@
     border-bottom-right-radius: 10px;
     cursor: pointer;
     padding-left: 15px;
+    overflow-x: hidden;
   }
 
   .custom-file-upload:hover {
