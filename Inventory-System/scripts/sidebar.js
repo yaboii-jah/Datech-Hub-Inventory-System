@@ -125,7 +125,7 @@ async function logOut () {
     if (error) { 
       console.error(error.message)
     } else {
-      window.location.href = './login.html'
+      window.location.href = './index.html'
     }
   }
 }
